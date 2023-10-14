@@ -1,0 +1,21 @@
+services:
+  app:
+    image: wordbook
+    ports:
+      - 0.0.0.0:3000:3000
+    networks:
+      main:
+        ipv4_address: 10.5.0.2
+  mongodb:
+    image: mongo
+    networks:
+      main:
+        ipv4_address: 10.5.0.3
+
+networks:
+  main:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
