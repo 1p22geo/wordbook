@@ -3,7 +3,7 @@ const Page = () => {
     <>
       <h1>Main page</h1>
     </>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;

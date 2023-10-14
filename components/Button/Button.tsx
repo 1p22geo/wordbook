@@ -1,6 +1,6 @@
-import { cva, type VariantProps } from "class-variance-authority"
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "tailwind-merge";
 
 const button = cva(
   [
@@ -31,11 +31,11 @@ const button = cva(
       size: "lg",
     },
   }
-)
+);
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLAnchorElement>, VariantProps<typeof button> {
-  underline?: boolean
-  href: string
+  underline?: boolean;
+  href: string;
 }
 
 export function Button({ className, intent, size, underline, ...props }: ButtonProps) {
@@ -43,5 +43,5 @@ export function Button({ className, intent, size, underline, ...props }: ButtonP
     <a className={twMerge(button({ intent, size, className, underline }))} {...props}>
       {props.children}
     </a>
-  )
+  );
 }

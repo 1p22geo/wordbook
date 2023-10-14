@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { pick, omit } = require("lodash")
-const colors = require("tailwindcss/colors")
-const defaultTheme = require("tailwindcss/defaultTheme")
+const { pick, omit } = require("lodash");
+const colors = require("tailwindcss/colors");
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -87,8 +87,8 @@ module.exports = {
           600: "#199473",
           700: "#147D64",
           800: "#0C6B58",
-          900: "#014D40"
-        }
+          900: "#014D40",
+        },
       },
       fontFamily: {
         body: [
@@ -147,4 +147,4 @@ module.exports = {
   future: {
     hoverOnlyWhenSupported: true,
   },
-}
+};
