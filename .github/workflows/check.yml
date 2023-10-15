@@ -27,6 +27,8 @@ jobs:
         run: yarn prettier
       - name: Unit & Integration tests
         run: yarn test
+      - name: Install Playwright Browsers
+        run: yarn playwright install --with-deps
       - name: Smoke & Acceptance tests
         run: |
           yarn build-storybook --quiet
