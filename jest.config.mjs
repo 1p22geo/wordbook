@@ -1,8 +1,8 @@
-import nextJest from "next/jest.js"
+import nextJest from "next/jest.js";
 
 const createJestConfig = nextJest({
   dir: "./",
-})
+});
 
 /** @type {import('jest').Config} */
 const config = {
@@ -10,6 +10,6 @@ const config = {
   testEnvironment: "jest-environment-jsdom",
   modulePathIgnorePatterns: ["<rootDir>/dist/"],
   testPathIgnorePatterns: ["<rootDir>/e2e"],
-}
+};
 
-export default createJestConfig(config)
+export default createJestConfig(config);
