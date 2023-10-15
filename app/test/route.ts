@@ -2,9 +2,9 @@ import { MongoClient } from "mongodb";
 import { cookies } from "next/headers";
 const uri = "mongodb://10.5.0.3:27017/?directConnection=true";
 
-export async function GET(request: Request) {
+export async function GET(_request: Request) {
   const cookieStore = cookies();
-  const host = cookieStore.get("host");
+  const _host = cookieStore.get("host");
   const client = new MongoClient(uri);
   try {
     // Connect to the MongoDB cluster

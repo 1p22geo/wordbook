@@ -2,6 +2,7 @@
 const fs = require("fs");
 
 module.exports = {
+  root: true,
   extends: [
     "next",
     "prettier",
