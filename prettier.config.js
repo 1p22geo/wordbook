@@ -4,5 +4,5 @@ module.exports = {
   tabWidth: 2,
   printWidth: 120,
   semi: true,
-  endOfLine: "crlf",
+  endOfLine: "auto",
 };
