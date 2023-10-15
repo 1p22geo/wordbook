@@ -28,36 +28,37 @@ describe("submit", () => {
     expect(er).toStrictEqual({ type: "error", message: "Please repeat the password for security" });
   });
   it("should make the fetch on correct data", async () => {
-      global.fetch = jest.fn(() =>
-        Promise.resolve({
-          ok:true,
-          json: () => Promise.resolve({ test: 100 }),
-        })
-      ) as jest.Mock;
-      seterror = jest.fn((newErr: alertMessage)=>{
-        er = newErr
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ test: 100 }),
       })
-      sumbit({ email: "email@email.com", name: "user", pass: "qwe", rpass: "qwe" }, seterror);
-      expect(er).toStrictEqual({ type: "loading", message: "Please wait..." });
-      expect(fetch).toBeCalledTimes(1);
-      expect(fetch).toBeCalledWith("http://localhost/api/register", {
-        body: JSON.stringify({ email: "email@email.com", name: "user", pass: "qwe" }),
-        method: "POST",
-      });
-      await new Promise<void>((resolve)=>{setTimeout(()=>{resolve()}, 1000)})
-      expect(er).toStrictEqual({
-        type: "success",
-        message: (
-          <>
-            Account created. You can now log in{" "}
-            <Link href={"/login"} className="cursor-pointer text-primary-600 hover:underline">
-              here
-            </Link>
-          </>
-        ),
-      });
-
-
-
+    ) as jest.Mock;
+    seterror = jest.fn((newErr: alertMessage) => {
+      er = newErr;
+    });
+    sumbit({ email: "email@email.com", name: "user", pass: "qwe", rpass: "qwe" }, seterror);
+    expect(er).toStrictEqual({ type: "loading", message: "Please wait..." });
+    expect(fetch).toBeCalledTimes(1);
+    expect(fetch).toBeCalledWith("http://localhost/api/register", {
+      body: JSON.stringify({ email: "email@email.com", name: "user", pass: "qwe" }),
+      method: "POST",
+    });
+    await new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    });
+    expect(er).toStrictEqual({
+      type: "success",
+      message: (
+        <>
+          Account created. You can now log in{" "}
+          <Link href={"/login"} className="cursor-pointer text-primary-600 hover:underline">
+            here
+          </Link>
+        </>
+      ),
+    });
   });
 });
