@@ -7,9 +7,11 @@ export const env = createEnv({
       .enum(["true", "false"])
       .optional()
       .transform((value) => value === "true"),
+      MONGO_URI: z.string().optional()
   },
   client: {},
   runtimeEnv: {
     ANALYZE: process.env.ANALYZE,
+    MONGO_URI: process.env.MONGO_URI
   },
 });

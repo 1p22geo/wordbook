@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { init_state } from "./reducer";
 import { seterr } from "./sumbit.types";
 
@@ -19,8 +20,26 @@ export const sumbit = (state: typeof init_state, seterror: seterr) => {
     return;
   }
   seterror({ type: "loading", message: "Please wait..." });
-  fetch("https://reqres.in/api/users?delay=2").then((res) => {
-    alert(res.status);
-    seterror({ type: null, message: "" });
+  fetch(`${window.location.protocol}//${window.location.host}/api/register`, {
+    method: "POST",
+    body: JSON.stringify({
+      email: state.email,
+      name: state.name,
+      pass: state.pass,
+    }),
+  }).then((res) => {
+    if (res.ok) {
+      seterror({
+        type: "success",
+        message: (
+          <>
+            Account created. You can now log in{" "}
+            <Link href={"/login"} className="cursor-pointer text-primary-600 hover:underline">
+              here
+            </Link>
+          </>
+        ),
+      });
+    }
   });
 };

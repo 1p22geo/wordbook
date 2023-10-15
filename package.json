@@ -50,6 +50,7 @@
     "@t3-oss/env-nextjs": "^0.7.0",
     "@vercel/otel": "^0.3.0",
     "class-variance-authority": "^0.7.0",
+    "js-sha256": "^0.10.1",
     "lodash": "^4.17.21",
     "mongodb": "^6.1.0",
     "next": "^13.5.4",

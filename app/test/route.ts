@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 import { cookies } from "next/headers";
-const uri = "mongodb://10.5.0.3:27017/?directConnection=true";
+const uri = process.env.MONGO_URI ? process.env.MONGO_URI : "";
 
 export async function GET(_request: Request) {
   const cookieStore = cookies();

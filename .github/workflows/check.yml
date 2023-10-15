@@ -26,7 +26,13 @@ jobs:
       - name: Format check
         run: yarn prettier
       - name: Unit & Integration tests
-        run: yarn test
+        run: yarn coverage
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 30
       - name: Install Playwright Browsers
         run: yarn playwright install --with-deps
       - name: Smoke & Acceptance tests
