@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { sumbit } from "./sumbit";
-import { alertMessage, seterr } from "./sumbit.types";
+import {  seterr } from "./sumbit.types";
+import { alertMessage } from "components/Alert";
 let er: alertMessage;
 let seterror: seterr = (newErr: alertMessage) => {
   er = newErr;

@@ -1,10 +1,9 @@
 "use client";
 import { useReducer, useState } from "react";
-import { Alert } from "components/Alert";
+import { Alert, alertMessage } from "components/Alert";
 import { StepForm } from "components/StepForm";
 import { init_state, reducer } from "../../reducer";
 import { sumbit } from "../../sumbit";
-import { alertMessage } from "../../sumbit.types";
 
 const LoginForm = () => {
   const [state, dispatch] = useReducer(reducer, init_state);

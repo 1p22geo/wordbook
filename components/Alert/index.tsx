@@ -2,6 +2,11 @@ import { ReactNode } from "react";
 
 export type alertType = "error" | "info" | "warning" | "success" | "loading";
 
+export type alertMessage = {
+  type: alertType | null;
+  message: ReactNode;
+};
+
 export const Alert = ({ children, type }: { children: ReactNode; type: alertType }) => {
   switch (type) {
     case "error":

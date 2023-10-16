@@ -1,11 +1,14 @@
 import { sha256 } from "js-sha256";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import { Session } from "schemas/session";
 import { UserID } from "schemas/user";
 export const dynamic = "force-dynamic";
-interface requestJSON {
+export interface requestJSON {
   email: string;
   pass: string;
+}
+export interface responseJSON {
+  session: ObjectId;
 }
 
 export async function POST(request: Request) {
@@ -38,7 +41,8 @@ export async function POST(request: Request) {
     const { insertedId } = await coll_sessions.insertOne(session);
 
     client.close();
-    return Response.json({ session: insertedId }, { status: 200, statusText: "Logged in" });
+
+    return Response.json({ session: insertedId } as responseJSON, { status: 200, statusText: "Logged in" });
   } catch (e) {
     console.error(e);
     client.close();
