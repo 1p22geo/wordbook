@@ -1,6 +1,6 @@
 services:
   app:
-    image: wordbook
+    image: ghcr.io/1p22geo/wordbook:main
     ports:
       - 0.0.0.0:3000:3000
     networks:
