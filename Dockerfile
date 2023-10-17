@@ -5,5 +5,7 @@ COPY ./yarn.lock ./yarn.lock
 RUN yarn install --frozen-lockfile
 COPY . .
 RUN yarn build
-CMD [ "/bin/sh", "./startup.sh" ]
+RUN rm -rf ./node_modules
+RUN yarn install --prod
+CMD [ "yarn", "start" ]
 EXPOSE 3000

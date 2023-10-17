@@ -6,6 +6,8 @@ services:
     networks:
       main:
         ipv4_address: 10.5.0.2
+    environment:
+      - MONGO_URI=mongodb://10.5.0.3:27017/?directConnection=true
   mongodb:
     image: mongo
     networks:
