@@ -1,6 +1,15 @@
 const { ObjectId: RealObjectId } = jest.requireActual("mongodb");
 
 class MongoClient {
+  constructor() {
+    console.log("Creating client");
+  }
+  close() {
+    console.log("Closing client");
+  }
+  connect() {
+    console.log("Creating client");
+  }
   db() {
     return {
       collection(coll: string) {
