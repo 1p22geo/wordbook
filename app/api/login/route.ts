@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     const { insertedId } = await coll_sessions.insertOne(session);
 
     client.close();
-    cookies().set("session", insertedId.toHexString())
+    cookies().set("session", insertedId.toHexString());
 
     return Response.json({ session: insertedId } as responseJSON, { status: 200, statusText: "Logged in" });
   } catch (e) {
