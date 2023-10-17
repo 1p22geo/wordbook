@@ -1,3 +1,3 @@
-yarn install --frozen-lockfile
+yarn install --frozen-lockfile --prod
 yarn build;
 yarn start;
