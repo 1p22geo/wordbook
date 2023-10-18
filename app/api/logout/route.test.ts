@@ -22,9 +22,8 @@ describe("/api/login", () => {
     });
     req.json = jest.fn().mockResolvedValue(req.body);
 
-
-
-    const response = await POST();
-    expect(console.info).toBeCalledWith("/")
+    await POST();
+    expect(console.info).toBeCalledWith("/");
+    expect(console.warn).toBeCalledWith("session", "");
   });
 });

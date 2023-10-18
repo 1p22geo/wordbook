@@ -42,6 +42,10 @@ class MongoClient {
             };
           case "users":
             return {
+              insertOne: jest.fn((doc) => {
+                if (doc.email && doc.email === "1p22error@gmail.com") throw Error("test error please ignore");
+                return { insertedId: new RealObjectId("652eb25c57e45bcc221d51d4") };
+              }),
               findOne: jest.fn((q) => {
                 if (
                   q.email === "1p22geo@gmail.com" &&
