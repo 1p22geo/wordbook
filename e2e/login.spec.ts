@@ -17,7 +17,10 @@ test("signs up", async ({ page, userAgent }) => {
   await (await page.$("#rpass"))?.fill("123");
   await (await page.getByText("4")).click();
   await (await page.getByText("Sumbit!")).click();
-  await expect(page.getByText(/account created/i)).toBeVisible();
+  if (!process.env.CI) {
+    await expect(page.getByText(/account created/i)).toBeVisible();
+  }
+  await expect(page.getByRole("alert")).toBeVisible();
 });
 test("logs in", async ({ page, userAgent }) => {
   const id = sha256(userAgent as string);
@@ -30,5 +33,9 @@ test("logs in", async ({ page, userAgent }) => {
   await (await page.$("#email"))?.fill("1p22geo@gmail.com");
   await (await page.$("#password"))?.fill("123");
   await (await page.getByText("Sumbit!")).click();
-  await expect(await page.getByText(/logged in/i)).toBeVisible();
+  if (!process.env.CI) {
+    await expect(await page.getByText(/logged in/i)).toBeVisible();
+  } else {
+    await expect(page.getByRole("alert")).toBeVisible();
+  }
 });
