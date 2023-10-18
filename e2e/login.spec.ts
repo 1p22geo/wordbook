@@ -20,7 +20,8 @@ test("signs up", async ({ page, userAgent }) => {
   if (!process.env.CI) {
     await expect(page.getByText(/account created/i)).toBeVisible();
   }
-  await expect(page.getByRole("alert")).toBeVisible();
+
+  await expect(await page.getByTitle("alert")).toBeVisible();
 });
 test("logs in", async ({ page, userAgent }) => {
   const id = sha256(userAgent as string);
@@ -36,6 +37,6 @@ test("logs in", async ({ page, userAgent }) => {
   if (!process.env.CI) {
     await expect(await page.getByText(/logged in/i)).toBeVisible();
   } else {
-    await expect(page.getByRole("alert")).toBeVisible();
+    await expect(await page.getByTitle("alert")).toBeVisible();
   }
 });

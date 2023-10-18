@@ -72,7 +72,9 @@ const LoginForm = () => {
 
         <div key={4} className=" flex flex-col content-center items-center justify-items-center gap-4">
           {error.type ? (
-            <Alert type={error.type}>{error.message}</Alert>
+            <div id="alert">
+              <Alert type={error.type}>{error.message}</Alert>
+            </div>
           ) : (
             <h2 className="col-span-2 text-xl">All done!</h2>
           )}

@@ -13,6 +13,7 @@ export const Alert = ({ children, type }: { children: ReactNode; type: alertType
       return (
         <div
           role="alert"
+          title="alert"
           className=" flex flex-row flex-nowrap items-center border-l-8 border-vividred-600 bg-vividred-300 p-4 text-vividred-800"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className=" mr-4 w-8">
@@ -29,6 +30,7 @@ export const Alert = ({ children, type }: { children: ReactNode; type: alertType
       return (
         <div
           role="alert"
+          title="alert"
           className=" flex flex-row flex-nowrap items-center border-l-8 border-vividyellow-600 bg-vividyellow-300 p-4 text-vividyellow-800"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="mr-4 w-8">
@@ -45,6 +47,7 @@ export const Alert = ({ children, type }: { children: ReactNode; type: alertType
       return (
         <div
           role="alert"
+          title="alert"
           className=" flex flex-row flex-nowrap items-center border-l-8 border-teal-600 bg-teal-300 p-4 text-teal-800"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="mr-4 w-8">
@@ -61,6 +64,7 @@ export const Alert = ({ children, type }: { children: ReactNode; type: alertType
       return (
         <div
           role="alert"
+          title="alert"
           className=" flex flex-row flex-nowrap items-center border-l-8 border-teal-600 bg-teal-300 p-4 text-teal-800"
         >
           <div className=" mr-4 h-8 w-8 animate-spin rounded-full bg-teal-600">
@@ -74,6 +78,7 @@ export const Alert = ({ children, type }: { children: ReactNode; type: alertType
       return (
         <div
           role="alert"
+          title="alert"
           className=" flex flex-row flex-nowrap items-center border-l-8 border-lightblue-600 bg-lightblue-300 p-4 text-lightblue-800"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className=" mr-4 w-8">
