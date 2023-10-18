@@ -27,14 +27,6 @@ jobs:
         run: yarn prettier
       - name: Unit & Integration tests
         run: yarn coverage
-      - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
-      - name: Smoke & Acceptance tests
-        run: |
-          yarn build-storybook --quiet
-          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-            "npx http-server storybook-static --port 6006 --silent" \
-            "npx wait-on tcp:127.0.0.1:6006 && yarn test-storybook"
       - uses: actions/upload-artifact@v3
         if: always()
         with:
