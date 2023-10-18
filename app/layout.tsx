@@ -1,6 +1,6 @@
+import opentelemetry from "@opentelemetry/api";
 import { Metadata } from "next";
 import React from "react";
-import opentelemetry from '@opentelemetry/api';
 
 import "styles/tailwind.css";
 export const metadata: Metadata = {
@@ -9,13 +9,13 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const trace = opentelemetry.trace.getTracer("next-app")
-  const span = trace.startSpan("request")
-  
-span.end()
+  const trace = opentelemetry.trace.getTracer("next-app");
+  const span = trace.startSpan("request");
+
+  span.end();
   return (
     <html lang="en">
-  <body>{children}</body>
-</html>
+      <body>{children}</body>
+    </html>
   );
 }
