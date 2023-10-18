@@ -3,7 +3,7 @@
  */
 
 import { createMocks } from "node-mocks-http";
-import { POST, dynamic } from "./route";
+import { dynamic, POST } from "./route";
 
 jest.mock("mongodb");
 
@@ -13,10 +13,9 @@ beforeAll(() => {
 });
 
 describe("/api/login", () => {
-  
-  it("renders dynamically", ()=>{
-    expect(dynamic).toBeTruthy()
-  })
+  it("renders dynamically", () => {
+    expect(dynamic).toBeTruthy();
+  });
   it("logs in with correct credentials", async () => {
     const { req } = createMocks({
       method: "POST",
