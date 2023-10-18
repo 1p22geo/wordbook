@@ -1,4 +1,4 @@
-const set = jest.fn();
+const set = jest.fn((...props)=>{console.warn(...props)});
 module.exports = {
   __setcookies: set,
   cookies: jest.fn(() => {
