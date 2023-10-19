@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - development
-  pull_request:
+  pull_request: null
   workflow_dispatch:
 
 defaults:
