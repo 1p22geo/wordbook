@@ -22,6 +22,9 @@ services:
       - "16686:16686"
       - "14268"
       - "14250"
+    networks:
+      main:
+        ipv4_address: 10.5.0.11
 
   # Zipkin
   zipkin-all-in-one:
@@ -29,6 +32,9 @@ services:
     restart: always
     ports:
       - "9411:9411"
+    networks:
+      main:
+        ipv4_address: 10.5.0.12
 
   # Collector
   otel-collector:
@@ -56,6 +62,9 @@ services:
     restart: always
     ports:
       - "9090:9090"
+    networks:
+      main:
+        ipv4_address: 10.5.0.13
 
 networks:
   main:
