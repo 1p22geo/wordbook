@@ -26,6 +26,9 @@
   },
   "dependencies": {
     "@next/bundle-analyzer": "^13.3.0",
+    "@opentelemetry/api": "1.4.1",
+    "@opentelemetry/auto-instrumentations-node": "^0.39.4",
+    "@opentelemetry/exporter-metrics-otlp-proto": "^0.44.0",
     "@opentelemetry/exporter-trace-otlp-http": "^0.44.0",
     "@opentelemetry/resources": "^1.17.1",
     "@opentelemetry/sdk-node": "^0.44.0",
@@ -68,7 +71,6 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@jest/globals": "^29.5.0",
-    "@opentelemetry/api": "^1.4.1",
     "@playwright/test": "^1.32.3",
     "@storybook/addon-essentials": "^7.0.5",
     "@storybook/addon-interactions": "^7.0.5",
