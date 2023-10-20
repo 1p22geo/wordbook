@@ -18,7 +18,7 @@ const Page = () => {
         <Link href={"/login"} className="z-20 font-bold text-primary-800 hover:underline">
           Or log in if you have an account
         </Link>
-        <div className="mt-[-3.5rem] grid w-screen grid-cols-1 lg:grid-cols-2 pt-20">
+        <div className="mt-[-3.5rem] grid w-screen grid-cols-1 pt-20 lg:grid-cols-2">
           <div className="grid place-content-center p-4 text-xl">
             <div>
               Usually, when a bakery or other shop wanted to be present on the Internet, they had to sign up on social
@@ -36,7 +36,7 @@ const Page = () => {
               height={350}
             />
           </div>
-          <div className="grid place-content-center p-4 lg:col-start-2 text-xl">
+          <div className="grid place-content-center p-4 text-xl lg:col-start-2">
             <div>
               But now, all they need to do is sign up at Wordbook, and they will get a webpage within our server, which
               they can edit in thier browser - like in Wordpress, and an account which they can post something on, and
@@ -45,8 +45,8 @@ const Page = () => {
               <Link href={"/signup"} className="text-primary-500 hover:underline">
                 here
               </Link>
+            </div>
           </div>
-        </div>
           <div className="grid place-content-center p-4 lg:col-start-1 lg:row-start-2">
             <Image src="/static/computer.jpg" alt="Easy Wordbook usage" width={266} height={189} />
           </div>

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 const Page = () => {
   return (
     <div className="grid h-screen w-screen place-content-center bg-secondary-200">
-      <div className="flex flex-col items-center rounded-xl bg-primary-200 p-8 m-4 text-center">
+      <div className="m-4 flex flex-col items-center rounded-xl bg-primary-200 p-8 text-center">
         <div className="mb-8">
           <h1 className="text-4xl">Welcome back!</h1>
           <h2 className="text-lg">Log in to your account</h2>
