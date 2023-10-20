@@ -35,8 +35,6 @@ services:
     image: 1p22geo/wordbook-otel
     restart: always
     command: ["--config=/etc/otel-collector-config.yaml"]
-    volumes:
-      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
     ports:
       - "1888:1888"   # pprof extension
       - "8888:8888"   # Prometheus metrics exposed by the collector
@@ -56,8 +54,6 @@ services:
     container_name: prometheus
     image: 1p22geo/wordbook-prometheus
     restart: always
-    volumes:
-      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
 
