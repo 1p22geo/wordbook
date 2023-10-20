@@ -32,7 +32,7 @@ services:
 
   # Collector
   otel-collector:
-    image: otel/opentelemetry-collector:0.67.0
+    image: 1p22geo/wordbook-otel
     restart: always
     command: ["--config=/etc/otel-collector-config.yaml"]
     volumes:
@@ -54,7 +54,7 @@ services:
 
   prometheus:
     container_name: prometheus
-    image: prom/prometheus:latest
+    image: 1p22geo/wordbook-prometheus
     restart: always
     volumes:
       - ./prometheus.yaml:/etc/prometheus/prometheus.yml
