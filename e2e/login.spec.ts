@@ -27,15 +27,16 @@ test("logs in", async ({ page, userAgent }) => {
   const id = sha256(userAgent as string);
   await page.goto("./");
   await expect(page).toHaveTitle(/WordBook - Internet redefined/);
-  await expect(page.getByText(/log in/i)).toBeVisible();
-  await expect(page.getByText(/log in/i)).toBeInViewport();
-  await page.getByText(/log in/i).click();
+  const loc = page.getByText(/Log in/i).filter({ hasNotText: /account/ });
+  await expect(loc).toBeVisible();
+  await loc.click();
   await expect(page).toHaveTitle(/WordBook \| Log in to WordBook/);
   await (await page.$("#email"))?.fill("1p22geo@gmail.com");
-  await (await page.$("#password"))?.fill("123");
+  await (await page.$("#password"))?.fill("qwe");
   await (await page.getByText("Sumbit!")).click();
   if (!process.env.CI) {
-    await expect(await page.getByText(/logged in/i)).toBeVisible();
+    await expect(await page.locator("a").filter({ hasText: "WordBook" })).toBeVisible();
+    await expect(await page.locator("#menu svg.w-full")).toBeVisible();
   } else {
     await expect(await page.getByTitle("alert")).toBeVisible();
   }

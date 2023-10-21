@@ -1,17 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Header } from "components/Header";
 
 const Page = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-start bg-secondary-200">
+        <Header />
         <div className="flex h-[40vh] w-screen flex-col items-center justify-center bg-primary-800 p-4 text-center text-secondary-200 lg:h-[60vh]">
-          <h1 className="pb-8 text-3xl md:text-6xl">WordBook - the Internet redefined</h1>
-          <h2 className="text-lg md:text-2xl">We merged Facebook and Wordpress and now we feel smug about it&trade;</h2>
+          <h1 className="pb-8 text-3xl lg:text-6xl">WordBook - the Internet redefined</h1>
+          <h2 className="text-lg lg:text-2xl">We merged Facebook and Wordpress and now we feel smug about it&trade;</h2>
         </div>
         <Link
           href={"/signup"}
-          className="z-10 mt-[-3.5rem] rounded-full bg-primary-500 p-8 text-5xl text-secondary-200"
+          className="z-10 mt-[-1.5rem] rounded-full bg-primary-500 p-2 text-xl text-secondary-200 sm:mt-[-3.5rem] sm:p-8 sm:text-5xl"
         >
           Sign up
         </Link>
