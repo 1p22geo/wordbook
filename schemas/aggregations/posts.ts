@@ -16,4 +16,9 @@ export const PostsAggregation = [
       content: 1,
     },
   },
+  {
+    $sort: {
+      posted: -1,
+    },
+  },
 ];

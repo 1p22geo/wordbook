@@ -29,7 +29,9 @@ export const Post = ({ post }: { post: PostAuthorID }) => {
         </div>
       </div>
       <div className="prose m-8 bg-secondary-200 p-4">
-        <Markdown remarkPlugins={[remarkParse, remarkMath, remarkRehype, rehypeKatex, rehypeStringify]}>
+        <Markdown
+          remarkPlugins={[remarkParse as never, remarkMath, remarkRehype, rehypeKatex, rehypeStringify as never]}
+        >
           {post.content}
         </Markdown>
       </div>

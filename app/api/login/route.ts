@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     const session: Session = {
       user: res._id,
       started: Date.now(),
-      duration: 5 * 60 * 1000,
+      duration: 60 * 60 * 1000,
     };
 
     const coll_sessions = db.collection("sessions");
