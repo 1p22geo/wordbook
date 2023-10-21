@@ -25,7 +25,7 @@ class MongoClient {
                   return {
                     _id: new RealObjectId("652eb26557e45bcc221d51d5"),
                     user: new RealObjectId("652eb25c57e45bcc221d51d4"),
-                    started: 1697559141835,
+                    started: 1,
                     duration: 300000,
                   };
                 if (q._id && q._id.toString() === "652eb26557e45bcc221d51d8")

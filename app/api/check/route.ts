@@ -50,6 +50,17 @@ export async function POST(request: Request) {
 
     const active = time - res.started < res.duration;
 
+    if (!active)
+      return Response.json(
+        {
+          session: res,
+          user: res2,
+          active: active,
+          exists: true,
+          left: res.duration - (time - res.started),
+        } as responseJSON,
+        { status: 403 }
+      );
     return Response.json(
       {
         session: res,

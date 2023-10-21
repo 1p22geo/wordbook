@@ -20,10 +20,22 @@ describe("/api/check", () => {
       method: "POST",
       body: { session: "652eb26557e45bcc221d51d5" },
     });
+    Date.now = jest.fn(() => 1);
     req.json = jest.fn().mockResolvedValue(req.body);
     const response = await POST(req as unknown as Request);
 
     expect(response.status).toBe(200);
+  });
+  it("Checks a timed-out session", async () => {
+    const { req } = createMocks({
+      method: "POST",
+      body: { session: "652eb26557e45bcc221d51d5" },
+    });
+    Date.now = jest.fn(() => 10000000);
+    req.json = jest.fn().mockResolvedValue(req.body);
+    const response = await POST(req as unknown as Request);
+
+    expect(response.status).toBe(403);
   });
   it("Checks a nonexistent session", async () => {
     const { req } = createMocks({
