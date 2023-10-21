@@ -1,4 +1,4 @@
-import { OptionalId, WithId } from "mongodb";
+import { WithId } from "mongodb";
 
 export type userType = "user" | "admin" | "moderator";
 
