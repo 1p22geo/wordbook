@@ -3,7 +3,7 @@
  */
 
 import { createMocks } from "node-mocks-http";
-import { POST } from "./route";
+import { GET } from "./route";
 
 jest.mock("mongodb");
 jest.mock("next/headers");
@@ -17,12 +17,12 @@ beforeAll(() => {
 describe("/api/login", () => {
   it("logs in with correct credentials", async () => {
     const { req } = createMocks({
-      method: "POST",
+      method: "GET",
       body: {},
     });
     req.json = jest.fn().mockResolvedValue(req.body);
 
-    await POST();
+    await GET();
     expect(console.info).toBeCalledWith("/");
     expect(console.warn).toBeCalledWith("session", "");
   });

@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export function POST() {
+export function GET() {
   cookies().set("session", "");
   redirect("/");
 }
