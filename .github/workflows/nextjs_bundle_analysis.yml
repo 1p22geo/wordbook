@@ -2,9 +2,6 @@ name: "Next.js Bundle Analysis"
 
 on:
   push:
-    branches:
-      - main
-      - development
   workflow_dispatch:
 
 defaults:
