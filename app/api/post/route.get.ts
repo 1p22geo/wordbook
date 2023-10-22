@@ -11,7 +11,7 @@ export interface responseJSON {
 
 export async function GET(request: Request) {
   const tracer = trace.getTracer("next-app");
-  return tracer.startActiveSpan("fetch_posts", async (span) => {
+  return await tracer.startActiveSpan("fetch_posts", async (span) => {
     const time = Date.now();
     const page = parseInt(new URL(request.url).searchParams.get("page") || "0");
     const client = new MongoClient(process.env.MONGO_URI ? process.env.MONGO_URI : "");
@@ -34,6 +34,8 @@ export async function GET(request: Request) {
         await client.close();
         return Response.json({ error: "Authentication failure" }, { status: 403 });
       }
+      span.addEvent("session found")
+      span.setAttribute('session', JSON.stringify(sess))
       const active = time - sess.started < sess.duration;
       if (!active) {
         // no user with such login and password
@@ -42,16 +44,20 @@ export async function GET(request: Request) {
       }
       const coll_posts = db.collection("posts");
       const cursor = coll_posts
-        .aggregate(JSON.parse(JSON.stringify(PostsAggregation)) as Document[])
-        .skip(page * 5)
-        .limit(5);
+      .aggregate(JSON.parse(JSON.stringify(PostsAggregation)) as Document[])
+      .skip(page * 5)
+      .limit(5);
       const posts = await cursor.toArray();
-
+      
+      span.addEvent("posts found")
+      span.setAttribute('posts', JSON.stringify(posts))
       await client.close();
+      span.addEvent("client closed")
 
       return Response.json({ posts: posts } as responseJSON, { status: 200 });
     } catch {
       await client.close();
+      span.addEvent("client closed - error")
       return Response.json({}, { status: 400 });
     } finally {
       span.end();

@@ -1,3 +1,4 @@
+import opentelemetry from "@opentelemetry/api";
 import { MongoClient, ObjectId } from "mongodb";
 import { cookies } from "next/headers";
 import { Session } from "schemas/session";
@@ -11,10 +12,13 @@ export interface responseJSON {
 }
 
 export async function POST(request: Request) {
-  const time = Date.now();
-  const client = new MongoClient(process.env.MONGO_URI ? process.env.MONGO_URI : "");
+  const tracer = opentelemetry.trace.getTracer('next-app')
+  return await tracer.startActiveSpan('insert post', async (span)=>{
 
-  try {
+    const time = Date.now();
+    const client = new MongoClient(process.env.MONGO_URI ? process.env.MONGO_URI : "");
+    
+    try {
     await client.connect();
     const json = (await request.json()) as requestJSON;
     if (!json.content) return Response.json({ error: "no json?" }, { status: 400 });
@@ -23,17 +27,19 @@ export async function POST(request: Request) {
     if (!sessionID) {
       return Response.json({ error: "No session provided" }, { status: 401 });
     }
-
+    
     const db = client.db("wordbook");
     const coll = db.collection("sessions");
-
+    
     const sess = (await coll.findOne({ _id: new ObjectId(sessionID) })) as Session | null;
-
+    
     if (!sess) {
       // no user with such login and password
       await client.close();
       return Response.json({ error: "Authentication failure" }, { status: 403 });
     }
+    span.addEvent("session found")
+    span.setAttribute("session", JSON.stringify(sess))
     const active = time - sess.started < sess.duration;
     if (!active) {
       // no user with such login and password
@@ -42,7 +48,7 @@ export async function POST(request: Request) {
     }
     const coll_users = db.collection("users");
     const user = (await coll_users.findOne({ _id: new ObjectId(sess.user) })) as UserID | null;
-
+    
     if (!user) {
       await client.close();
       return Response.json(
@@ -50,23 +56,30 @@ export async function POST(request: Request) {
           error: "User deleted... ? We don't quite know what happened. This SHOULD be impossible.",
         },
         { status: 501 }
-      );
+        );
+      }
+      
+      span.addEvent("user found")
+      span.setAttribute("user", JSON.stringify(user))
+      const coll_posts = db.collection("posts");
+      
+      const res = await coll_posts.insertOne({
+        content: json.content,
+        posted: time,
+        author: user._id,
+      });
+      
+      span.addEvent("post inserted")
+      span.setAttribute("id",res.insertedId.toHexString())
+      await client.close();
+      span.addEvent("client closed")
+      
+      return Response.json({ insertedId: res.insertedId } as responseJSON, { status: 201 });
+    } catch (e) {
+      console.error(e);
+      await client.close();
+      span.addEvent("client closed - error")
+      return Response.json({}, { status: 400 });
     }
-
-    const coll_posts = db.collection("posts");
-
-    const res = await coll_posts.insertOne({
-      content: json.content,
-      posted: time,
-      author: user._id,
-    });
-
-    await client.close();
-
-    return Response.json({ insertedId: res.insertedId } as responseJSON, { status: 201 });
-  } catch (e) {
-    console.error(e);
-    await client.close();
-    return Response.json({}, { status: 400 });
-  }
+  })
 }
