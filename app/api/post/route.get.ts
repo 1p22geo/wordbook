@@ -14,7 +14,6 @@ export async function GET(request: Request) {
   return tracer.startActiveSpan("fetch_posts", async (span) => {
     const time = Date.now();
     const page = parseInt(new URL(request.url).searchParams.get("page") || "0");
-    console.log(page);
     const client = new MongoClient(process.env.MONGO_URI ? process.env.MONGO_URI : "");
 
     try {
@@ -41,14 +40,12 @@ export async function GET(request: Request) {
         await client.close();
         return Response.json({ error: "Session expired" }, { status: 403 });
       }
-
       const coll_posts = db.collection("posts");
       const cursor = coll_posts
         .aggregate(JSON.parse(JSON.stringify(PostsAggregation)) as Document[])
         .skip(page * 5)
         .limit(5);
       const posts = await cursor.toArray();
-      console.log(posts);
 
       await client.close();
 

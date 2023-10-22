@@ -78,6 +78,27 @@ class MongoClient {
                 return null;
               }),
             };
+          case "posts":
+            return {
+              aggregate: jest.fn(() => {
+                return {
+                  skip: jest.fn(() => {
+                    return {
+                      limit: jest.fn(() => {
+                        return {
+                          toArray: jest.fn(() => {
+                            return ["post 1", "post 2"];
+                          }),
+                        };
+                      }),
+                    };
+                  }),
+                };
+              }),
+              insertOne: jest.fn(() => {
+                return { insertedId: new RealObjectId("652eb25c57e45bcc221d5188") };
+              }),
+            };
         }
       },
     };
