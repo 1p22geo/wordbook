@@ -32,7 +32,7 @@ export default defineConfig({
 
     /* Always collect traces and videos */
     trace: "retain-on-failure",
-    "video":"on"
+    video: "on",
   },
 
   /* Configure projects for major browsers */
