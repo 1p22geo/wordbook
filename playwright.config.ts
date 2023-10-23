@@ -31,8 +31,8 @@ export default defineConfig({
     baseURL: "http://127.0.0.1:3000",
 
     /* Always collect traces and videos */
-    trace: "retain-on-failure",
-    video: "on",
+    trace: "on",
+    video: process.env.CI ? "on" : "off",
   },
 
   /* Configure projects for major browsers */
