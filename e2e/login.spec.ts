@@ -28,9 +28,9 @@ test("logs in", async ({ page, userAgent }) => {
   const id = sha256(userAgent as string);
   await page.goto("./");
   await expect(page).toHaveTitle(/WordBook - Internet redefined/);
-  await expect(await page.getByText(/WordBook - the Internet redefined/i)).toBeVisible()
-  if(await page.locator("#switch").isVisible()){
-  await (await page.$("#switch"))?.click()
+  await expect(await page.getByText(/WordBook - the Internet redefined/i)).toBeVisible();
+  if (await page.locator("#switch").isVisible()) {
+    await (await page.$("#switch"))?.click();
   }
   const loc = page.getByText(/Log in/i).filter({ hasNotText: /account/ });
   await expect(loc).toBeVisible();
@@ -39,9 +39,9 @@ test("logs in", async ({ page, userAgent }) => {
   await (await page.$("#email"))?.fill("1p22geo@gmail.com");
   await (await page.$("#password"))?.fill("qwe");
   await (await page.getByText("Sumbit!")).click();
-  await expect(page.locator(".w-md-editor")).toBeVisible()
-  if(await page.locator("#switch").isVisible()){
-    await (page.locator("#switch"))?.click()
+  await expect(page.locator(".w-md-editor")).toBeVisible();
+  if (await page.locator("#switch").isVisible()) {
+    await page.locator("#switch")?.click();
   }
   if (!process.env.CI) {
     await expect(await page.locator("a").filter({ hasText: "WordBook" })).toBeVisible();

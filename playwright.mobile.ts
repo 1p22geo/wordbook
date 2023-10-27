@@ -6,7 +6,6 @@ Special config version ONLY for mobile devices
 
 */
 
-
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
