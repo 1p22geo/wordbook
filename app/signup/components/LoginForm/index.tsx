@@ -1,5 +1,6 @@
 "use client";
 import { useReducer, useState } from "react";
+import { getNextDisabled } from "app/signup/getNextDisabled";
 import { Alert, alertMessage } from "components/Alert";
 import { StepForm } from "components/StepForm";
 import { init_state, reducer } from "../../reducer";
@@ -7,10 +8,13 @@ import { sumbit } from "../../sumbit";
 
 const LoginForm = () => {
   const [state, dispatch] = useReducer(reducer, init_state);
-
+  const [page, setpage] = useState(0);
   const [error, seterror] = useState<alertMessage>({ type: null, message: "" });
+
   return (
     <StepForm
+      page={page}
+      setpage={setpage}
       pages={[
         <div key={1} className="grid grid-cols-2 items-center gap-4">
           <h2 className="col-span-2 text-xl">But first, we&apos;ll ask some questions</h2>
@@ -88,6 +92,7 @@ const LoginForm = () => {
           </div>
         </div>,
       ]}
+      nextDisabled={getNextDisabled(state, page)}
     />
   );
 };

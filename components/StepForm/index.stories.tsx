@@ -5,6 +5,11 @@ const meta: Meta<typeof StepForm> = {
   component: StepForm,
   args: {
     pages: ["page 1", "page 2"],
+    page: 0,
+    setpage: () => {
+      return;
+    },
+    nextDisabled: false,
   },
 };
 
