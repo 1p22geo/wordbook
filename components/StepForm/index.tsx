@@ -1,15 +1,24 @@
 "use client";
-import { ReactNode, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import { PageSwitcher } from "components/PageSwitcher";
 
-export const StepForm = ({ pages }: { pages: ReactNode[] }) => {
-  const [page, setpage] = useState(0);
+export const StepForm = ({
+  pages,
+  nextDisabled,
+  page,
+  setpage,
+}: {
+  pages: ReactNode[];
+  nextDisabled?: boolean;
+  page: number;
+  setpage: Dispatch<SetStateAction<number>>;
+}) => {
   const maxPages = pages.length;
 
   return (
     <div>
       {pages[page]}
-      <PageSwitcher maxPages={maxPages} page={page} setPage={setpage} />
+      <PageSwitcher maxPages={maxPages} page={page} setPage={setpage} nextDisabled={nextDisabled} />
     </div>
   );
 };

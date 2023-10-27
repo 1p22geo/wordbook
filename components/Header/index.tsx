@@ -3,7 +3,7 @@ import { UserID } from "schemas/user";
 
 export const Header = ({ user }: { user?: UserID }) => {
   return (
-    <div className="sticky top-0 z-20 flex w-full flex-col items-center">
+    <div className="sticky top-0 z-30 flex w-full flex-col items-center">
       <input id="hamburgir" type="checkbox" className="peer sr-only"></input>
 
       <div
