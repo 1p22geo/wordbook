@@ -45,12 +45,20 @@ class MongoClient {
               insertOne: jest.fn((doc) => {
                 return { insertedId: new RealObjectId("653cdb40477ebd1fd477c81d") };
               }),
+              findOne: jest.fn((doc) => {
+                if (doc.user && doc.user.toString() == "652eb25c57e45bcc221d51d4")
+                  return {
+                    _id: new RealObjectId("653cd10d7d62fb1be31824f7"),
+                    user: new RealObjectId("652eb25c57e45bcc221d51d4"),
+                    desc: "## No description yet.  \nBut there will be,  \nand it will be glorious.",
+                  };
+              }),
             };
           case "users":
             return {
               insertOne: jest.fn((doc) => {
                 if (doc.email && doc.email === "1p22error@gmail.com") throw Error("test error please ignore");
-                return { insertedId: new RealObjectId("652eb25c57e45bcc221d51d4") };
+                return { insertedId: new RealObjectId("652eb25c57e45bcc221d5234") };
               }),
               findOne: jest.fn((q) => {
                 if (
@@ -75,6 +83,16 @@ class MongoClient {
                     added: 1697559132609,
                     type: "user",
                   };
+                if (q._id && q._id.toString() === "653cdf77477ebd1fd477c821")
+                  return {
+                    _id: new RealObjectId("653cdf77477ebd1fd477c821"),
+                    email: "1p22test@gmail.com",
+                    name: "Batestrtosz test test",
+                    hash: "489cd5dbc708c7e541de4d7cd91ce6d0f1613573b7fc5b40d3942ccb9555cf35",
+                    added: 1697559132609,
+                    type: "user",
+                  };
+                if (q._id && q._id.toString() === "653cdf77477ebd1fd477ffff") throw Error("test error please ignore");
                 if (
                   q.email === "1p22error@gmail.com" &&
                   q.hash === "489cd5dbc708c7e541de4d7cd91ce6d0f1613573b7fc5b40d3942ccb9555cf35"
