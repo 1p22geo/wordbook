@@ -40,6 +40,12 @@ class MongoClient {
                 return null;
               }),
             };
+          case "userdata":
+            return {
+              insertOne: jest.fn((doc) => {
+                return { insertedId: new RealObjectId("653cdb40477ebd1fd477c81d") };
+              }),
+            };
           case "users":
             return {
               insertOne: jest.fn((doc) => {

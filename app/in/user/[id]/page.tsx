@@ -1,16 +1,14 @@
 import opentelemetry from "@opentelemetry/api";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { checkSession } from "util/checkSession";
-import { checkUser } from "util/checkUser";
-import Link from "next/link";
 import Markdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import rehypeStringify from "rehype-stringify";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-import { ObjectId } from "mongodb";
+import { checkSession } from "util/checkSession";
+import { checkUser } from "util/checkUser";
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const tracer = opentelemetry.trace.getTracer("next-app");
@@ -19,7 +17,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   span.setAttribute("sessionID", sessionID as string);
   if (!sessionID) redirect("/");
 
-  const session = await checkSession(sessionID);
+  await checkSession(sessionID);
   let user;
   try {
     user = await checkUser(params.id, true);
