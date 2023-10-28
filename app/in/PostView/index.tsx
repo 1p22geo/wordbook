@@ -6,7 +6,7 @@ import { Post } from "components/Post";
 import { PostAuthorID } from "schemas/post";
 import { isInViewport } from "util/inViewport";
 
-export const PostView = ({ initPosts }: { initPosts: PostAuthorID[] }) => {
+export const PostView = ({ initPosts, url = "/api/post?" }: { initPosts: PostAuthorID[]; url?: string }) => {
   const [posts, setposts] = useState(initPosts);
   const [page, setpage] = useState(1);
   const [fetching, setfetching] = useState(false);
@@ -20,7 +20,7 @@ export const PostView = ({ initPosts }: { initPosts: PostAuthorID[] }) => {
         if (!fetching) {
           setfetching(true);
           console.log("Fetching more posts...");
-          fetch(`/api/post?page=${page}`).then((res) => {
+          fetch(`${url}page=${page}`).then((res) => {
             console.log("Response recieved");
             if (!res.ok) throw Error("error in fetching");
             res.json().then((temp) => {
@@ -45,7 +45,7 @@ export const PostView = ({ initPosts }: { initPosts: PostAuthorID[] }) => {
     return () => {
       document.removeEventListener("scroll", el);
     };
-  }, [fetching, page]);
+  }, [fetching, page, url]);
   return (
     <>
       {posts.map((post) => (

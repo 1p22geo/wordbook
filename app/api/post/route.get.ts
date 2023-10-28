@@ -2,6 +2,7 @@ import { trace } from "@opentelemetry/api";
 import { MongoClient, ObjectId } from "mongodb";
 import { cookies } from "next/headers";
 import { PostsAggregation } from "schemas/aggregations/posts";
+import { UserPostsAggregation } from "schemas/aggregations/userPosts";
 import { PostAuthorID } from "schemas/post";
 import { Session } from "schemas/session";
 
@@ -14,6 +15,7 @@ export async function GET(request: Request) {
   return await tracer.startActiveSpan("fetch_posts", async (span) => {
     const time = Date.now();
     const page = parseInt(new URL(request.url).searchParams.get("page") || "0");
+    const q_author = new URL(request.url).searchParams.get("user") || null;
     const client = new MongoClient(process.env.MONGO_URI ? process.env.MONGO_URI : "");
 
     try {
@@ -43,10 +45,22 @@ export async function GET(request: Request) {
         return Response.json({ error: "Session expired" }, { status: 403 });
       }
       const coll_posts = db.collection("posts");
-      const cursor = coll_posts
-        .aggregate(JSON.parse(JSON.stringify(PostsAggregation)) as Document[])
-        .skip(page * 5)
-        .limit(5);
+
+      let cursor;
+
+      if (q_author) {
+        const agg = JSON.stringify(UserPostsAggregation(new ObjectId(q_author)));
+        console.log(agg);
+        cursor = coll_posts
+          .aggregate(UserPostsAggregation(new ObjectId(q_author)))
+          .skip(page * 5)
+          .limit(5);
+      } else {
+        cursor = coll_posts
+          .aggregate(JSON.parse(JSON.stringify(PostsAggregation)) as Document[])
+          .skip(page * 5)
+          .limit(5);
+      }
       const posts = await cursor.toArray();
 
       span.addEvent("posts found");
