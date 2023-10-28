@@ -10,7 +10,7 @@ export const PostView = ({ initPosts }: { initPosts: PostAuthorID[] }) => {
   const [posts, setposts] = useState(initPosts);
   const [page, setpage] = useState(1);
   const [fetching, setfetching] = useState(false);
-  const [end, setend] = useState(false);
+  const [end, setend] = useState(!!initPosts.length);
   const spinnerRef = useRef() as RefObject<HTMLDivElement>;
   useEffect(() => {
     const el = () => {
@@ -21,12 +21,15 @@ export const PostView = ({ initPosts }: { initPosts: PostAuthorID[] }) => {
           setfetching(true);
           console.log("Fetching more posts...");
           fetch(`/api/post?page=${page}`).then((res) => {
+            console.log("Response recieved");
             if (!res.ok) throw Error("error in fetching");
             res.json().then((temp) => {
               const json = temp as responseJSON;
+              console.log("Recieved JSON: ", json);
               setposts((p) => [...p, ...json.posts]);
               setpage((p) => p + 1);
               if (!json.posts.length) {
+                console.log("This is the end.");
                 setend(true);
                 return;
               }
@@ -36,6 +39,7 @@ export const PostView = ({ initPosts }: { initPosts: PostAuthorID[] }) => {
         }
       }
     };
+    el();
     document.addEventListener("scroll", el);
 
     return () => {

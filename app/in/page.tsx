@@ -11,7 +11,7 @@ const Page = async () => {
 
   const { posts } = (await req.json()) as responseJSON;
   return (
-    <div className="flex flex-col items-center gap-8 p-24">
+    <div className="flex max-w-[100vw] flex-col items-center gap-8 p-24">
       <PostEditor />
       <PostView initPosts={posts} />
     </div>
