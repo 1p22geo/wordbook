@@ -48,10 +48,13 @@ export const Header = ({ user }: { user?: UserID }) => {
             <div className="flex w-48 origin-top flex-col items-center p-2 duration-200 sm:absolute sm:-translate-x-8 sm:translate-y-32 sm:scale-y-[0] sm:bg-secondary-200 sm:shadow-2xl sm:peer-checked:scale-y-100">
               <h2>{user.name}</h2>
               <h3 className="mb-4 text-sm">&lt;{user.email}&gt;</h3>
-              <Link href={"/settings"} className="text-primary-600 hover:underline">
+              <Link href={"/in/user"} className="text-primary-600 hover:underline">
+                Edit profile
+              </Link>
+              <Link href={"#"} className="text-primary-600 hover:underline">
                 App settings
               </Link>
-              <Link href={"/settings/account"} className="text-primary-600 hover:underline">
+              <Link href={"#"} className="text-primary-600 hover:underline">
                 Account settings
               </Link>
 

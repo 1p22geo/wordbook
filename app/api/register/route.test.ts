@@ -13,7 +13,7 @@ beforeAll(() => {
   console.error = jest.fn();
 });
 
-describe("/api/login", () => {
+describe("/api/register", () => {
   it("renders dynamically", () => {
     expect(dynamic).toBeTruthy();
   });

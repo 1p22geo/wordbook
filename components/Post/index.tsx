@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Markdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import rehypeStringify from "rehype-stringify";
@@ -10,7 +11,7 @@ export const Post = ({ post }: { post: PostAuthorID }) => {
   return (
     <div className="flex w-fit flex-col items-stretch bg-secondary-100 shadow-2xl">
       <div className="flex flex-row gap-4 p-2">
-        <div className="group">
+        <Link href={`/in/user/${post.author._id}`} className="group">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-12">
             <circle cx="12" cy="12" r="10" className="fill-primary-600" />
             <path
@@ -22,7 +23,7 @@ export const Post = ({ post }: { post: PostAuthorID }) => {
             <h2>{post.author.name}</h2>
             <h3 className="mb-4 text-sm">&lt;{post.author.email}&gt;</h3>
           </div>
-        </div>
+        </Link>
         <div className="flex flex-col items-start text-left">
           <h2 className="font-bold">{post.author.name}</h2>
           <h3 className="text-sm text-secondary-700">{new Date(post.posted).toLocaleString()}</h3>

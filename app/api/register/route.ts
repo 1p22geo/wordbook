@@ -32,8 +32,10 @@ export async function POST(request: Request) {
       };
 
       const res = await coll.insertOne(user);
+      const res2 = await db.collection("userdata").insertOne({ user: res.insertedId, desc: "No description yet." });
       span.addEvent("user inserted");
       span.setAttribute("id", res.insertedId.toHexString());
+      span.setAttribute("data_id", res2.insertedId.toHexString());
 
       client.close();
       span.addEvent("client closed");
