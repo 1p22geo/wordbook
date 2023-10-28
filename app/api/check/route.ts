@@ -6,12 +6,17 @@ export const dynamic = "force-dynamic";
 export interface requestJSON {
   session: ObjectId;
 }
-export interface responseJSON {
+export type responseJSON = successJSON | failureJSON;
+export interface successJSON {
   active: boolean;
   exists: boolean;
-  left?: number;
-  session?: SessionID;
-  user?: UserID;
+  left: number;
+  session: SessionID;
+  user: UserID;
+}
+export interface failureJSON {
+  active: boolean;
+  exists: boolean;
 }
 
 export async function POST(request: Request) {
