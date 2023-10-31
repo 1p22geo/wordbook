@@ -10,7 +10,7 @@ export const PostView = ({ initPosts, url = "/api/post?" }: { initPosts: PostAut
   const [posts, setposts] = useState(initPosts);
   const [page, setpage] = useState(1);
   const [fetching, setfetching] = useState(false);
-  const [end, setend] = useState(!!initPosts.length);
+  const [end, setend] = useState(false);
   const spinnerRef = useRef() as RefObject<HTMLDivElement>;
   useEffect(() => {
     const el = () => {
