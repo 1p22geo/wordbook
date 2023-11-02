@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Alert, alertMessage } from "components/Alert";
 import { Editor } from "components/Editor";
+import FileUploader from "components/FileUpload";
 import { submit } from "./submit";
 
 export const PostEditor = () => {
@@ -10,6 +11,14 @@ export const PostEditor = () => {
   const [alert, setalert] = useState<alertMessage>({ type: null, message: "" });
   return (
     <div className="flex w-screen max-w-[1000px] flex-col items-end gap-4 px-4">
+      <div className="flex flex-col gap-2 self-start items-start">
+        <span>Upload an image: </span>
+        <FileUploader
+          uploadedCallback={(filename: string) => {
+            setvalue((v) => v + `![${filename}](/api/image/${filename})`);
+          }}
+        />
+      </div>
       <Editor value={value} setValue={setvalue} />
       {alert.type ? <Alert type={alert.type}>{alert.message}</Alert> : null}
       <div className="m-8 flex gap-4 self-end">
