@@ -8,36 +8,30 @@ import { isInViewport } from "util/inViewport";
 
 export const PostView = ({ initPosts, url = "/api/post?" }: { initPosts: PostAuthorID[]; url?: string }) => {
   const [posts, setposts] = useState(initPosts);
-  const [page, setpage] = useState(1);
-  const [fetching, setfetching] = useState(false);
-  const [end, setend] = useState(!!initPosts.length);
+  const [page, setpage] = useState(0);
+  const [pages, setpages] = useState(0);
+  const [end, setend] = useState(false);
   const spinnerRef = useRef() as RefObject<HTMLDivElement>;
   useEffect(() => {
     const el = () => {
       if (!spinnerRef.current) return;
+      if (end) return;
       if (isInViewport(spinnerRef.current)) {
-        console.log(fetching);
-        if (!fetching) {
-          setfetching(true);
-          console.log("Fetching more posts...");
-          fetch(`${url}page=${page}`).then((res) => {
-            console.log("Response recieved");
-            if (!res.ok) throw Error("error in fetching");
-            res.json().then((temp) => {
-              const json = temp as responseJSON;
-              console.log("Recieved JSON: ", json);
-              setposts((p) => [...p, ...json.posts]);
-              setpage((p) => p + 1);
-              if (!json.posts.length) {
-                console.log("This is the end.");
-                setend(true);
-                return;
-              }
-              setfetching(false);
-            });
-          });
+          if(page==pages){
+            setpage(page+1);
+
+            fetch(`/api/post?page=${page+1}`).then(res=>{
+              res.json().then((temp)=>{
+                const json = temp as responseJSON;
+                setposts([...posts, ...json.posts]);
+                setpages(pages+1)
+                if(!json.posts.length){
+                  setend(true)
+                }
+              })
+            })
+          }
         }
-      }
     };
     el();
     document.addEventListener("scroll", el);
@@ -45,7 +39,7 @@ export const PostView = ({ initPosts, url = "/api/post?" }: { initPosts: PostAut
     return () => {
       document.removeEventListener("scroll", el);
     };
-  }, [fetching, page, url]);
+  }, [ page, pages, url]);
   return (
     <>
       {posts.map((post) => (
