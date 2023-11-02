@@ -17,21 +17,21 @@ export const PostView = ({ initPosts, url = "/api/post?" }: { initPosts: PostAut
       if (!spinnerRef.current) return;
       if (end) return;
       if (isInViewport(spinnerRef.current)) {
-          if(page==pages){
-            setpage(page+1);
+        if (page === pages) {
+          setpage(page + 1);
 
-            fetch(`/api/post?page=${page+1}`).then(res=>{
-              res.json().then((temp)=>{
-                const json = temp as responseJSON;
-                setposts([...posts, ...json.posts]);
-                setpages(pages+1)
-                if(!json.posts.length){
-                  setend(true)
-                }
-              })
-            })
-          }
+          fetch(`/api/post?page=${page + 1}`).then((res) => {
+            res.json().then((temp) => {
+              const json = temp as responseJSON;
+              setposts([...posts, ...json.posts]);
+              setpages(pages + 1);
+              if (!json.posts.length) {
+                setend(true);
+              }
+            });
+          });
         }
+      }
     };
     el();
     document.addEventListener("scroll", el);
@@ -39,7 +39,7 @@ export const PostView = ({ initPosts, url = "/api/post?" }: { initPosts: PostAut
     return () => {
       document.removeEventListener("scroll", el);
     };
-  }, [ page, pages, url]);
+  }, [page, pages, url, end, posts]);
   return (
     <>
       {posts.map((post) => (

@@ -49,8 +49,6 @@ export async function GET(request: Request) {
       let cursor;
 
       if (q_author) {
-        const agg = JSON.stringify(UserPostsAggregation(new ObjectId(q_author)));
-        console.log(agg);
         cursor = coll_posts
           .aggregate(UserPostsAggregation(new ObjectId(q_author)))
           .skip(page * 5)
