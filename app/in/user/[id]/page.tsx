@@ -40,7 +40,6 @@ const Page = async ({ params }: { params: { id: string } }) => {
       span.setAttribute("posts found", false);
     }
   }
-
   span.end();
   return (
     <div className="flex w-screen max-w-[100vw] flex-col items-center gap-8 p-24">
@@ -77,7 +76,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
               <Markdown
                 remarkPlugins={[remarkParse as never, remarkMath, remarkRehype, rehypeKatex, rehypeStringify as never]}
               >
-                {user.data.desc}
+                {user.data.desc.replace(/```KaTeX((.|\n|\r)*?)```/gs, "$$$ $1 $$$")}
               </Markdown>
             </div>
             {posts ? (

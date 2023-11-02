@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Alert, alertMessage } from "components/Alert";
-import { Editor } from "./Editor";
+import { Editor } from "components/Editor";
 import { submit } from "./submit";
 
 export const PostEditor = () => {

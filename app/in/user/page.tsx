@@ -9,6 +9,8 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { checkSession } from "util/checkSession";
 import { checkUser } from "util/checkUser";
+import { submit } from "./action";
+import { DescriptionEditor } from "./DescEdit";
 
 const Page = async () => {
   const tracer = opentelemetry.trace.getTracer("next-app");
@@ -46,22 +48,14 @@ const Page = async () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-row items-center gap-4 p-2">
-          <h3 className="text-lg font-semibold">Account description</h3>
-          {/* TODO: make this an actual edit button (WB-40) */}
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6">
-            <path
-              className="fill-secondary-600"
-              d="M4 14a1 1 0 0 1 .3-.7l11-11a1 1 0 0 1 1.4 0l3 3a1 1 0 0 1 0 1.4l-11 11a1 1 0 0 1-.7.3H5a1 1 0 0 1-1-1v-3z"
-            />
-            <rect width="20" height="2" x="2" y="20" className="fill-secondary-600" rx="1" />
-          </svg>
+        <div className="flex flex-row flex-wrap items-center gap-4 p-2">
+          <DescriptionEditor current={user.data.desc} session={session.session._id.toString()} submit={submit} />
         </div>
         <div className="prose m-8 bg-secondary-200 p-4">
           <Markdown
             remarkPlugins={[remarkParse as never, remarkMath, remarkRehype, rehypeKatex, rehypeStringify as never]}
           >
-            {user.data.desc}
+            {user.data.desc.replace(/```KaTeX((.|\n|\r)*?)```/gs, "$$$ $1 $$$")}
           </Markdown>
         </div>
       </div>
