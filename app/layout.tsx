@@ -1,5 +1,5 @@
-import React from "react";
 import { Metadata } from "next";
+import React from "react";
 
 import "styles/tailwind.css";
 import "katex/dist/katex.min.css";

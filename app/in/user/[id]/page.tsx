@@ -25,10 +25,10 @@ const Page = async ({ params }: { params: { id: string } }) => {
   let user;
   let posts;
   try {
-      user = await checkUser(params.id, true);
-      span.setAttribute("user exists", true);
+    user = await checkUser(params.id, true);
+    span.setAttribute("user exists", true);
   } catch {
-      span.setAttribute("user exists", false);
+    span.setAttribute("user exists", false);
   }
   if (user) {
     try {
@@ -106,7 +106,15 @@ const Page = async ({ params }: { params: { id: string } }) => {
                   {user.data.gallery.map((item) => (
                     <div key={`wrapper for /api/image/${item.url}`}>
                       <Link href={`/api/image/${item.url}`} key={`link for /api/image/${item.url}`}>
-                          <Image  key={`image for /api/image/${item.url}`} src={`/api/image/${item.url}`}  className="h-auto w-32 origin-center rounded-md duration-200 hover:outline hover:outline-8 hover:outline-lightblue-500"  width={0}  height={0}  sizes="100vw"  alt={`user image - /api/image/${item.url}`}></Image>
+                        <Image
+                          key={`image for /api/image/${item.url}`}
+                          src={`/api/image/${item.url}`}
+                          className="h-auto w-32 origin-center rounded-md duration-200 hover:outline hover:outline-8 hover:outline-lightblue-500"
+                          width={0}
+                          height={0}
+                          sizes="100vw"
+                          alt={`user image - /api/image/${item.url}`}
+                        ></Image>
                       </Link>
                     </div>
                   ))}
