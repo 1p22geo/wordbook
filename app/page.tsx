@@ -1,8 +1,19 @@
+import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Header } from "components/Header";
+import { checkSession } from "util/checkSession";
+import { successJSON } from "./api/check/route";
 
-const Page = () => {
+const Page = async () => {
+  const sessionID = cookies().get("session")?.value;
+  let session: successJSON | undefined;
+  if (sessionID) {
+    session = await checkSession(sessionID, false);
+  }
+  if (session) redirect("/in");
+
   return (
     <>
       <div className="flex flex-col items-center justify-start bg-secondary-200">

@@ -2,7 +2,7 @@ import { successJSON } from "app/api/check/route";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export async function checkSession(session: string): Promise<successJSON> {
+export async function checkSession(session: string, redirect_fail = true): Promise<successJSON | undefined> {
   let res = await fetch(`http://${headers().get("host")}/api/check`, {
     method: "POST",
     body: JSON.stringify({
@@ -10,7 +10,8 @@ export async function checkSession(session: string): Promise<successJSON> {
     }),
   });
   if (!res.ok) {
-    redirect("/");
+    if (redirect_fail) redirect("/");
+    return;
   }
   let json = (await res.json()) as successJSON;
 
