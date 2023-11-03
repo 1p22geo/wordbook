@@ -1,5 +1,7 @@
 import opentelemetry from "@opentelemetry/api";
 import { cookies } from "next/headers";
+import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import Markdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
@@ -7,9 +9,10 @@ import rehypeStringify from "rehype-stringify";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
+import FileUploader from "components/FileUpload";
 import { checkSession } from "util/checkSession";
 import { checkUser } from "util/checkUser";
-import { submit } from "./action";
+import { submitAddImage, submitDescriptionChange } from "./action";
 import { DescriptionEditor } from "./DescEdit";
 
 const Page = async () => {
@@ -24,10 +27,10 @@ const Page = async () => {
 
   span.end();
   return (
-    <div className="flex w-screen max-w-[100vw] flex-col items-center gap-8 p-24">
-      <div className="flex  flex-col items-start self-stretch bg-secondary-100 p-4 shadow-2xl">
-        <h1 className="text-xl font-bold">Your profile</h1>
-        <div className="p-4">
+    <div className=" w-screen max-w-[100vw]  gap-8 p-24">
+      <div className="grid grid-cols-2 bg-secondary-100 shadow-2xl">
+        <div className="col-span-full p-8">
+          <h1 className="col-span-full text-xl font-bold">Your profile</h1>
           <div className="flex flex-row gap-4 p-2">
             <div className="group">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-12">
@@ -48,15 +51,50 @@ const Page = async () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-row flex-wrap items-center gap-4 p-2">
-          <DescriptionEditor current={user.data.desc} session={session.session._id.toString()} submit={submit} />
+        <div className="flex  flex-col items-start self-stretch  p-4 ">
+          <div className="flex flex-row flex-wrap items-center gap-4 p-2">
+            <DescriptionEditor
+              current={user.data.desc}
+              session={session.session._id.toString()}
+              submit={submitDescriptionChange}
+            />
+          </div>
+          <div className="prose m-8 bg-secondary-200 p-4">
+            <Markdown
+              remarkPlugins={[remarkParse as never, remarkMath, remarkRehype, rehypeKatex, rehypeStringify as never]}
+            >
+              {user.data.desc.replace(/```KaTeX((.|\n|\r)*?)```/gs, "$$$ $1 $$$")}
+            </Markdown>
+          </div>
         </div>
-        <div className="prose m-8 bg-secondary-200 p-4">
-          <Markdown
-            remarkPlugins={[remarkParse as never, remarkMath, remarkRehype, rehypeKatex, rehypeStringify as never]}
-          >
-            {user.data.desc.replace(/```KaTeX((.|\n|\r)*?)```/gs, "$$$ $1 $$$")}
-          </Markdown>
+        <div className="p-4">
+          <h3 className="mb-8 text-lg font-semibold">Photo gallery</h3>
+          <h3 className="text-lg">Upload file</h3>
+          <FileUploader
+            refresh={true}
+            uploadedCallback={async (img: string) => {
+              "use server";
+              console.log("uploading image - " + img);
+              return await submitAddImage(img, sessionID);
+            }}
+          />
+          <div className="m-4 grid w-fit grid-cols-3 gap-4">
+            {user.data.gallery.map((item) => (
+              <div key={`wrapper for /api/image/${item.url}`}>
+                <Link href={`/api/image/${item.url}`} key={`link for /api/image/${item.url}`}>
+                  <Image
+                    key={`image for /api/image/${item.url}`}
+                    src={`/api/image/${item.url}`}
+                    className="h-auto w-32 origin-center rounded-md duration-200 hover:outline hover:outline-8 hover:outline-lightblue-500"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    alt={`user image - /api/image/${item.url}`}
+                  ></Image>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
