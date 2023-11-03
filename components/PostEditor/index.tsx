@@ -11,10 +11,10 @@ export const PostEditor = () => {
   const [alert, setalert] = useState<alertMessage>({ type: null, message: "" });
   return (
     <div className="flex w-screen max-w-[1000px] flex-col items-end gap-4 px-4">
-      <div className="flex flex-col gap-2 self-start items-start">
+      <div className="flex flex-col items-start gap-2 self-start">
         <span>Upload an image: </span>
         <FileUploader
-          uploadedCallback={(filename: string) => {
+          uploadedCallback={async (filename: string) => {
             setvalue((v) => v + `![${filename}](/api/image/${filename})`);
           }}
         />

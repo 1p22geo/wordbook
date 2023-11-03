@@ -20,7 +20,7 @@ export const PostView = ({ initPosts, url = "/api/post?" }: { initPosts: PostAut
         if (page === pages) {
           setpage(page + 1);
 
-          fetch(`/api/post?page=${page + 1}`).then((res) => {
+          fetch(`${url}page=${page + 1}`).then((res) => {
             res.json().then((temp) => {
               const json = temp as responseJSON;
               setposts([...posts, ...json.posts]);

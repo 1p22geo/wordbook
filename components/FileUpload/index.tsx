@@ -2,7 +2,10 @@
 
 import { ChangeEvent } from "react";
 
-export default function FileUploader(props: { uploadedCallback?: (filename: string) => void }) {
+export default function FileUploader(props: {
+  uploadedCallback?: (filename: string) => Promise<void>;
+  refresh?: boolean;
+}) {
   const onImageFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const fileInput = e.target;
 
@@ -33,7 +36,8 @@ export default function FileUploader(props: { uploadedCallback?: (filename: stri
       }
 
       const data: { fileUrl: string } = (await res.json()) as { fileUrl: string };
-      if (props.uploadedCallback) props.uploadedCallback(data.fileUrl);
+      if (props.uploadedCallback) await props.uploadedCallback(data.fileUrl);
+      if (props.refresh) window.location.reload();
     } catch (error) {
       console.error("something went wrong, check your console.");
     }
@@ -43,5 +47,11 @@ export default function FileUploader(props: { uploadedCallback?: (filename: stri
     e.target.type = "file";
   };
 
-  return <input type="file" onChange={onImageFileChange} className="bg-secondary-800 p-8 text-xl text-white rounded-md shadow-inner shadow-secondary-500" />;
+  return (
+    <input
+      type="file"
+      onChange={onImageFileChange}
+      className="rounded-md bg-secondary-800 p-8 text-xl text-white shadow-inner shadow-secondary-500"
+    />
+  );
 }

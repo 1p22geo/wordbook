@@ -2,7 +2,7 @@ import mime from "mime";
 import fs from "fs";
 import path from "path";
 
-export async function GET(request: Request, { params }: { params: { img: string }}) {
+export async function GET(request: Request, { params }: { params: { img: string } }) {
   if (!params.img) {
     return Response.json({ error: "missing file" }, { status: 400 });
   }

@@ -19,7 +19,6 @@ export const DescriptionEditor = ({
   return (
     <>
       <h3 className="text-lg font-semibold">Account description</h3>
-      {/* TODO: make this an actual edit button (WB-40) */}
       <button
         onClick={() => {
           setvisible((v) => !v);
