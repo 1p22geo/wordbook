@@ -13,6 +13,8 @@ const Layout = async ({ children }: { children: ReactNode }) => {
   if (!sessionID) redirect("/");
 
   const session = await checkSession(sessionID);
+  if (!session) redirect("/");
+
   span.setAttribute("session", JSON.stringify(session));
   span.end();
   return (
