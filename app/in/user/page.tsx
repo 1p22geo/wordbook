@@ -23,6 +23,7 @@ const Page = async () => {
   if (!sessionID) redirect("/");
 
   const session = await checkSession(sessionID);
+  if (!session) redirect("/");
   const user = await checkUser(session.user._id as unknown as string);
 
   span.end();
