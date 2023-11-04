@@ -55,7 +55,7 @@ export async function GET(request: Request) {
           .limit(5);
       } else {
         cursor = coll_posts
-          .aggregate(JSON.parse(JSON.stringify(PostsAggregation)) as Document[])
+          .aggregate(JSON.parse(JSON.stringify(PostsAggregation)) as typeof PostsAggregation)
           .skip(page * 5)
           .limit(5);
       }

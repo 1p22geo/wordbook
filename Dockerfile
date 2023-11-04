@@ -35,6 +35,8 @@ COPY . .
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=prod_deps /app/node_modules ./node_modules
 COPY --from=prod_deps /app/package.json ./package.json
+RUN mkdir /app/uploads
+RUN chown -R nextjs:nodejs /app
 
 USER nextjs
 

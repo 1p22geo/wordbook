@@ -26,6 +26,20 @@ describe("/api/post", () => {
 
     expect(response.status).toBe(200);
   });
+  it("returns posts when asked for specific author", async () => {
+    //@ts-expect-error - we need to set the session cookie globally, it's used in a different file I don't even import, and there ARE no means of communication between them.
+    global.session = "652eb26557e45bcc221d51d5";
+    const { req } = createMocks({
+      method: "GET",
+      url: "http://localhost:3000/api/post?user=652eb25c57e45bcc221d51d4",
+    });
+
+    Date.now = jest.fn(() => 1);
+    req.json = jest.fn().mockResolvedValue(req.body);
+    const response = await GET(req as unknown as Request);
+
+    expect(response.status).toBe(200);
+  });
   it("reacts to no session cookie", async () => {
     //@ts-expect-error - as above
     global.session = "";
