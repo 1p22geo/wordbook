@@ -1,9 +1,8 @@
 module.exports = {
-    statSync: jest.fn((file)=>{
-        return {
-            size: 12
-        }
-    }),
-    readFileSync: jest.fn((file)=>{
-    })
-}
+  statSync: jest.fn((file) => {
+    return {
+      size: 12,
+    };
+  }),
+  readFileSync: jest.fn((file) => {}),
+};
