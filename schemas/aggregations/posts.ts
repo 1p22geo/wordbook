@@ -14,6 +14,7 @@ export const PostsAggregation = [
       },
       posted: 1,
       content: 1,
+      comments: 1
     },
   },
   {

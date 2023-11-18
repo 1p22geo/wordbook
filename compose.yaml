@@ -56,16 +56,6 @@ services:
       main:
         ipv4_address: 10.5.0.5
 
-  prometheus:
-    container_name: prometheus
-    image: 1p22geo/wordbook-prometheus
-    restart: always
-    ports:
-      - "9090:9090"
-    networks:
-      main:
-        ipv4_address: 10.5.0.13
-
 networks:
   main:
     driver: bridge

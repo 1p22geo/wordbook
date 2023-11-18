@@ -6,7 +6,7 @@ import { Editor } from "components/Editor";
 import FileUploader from "components/FileUpload";
 import { submit } from "./submit";
 
-export const PostEditor = () => {
+export const PostEditor = (props?:{submit:typeof submit}) => {
   const [value, setvalue] = useState("");
   const [alert, setalert] = useState<alertMessage>({ type: null, message: "" });
   return (
@@ -35,7 +35,12 @@ export const PostEditor = () => {
           onClick={async () => {
             if (!value) return;
             setalert({ type: "loading", message: "Please wait..." });
-            await submit(value, setalert);
+            if(props?.submit){
+              await props.submit(value, setalert)
+            }
+            else{
+              await submit(value, setalert);
+            }
           }}
         >
           Submit
