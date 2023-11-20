@@ -7,7 +7,6 @@ name: Docker
 
 on:
   workflow_dispatch:
-  push:
 
 env:
   # Use docker.io for Docker Hub if empty
