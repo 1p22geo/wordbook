@@ -1,19 +1,18 @@
 import opentelemetry from "@opentelemetry/api";
 import { MongoClient, ObjectId } from "mongodb";
 import { cookies } from "next/headers";
+import { Comment } from "schemas/post";
 import { Session } from "schemas/session";
 import { UserID } from "schemas/user";
 export const dynamic = "force-dynamic";
 export interface requestJSON {
+  post: ObjectId;
   content: string;
-}
-export interface responseJSON {
-  insertedId?: ObjectId;
 }
 
 export async function POST(request: Request) {
   const tracer = opentelemetry.trace.getTracer("next-app");
-  return await tracer.startActiveSpan("insert post", async (span) => {
+  return await tracer.startActiveSpan("insert comment", async (span) => {
     const time = Date.now();
     const client = new MongoClient(process.env.MONGO_URI ? process.env.MONGO_URI : "");
 
@@ -61,20 +60,37 @@ export async function POST(request: Request) {
       span.addEvent("user found");
       span.setAttribute("user", JSON.stringify(user));
       const coll_posts = db.collection("posts");
+      const comment: Comment = {
+        author: user,
+        content: json.content,
+        posted: time,
+      };
 
+      await coll_posts.updateOne(
+        {
+          _id: new ObjectId(json.post),
+        },
+        {
+          $push: {
+            comments: comment,
+          },
+        }
+      );
+
+      /*
       const res = await coll_posts.insertOne({
         content: json.content,
         posted: time,
         author: user._id,
-        comments: [],
+        comments: []
       });
+      */
 
-      span.addEvent("post inserted");
-      span.setAttribute("id", res.insertedId.toHexString());
+      span.addEvent("comment inserted");
       await client.close();
       span.addEvent("client closed");
 
-      return Response.json({ insertedId: res.insertedId } as responseJSON, { status: 201 });
+      return Response.json({}, { status: 201 });
     } catch (e) {
       console.error(e);
       await client.close();
