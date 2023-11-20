@@ -9,8 +9,6 @@ export interface requestJSON {
   post: ObjectId;
   content: string;
 }
-export interface responseJSON {
-}
 
 export async function POST(request: Request) {
   const tracer = opentelemetry.trace.getTracer("next-app");
@@ -62,19 +60,22 @@ export async function POST(request: Request) {
       span.addEvent("user found");
       span.setAttribute("user", JSON.stringify(user));
       const coll_posts = db.collection("posts");
-      const comment:Comment = {
+      const comment: Comment = {
         author: user,
         content: json.content,
-        posted: time
-      }
+        posted: time,
+      };
 
-      await coll_posts.updateOne({
-        _id: new ObjectId(json.post)
-      }, {
+      await coll_posts.updateOne(
+        {
+          _id: new ObjectId(json.post),
+        },
+        {
           $push: {
-            comments: comment 
-          }
-      })
+            comments: comment,
+          },
+        }
+      );
 
       /*
       const res = await coll_posts.insertOne({
@@ -89,7 +90,7 @@ export async function POST(request: Request) {
       await client.close();
       span.addEvent("client closed");
 
-      return Response.json({} as responseJSON, { status: 201 });
+      return Response.json({}, { status: 201 });
     } catch (e) {
       console.error(e);
       await client.close();

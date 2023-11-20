@@ -66,9 +66,8 @@ export async function POST(request: Request) {
         content: json.content,
         posted: time,
         author: user._id,
-        comments: []
+        comments: [],
       });
-      console.log("inserted post")
 
       span.addEvent("post inserted");
       span.setAttribute("id", res.insertedId.toHexString());
