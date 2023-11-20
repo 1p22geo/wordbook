@@ -44,7 +44,7 @@ jobs:
       uses: microsoft/security-devops-action@v1.6.0
       id: msdo
       with:
-        tools: container-mapping, antimalware, terrascan, trivy
+        tools: antimalware, terrascan, trivy, template-analyzer
     - name: Upload results to Security tab
       uses: github/codeql-action/upload-sarif@v2
       with:
