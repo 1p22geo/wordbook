@@ -9,6 +9,7 @@ import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { PostEditor } from "components/PostEditor";
+import { katexRegex } from "lib/katexRegex";
 import { PostAuthorID } from "schemas/post";
 
 export const Post = ({ post }: { post: PostAuthorID }) => {
@@ -127,7 +128,7 @@ export const Post = ({ post }: { post: PostAuthorID }) => {
                   method: "POST",
                   body: JSON.stringify({
                     post: post._id,
-                    content: content,
+                    content: katexRegex(content),
                   }),
                 });
                 if (!res.ok) {
