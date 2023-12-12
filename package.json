@@ -80,7 +80,7 @@
     "remark-math": "^6.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.0.0",
-    "tailwind-merge": "^2.0.0",
+    "tailwind-merge": "^2.1.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
