@@ -88,7 +88,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
                       rehypeStringify as never,
                     ]}
                   >
-                    {user.data.desc.replace(/```KaTeX((.|\n|\r)*?)```/gs, "$$$ $1 $$$")}
+                    {user.data.desc.replace(/```KaTeX(([^\n\r]|\n|\r)*?)```/gs, "$$$ $1 $$$")}
                   </Markdown>
                 </div>
                 {posts ? (

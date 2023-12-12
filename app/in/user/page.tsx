@@ -64,7 +64,7 @@ const Page = async () => {
             <Markdown
               remarkPlugins={[remarkParse as never, remarkMath, remarkRehype, rehypeKatex, rehypeStringify as never]}
             >
-              {user.data.desc.replace(/```KaTeX((.|\n|\r)*?)```/gs, "$$$ $1 $$$")}
+              {user.data.desc.replace(/```KaTeX(([^\n\r]|\n|\r)*?)```/gs, "$$$ $1 $$$")}
             </Markdown>
           </div>
         </div>
