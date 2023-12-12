@@ -11,6 +11,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { responseJSON } from "app/api/post/route.get";
 import { PostView } from "app/in/PostView";
+import { katexRegex } from "lib/katexRegex";
 import { checkSession } from "util/checkSession";
 import { checkUser } from "util/checkUser";
 
@@ -88,7 +89,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
                       rehypeStringify as never,
                     ]}
                   >
-                    {user.data.desc.replace(/```KaTeX(([^\n\r]|\n|\r)*?)```/gs, "$$$ $1 $$$")}
+                    {katexRegex(user.data.desc)}
                   </Markdown>
                 </div>
                 {posts ? (

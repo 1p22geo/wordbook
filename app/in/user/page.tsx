@@ -10,6 +10,7 @@ import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import FileUploader from "components/FileUpload";
+import { katexRegex } from "lib/katexRegex";
 import { checkSession } from "util/checkSession";
 import { checkUser } from "util/checkUser";
 import { submitAddImage, submitDescriptionChange } from "./action";
@@ -64,7 +65,7 @@ const Page = async () => {
             <Markdown
               remarkPlugins={[remarkParse as never, remarkMath, remarkRehype, rehypeKatex, rehypeStringify as never]}
             >
-              {user.data.desc.replace(/```KaTeX(([^\n\r]|\n|\r)*?)```/gs, "$$$ $1 $$$")}
+              {katexRegex(user.data.desc)}
             </Markdown>
           </div>
         </div>
