@@ -2386,29 +2386,29 @@
     "@opentelemetry/semantic-conventions" "1.12.0"
     jaeger-client "^3.15.0"
 
-"@opentelemetry/exporter-metrics-otlp-http@0.45.1":
-  version "0.45.1"
-  resolved "https://registry.yarnpkg.com/@opentelemetry/exporter-metrics-otlp-http/-/exporter-metrics-otlp-http-0.45.1.tgz#322b66a7c17657e1d2c69b42535063bfcc2d992d"
-  integrity sha512-DvyXkjHIrnQ9ESj8tDrGFzRtVIGOzZpmi80YZdTlwr6TMQzvg4UgHQcGo6wj7ZGzdwAJ7057OgAcDUd+/O/Erg==
+"@opentelemetry/exporter-metrics-otlp-http@0.46.0":
+  version "0.46.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/exporter-metrics-otlp-http/-/exporter-metrics-otlp-http-0.46.0.tgz#d565cb050414ac65e16e2848d7e1fbddc1c39f4c"
+  integrity sha512-7dyNATgM1LCKv4RGf3zsbHZMQNILQ6bxZ5/a56ptGDgg6Bz8Iz8jghonBx/K++A4QNMnu7Ppamm5qL2xlWEYjg==
   dependencies:
-    "@opentelemetry/core" "1.18.1"
-    "@opentelemetry/otlp-exporter-base" "0.45.1"
-    "@opentelemetry/otlp-transformer" "0.45.1"
-    "@opentelemetry/resources" "1.18.1"
-    "@opentelemetry/sdk-metrics" "1.18.1"
+    "@opentelemetry/core" "1.19.0"
+    "@opentelemetry/otlp-exporter-base" "0.46.0"
+    "@opentelemetry/otlp-transformer" "0.46.0"
+    "@opentelemetry/resources" "1.19.0"
+    "@opentelemetry/sdk-metrics" "1.19.0"
 
-"@opentelemetry/exporter-metrics-otlp-proto@^0.45.1":
-  version "0.45.1"
-  resolved "https://registry.yarnpkg.com/@opentelemetry/exporter-metrics-otlp-proto/-/exporter-metrics-otlp-proto-0.45.1.tgz#7093926ba8ee41f8d9ed1debf55f12dd1ff05ee8"
-  integrity sha512-JLB8hwzc1dK/NpvyivgCAK0CKq1Q+71RmMCGWxa09zekateM1wCulf1jnXwSmdB6hrh4E9foRLOWrcjtFH7B8w==
+"@opentelemetry/exporter-metrics-otlp-proto@^0.46.0":
+  version "0.46.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/exporter-metrics-otlp-proto/-/exporter-metrics-otlp-proto-0.46.0.tgz#78cf417c627454cebfa2131313fc8ca01f24e57d"
+  integrity sha512-2nj4YoTMcx/PixfTp+Zj7G7uJm9twzlq50TVy9rCRLRC30qSuvNYcEXymNYI1GtOZmQT6FQB1AHE9+JZNetVNg==
   dependencies:
-    "@opentelemetry/core" "1.18.1"
-    "@opentelemetry/exporter-metrics-otlp-http" "0.45.1"
-    "@opentelemetry/otlp-exporter-base" "0.45.1"
-    "@opentelemetry/otlp-proto-exporter-base" "0.45.1"
-    "@opentelemetry/otlp-transformer" "0.45.1"
-    "@opentelemetry/resources" "1.18.1"
-    "@opentelemetry/sdk-metrics" "1.18.1"
+    "@opentelemetry/core" "1.19.0"
+    "@opentelemetry/exporter-metrics-otlp-http" "0.46.0"
+    "@opentelemetry/otlp-exporter-base" "0.46.0"
+    "@opentelemetry/otlp-proto-exporter-base" "0.46.0"
+    "@opentelemetry/otlp-transformer" "0.46.0"
+    "@opentelemetry/resources" "1.19.0"
+    "@opentelemetry/sdk-metrics" "1.19.0"
 
 "@opentelemetry/exporter-trace-otlp-grpc@0.38.0", "@opentelemetry/exporter-trace-otlp-grpc@^0.38.0":
   version "0.38.0"
