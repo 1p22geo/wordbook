@@ -19,37 +19,6 @@ export const Editor = ({ value, setValue }: { value: string; setValue: Dispatch<
           if (val) setValue(val);
           else setValue("");
         }}
-        previewOptions={{
-          components: {
-            code: ({ children, className, ...props }) => {
-              if (!children) return;
-              const txt = children[0] || "";
-                if (typeof txt === "string" && /^\$\$(.*)\$\$/.test(txt)) {
-                  const html = katex.renderToString(txt.replace(/^\$\$(.*)\$\$/, "$1"), {
-                    throwOnError: false,
-                  });
-                  return <code dangerouslySetInnerHTML={{ __html: html }} />;
-                }
-                return <code>{txt}</code>;
-              const code =
-                props.node && props.node.children
-                  ? getCodeString(props.node.children as unknown as ElementContent[])
-                  : txt;
-              if (
-                typeof code === "string" &&
-                typeof className === "string" &&
-                /^language-katex/.test(className.toLocaleLowerCase())
-              ) {
-                const html = katex.renderToString(code, {
-                  throwOnError: false,
-                });
-                console.log("props", code, txt, className, props);
-                return <code dangerouslySetInnerHTML={{ __html: html }} />;
-              }
-              return <code className={String(className)}>{children}</code>;
-            },
-          },
-        }}
       />
     </div>
   );
