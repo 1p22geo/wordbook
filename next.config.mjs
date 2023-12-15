@@ -7,7 +7,9 @@ import { env } from "./env.mjs";
  */
 const config = withPlugins([[withBundleAnalyzer({ enabled: env.ANALYZE })]], {
   reactStrictMode: true,
-  experimental: { instrumentationHook: true,serverActions:true },
+  experimental: { instrumentationHook: true,serverActions:{
+    allowedOrigins:["legendary-space-guacamole-x7q6qr674463v66w-3000.app.github.dev"]
+  } },
   rewrites() {
     return [
       { source: "/healthz", destination: "/api/health" },
