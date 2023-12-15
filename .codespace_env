@@ -1,0 +1,3 @@
+# rename this file to .env.local when running in github codespace
+MONGO_URI=mongodb://127.0.0.1:27017
+OTEL_URI=http://localhost:4317
