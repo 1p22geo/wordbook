@@ -1,16 +1,29 @@
 "use client";
 
+import { ObjectId } from "mongodb";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { responseJSON } from "app/api/post/route.get";
 import { Post } from "components/Post";
+import { createVotePost } from "lib/votePost";
 import { PostAuthorID } from "schemas/post";
 import { isInViewport } from "util/inViewport";
 
-export const PostView = ({ initPosts, url = "/api/post?" }: { initPosts: PostAuthorID[]; url?: string }) => {
+export const PostView = ({
+  initPosts,
+  url = "/api/post?",
+  voted: initVoted = [],
+  session,
+}: {
+  initPosts: PostAuthorID[];
+  url?: string;
+  voted?: ObjectId[];
+  session: ObjectId;
+}) => {
   const [posts, setposts] = useState(initPosts);
   const [page, setpage] = useState(0);
   const [pages, setpages] = useState(0);
   const [end, setend] = useState(false);
+  const [voted, setvoted] = useState<ObjectId[]>(initVoted);
   const spinnerRef = useRef() as RefObject<HTMLDivElement>;
   useEffect(() => {
     const el = () => {
@@ -43,7 +56,7 @@ export const PostView = ({ initPosts, url = "/api/post?" }: { initPosts: PostAut
   return (
     <>
       {posts.map((post) => (
-        <Post key={post._id.toString()} post={post} />
+        <Post key={post._id.toString()} post={post} votePost={createVotePost(setposts, voted, setvoted, session)} />
       ))}
       {end ? (
         <div className="flex w-fit flex-col items-stretch bg-secondary-100 p-4 text-secondary-400 shadow-2xl">

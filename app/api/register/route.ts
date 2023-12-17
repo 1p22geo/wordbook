@@ -35,6 +35,7 @@ export async function POST(request: Request) {
       const res2 = await db.collection("userdata").insertOne({
         user: res.insertedId,
         desc: "No description yet.",
+        voted: [],
         gallery: [],
       });
       span.addEvent("user inserted");

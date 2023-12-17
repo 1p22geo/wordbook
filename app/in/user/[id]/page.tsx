@@ -1,4 +1,5 @@
 import opentelemetry from "@opentelemetry/api";
+import { ObjectId } from "mongodb";
 import { cookies, headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,6 +24,8 @@ const Page = async ({ params }: { params: { id: string } }) => {
   if (!sessionID) redirect("/");
 
   await checkSession(sessionID);
+
+  const me = await checkUser(sessionID);
   let user;
   let posts;
   try {
@@ -95,7 +98,12 @@ const Page = async ({ params }: { params: { id: string } }) => {
                 {posts ? (
                   <div className="flex max-w-[100vw] flex-col items-center gap-8 self-center p-24">
                     <h2 className="text-xl font-bold">User&apos;s posts</h2>
-                    <PostView initPosts={posts.posts} url={`/api/post?user=${user.user._id}&`} />
+                    <PostView
+                      voted={me.data.voted}
+                      session={sessionID as unknown as ObjectId}
+                      initPosts={posts.posts}
+                      url={`/api/post?user=${user.user._id}&`}
+                    />
                   </div>
                 ) : (
                   <></>

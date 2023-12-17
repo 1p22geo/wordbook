@@ -11,6 +11,8 @@ export interface Post {
   author: ObjectId;
   posted: number;
   content: string;
+  up: number;
+  down: number;
   comments: Comment[];
 }
 
@@ -18,6 +20,8 @@ export interface PostAuthor {
   author: UserID;
   posted: number;
   content: string;
+  up: number;
+  down: number;
   comments: Comment[];
 }
 

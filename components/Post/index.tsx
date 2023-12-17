@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -10,11 +9,18 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { PostEditor } from "components/PostEditor";
 import { katexRegex } from "lib/katexRegex";
+import { votePostCallback } from "lib/votePost";
 import { PostAuthorID } from "schemas/post";
 
-export const Post = ({ post }: { post: PostAuthorID }) => {
+export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePost: votePostCallback | undefined }) => {
   const [showThread, setShowThread] = useState(false);
   const router = useRouter();
+  let votePost: votePostCallback;
+  if (!_votePost)
+    votePost = () => {
+      return;
+    };
+  else votePost = _votePost;
   return (
     <>
       <div className="flex w-fit flex-col items-stretch bg-secondary-100 shadow-2xl">
@@ -47,6 +53,22 @@ export const Post = ({ post }: { post: PostAuthorID }) => {
           </Markdown>
         </div>
         <div className="flex flex-row flex-nowrap gap-4 p-4">
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              votePost(post._id, true);
+            }}
+          >
+            + {post.up}
+          </div>
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              votePost(post._id, false);
+            }}
+          >
+            - {post.down}
+          </div>
           <svg
             onClick={() => {
               setShowThread((q) => !q);
