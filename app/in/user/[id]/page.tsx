@@ -23,9 +23,10 @@ const Page = async ({ params }: { params: { id: string } }) => {
   span.setAttribute("sessionID", sessionID as string);
   if (!sessionID) redirect("/");
 
-  await checkSession(sessionID);
+  const session = await checkSession(sessionID);
+  if (!session) redirect("/");
 
-  const me = await checkUser(sessionID);
+  const me = await checkUser(session.user._id.toString());
   let user;
   let posts;
   try {
