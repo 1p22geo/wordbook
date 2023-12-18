@@ -54,7 +54,7 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
         </div>
         <div className="flex flex-row flex-nowrap gap-4 p-4">
           <div
-            className="cursor-pointer"
+            className="cursor-pointer font-semibold text-green-300 hover:font-bold hover:text-green-500"
             onClick={() => {
               votePost(post._id, true);
             }}
@@ -62,13 +62,15 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
             + {post.up}
           </div>
           <div
-            className="cursor-pointer"
+            className="cursor-pointer font-semibold text-red-300 hover:font-bold hover:text-red-500"
             onClick={() => {
               votePost(post._id, false);
             }}
           >
             - {post.down}
           </div>
+          <div className="font-semibold text-primary-300 hover:font-bold hover:text-primary-600">
+
           <svg
             onClick={() => {
               setShowThread((q) => !q);
@@ -79,7 +81,7 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
             className="h-8 w-8 cursor-pointer"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 29.338 29.338"
-          >
+            >
             <g>
               <path
                 className="fill-primary-600"
@@ -89,10 +91,11 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
 		c-0.086,0-0.154-0.07-0.154-0.155V3.759c0-0.085,0.068-0.155,0.154-0.155v0.001h25.029c0.086,0,0.154,0.07,0.154,0.155
 		L27.34,21.332L27.34,21.332z M5.505,10.792h4.334v4.333H5.505C5.505,15.125,5.505,10.792,5.505,10.792z M12.505,10.792h4.334v4.333
 		h-4.334V10.792z M19.505,10.792h4.334v4.333h-4.334V10.792z"
-              />
+    />
             </g>
           </svg>
           {post.comments.length}
+    </div>
         </div>
       </div>
       {showThread ? (
