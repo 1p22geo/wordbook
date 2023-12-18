@@ -20,6 +20,8 @@ export const UserPostsAggregation = (user: ObjectId) => [
         $arrayElemAt: ["$user", 0],
       },
       posted: 1,
+      up: 1,
+      down: 1,
       content: 1,
       comments: 1,
     },

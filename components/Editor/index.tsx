@@ -1,10 +1,5 @@
-"use client";
-
 import MDEditor from "@uiw/react-md-editor";
-import katex from "katex";
 import React, { Dispatch, SetStateAction } from "react";
-import { ElementContent } from "react-markdown/lib";
-import { getCodeString } from "rehype-rewrite";
 import "katex/dist/katex.css";
 
 export const Editor = ({ value, setValue }: { value: string; setValue: Dispatch<SetStateAction<string>> }) => {

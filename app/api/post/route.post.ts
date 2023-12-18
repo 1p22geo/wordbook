@@ -67,6 +67,8 @@ export async function POST(request: Request) {
         posted: time,
         author: user._id,
         comments: [],
+        up: 0,
+        down: 0,
       });
 
       span.addEvent("post inserted");
