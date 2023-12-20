@@ -24,6 +24,12 @@ jobs:
           npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
             "npx http-server storybook-static --port 6006 --silent" \
             "npx wait-on tcp:127.0.0.1:6006 && yarn test-storybook"
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: storybook-static
+          path: storybook-static/
+          retention-days: 90
       - name: Run Playwright tests
         run: yarn playwright test
       - uses: actions/upload-artifact@v3
@@ -31,4 +37,5 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
-          retention-days: 30
+          retention-days: 90
+      
