@@ -14,7 +14,6 @@ import { PostAuthorID } from "schemas/post";
 
 export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePost: votePostCallback | undefined }) => {
   const [showThread, setShowThread] = useState(false);
-  const router = useRouter();
   let votePost: votePostCallback;
   if (!_votePost)
     votePost = () => {
@@ -69,7 +68,7 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
           >
             - {post.down}
           </div>
-          <div className="font-semibold text-primary-300 hover:font-bold hover:text-primary-600">
+          <div className="font-semibold text-primary-300 hover:font-bold hover:text-primary-600 flex flex-row flex-nowrap gap-2">
             <svg
               onClick={() => {
                 setShowThread((q) => !q);
@@ -158,7 +157,6 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
                 if (!res.ok) {
                   setalert({ message: "Something went wrong", type: "error" });
                 } else {
-                  router.refresh();
                   window.location.reload();
                 }
               }}
