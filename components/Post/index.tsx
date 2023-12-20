@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Markdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
@@ -14,7 +13,6 @@ import { PostAuthorID } from "schemas/post";
 
 export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePost: votePostCallback | undefined }) => {
   const [showThread, setShowThread] = useState(false);
-  const router = useRouter();
   let votePost: votePostCallback;
   if (!_votePost)
     votePost = () => {
@@ -54,7 +52,7 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
         </div>
         <div className="flex flex-row flex-nowrap gap-4 p-4">
           <div
-            className="cursor-pointer"
+            className="cursor-pointer font-semibold text-green-300 hover:font-bold hover:text-green-500"
             onClick={() => {
               votePost(post._id, true);
             }}
@@ -62,37 +60,39 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
             + {post.up}
           </div>
           <div
-            className="cursor-pointer"
+            className="cursor-pointer font-semibold text-red-300 hover:font-bold hover:text-red-500"
             onClick={() => {
               votePost(post._id, false);
             }}
           >
             - {post.down}
           </div>
-          <svg
-            onClick={() => {
-              setShowThread((q) => !q);
-            }}
-            height="800px"
-            width="800px"
-            version="1.1"
-            className="h-8 w-8 cursor-pointer"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 29.338 29.338"
-          >
-            <g>
-              <path
-                className="fill-primary-600"
-                d="M27.184,1.605H2.156C0.967,1.605,0,2.572,0,3.76v17.572c0,1.188,0.967,2.155,2.156,2.155h13.543
+          <div className="flex flex-row flex-nowrap gap-2 font-semibold text-primary-300 hover:font-bold hover:text-primary-600">
+            <svg
+              onClick={() => {
+                setShowThread((q) => !q);
+              }}
+              height="800px"
+              width="800px"
+              version="1.1"
+              className="h-8 w-8 cursor-pointer"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 29.338 29.338"
+            >
+              <g>
+                <path
+                  className="fill-primary-600"
+                  d="M27.184,1.605H2.156C0.967,1.605,0,2.572,0,3.76v17.572c0,1.188,0.967,2.155,2.156,2.155h13.543
 		l5.057,3.777c0.414,0.31,0.842,0.468,1.268,0.468c0.789,0,1.639-0.602,1.637-1.923v-2.322h3.523c1.188,0,2.154-0.967,2.154-2.155
 		V3.76C29.338,2.572,28.371,1.605,27.184,1.605z M27.34,21.332c0,0.085-0.068,0.155-0.154,0.155h-5.523v3.955l-5.297-3.956H2.156
 		c-0.086,0-0.154-0.07-0.154-0.155V3.759c0-0.085,0.068-0.155,0.154-0.155v0.001h25.029c0.086,0,0.154,0.07,0.154,0.155
 		L27.34,21.332L27.34,21.332z M5.505,10.792h4.334v4.333H5.505C5.505,15.125,5.505,10.792,5.505,10.792z M12.505,10.792h4.334v4.333
 		h-4.334V10.792z M19.505,10.792h4.334v4.333h-4.334V10.792z"
-              />
-            </g>
-          </svg>
-          {post.comments.length}
+                />
+              </g>
+            </svg>
+            {post.comments.length}
+          </div>
         </div>
       </div>
       {showThread ? (
@@ -156,7 +156,6 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
                 if (!res.ok) {
                   setalert({ message: "Something went wrong", type: "error" });
                 } else {
-                  router.refresh();
                   window.location.reload();
                 }
               }}
