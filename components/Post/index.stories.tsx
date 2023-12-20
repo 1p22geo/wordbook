@@ -6,14 +6,14 @@ const meta: Meta<typeof Post> = {
   component: Post,
   args: {
     post: {
-      _id: "876587658765876587658765" as any,
+      _id: "876587658765876587658765" as never,
       author: {
         email: "user@email.com",
         name: "Random user",
         hash: "x",
         added: 0,
         type: "user",
-        _id: "876587658765876587658765" as any,
+        _id: "876587658765876587658765" as never,
       },
       posted: Date.now() - 3600,
       content: "Good morning everyone",

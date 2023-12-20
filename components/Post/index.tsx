@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Markdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
@@ -68,7 +67,7 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
           >
             - {post.down}
           </div>
-          <div className="font-semibold text-primary-300 hover:font-bold hover:text-primary-600 flex flex-row flex-nowrap gap-2">
+          <div className="flex flex-row flex-nowrap gap-2 font-semibold text-primary-300 hover:font-bold hover:text-primary-600">
             <svg
               onClick={() => {
                 setShowThread((q) => !q);
