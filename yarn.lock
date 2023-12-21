@@ -4704,6 +4704,14 @@
     "@storybook/client-logger" "7.6.4"
     "@storybook/preview-api" "7.6.4"
 
+"@storybook/core-client@7.6.6":
+  version "7.6.6"
+  resolved "https://registry.yarnpkg.com/@storybook/core-client/-/core-client-7.6.6.tgz#738173e13728020303530532789ff54102a3e294"
+  integrity sha512-P100aNf+WpvzlfULZp1NPd60/nxsppLmft2DdIyAx1j4QPMZvUJyJB+hdBMzTFiPEhIUncIMoIVf2R3UXC5DfA==
+  dependencies:
+    "@storybook/client-logger" "7.6.6"
+    "@storybook/preview-api" "7.6.6"
+
 "@storybook/core-common@7.6.4", "@storybook/core-common@^7.0.0-beta.0 || ^7.0.0-rc.0 || ^7.0.0":
   version "7.6.4"
   resolved "https://registry.yarnpkg.com/@storybook/core-common/-/core-common-7.6.4.tgz#8ee282058ea4dd8fc0a053c30759f4bf65dab86b"
@@ -5128,7 +5136,12 @@
   resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-7.6.4.tgz#d1f5440c8f1ccd95abcc01117872ce46d0ab9dc3"
   integrity sha512-wGJfomlDEBnowNmhmumWDu/AcUInxSoPqUUJPgk2f5oL0EW17fR9fDP/juG3XOEdieMDM0jDX48GML7lyvL2fg==
 
-"@storybook/react@7.6.4", "@storybook/react@^7.6.4":
+"@storybook/react-dom-shim@7.6.6":
+  version "7.6.6"
+  resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-7.6.6.tgz#77dffcfa5b969a401b6ad9fecd6ce0c0275ceb44"
+  integrity sha512-WWNlXtCVoBWXX/kLNulUeMgzmlAEHi2aBrdIv2jz0DScPf0YxeWAkWmgK7F0zMot9mdwYncr+pk1AILbTBJSyg==
+
+"@storybook/react@7.6.4":
   version "7.6.4"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-7.6.4.tgz#b17c451eb1240399d75c45ccb90a145ab1de44ac"
   integrity sha512-XYRP+eylH3JqkCuziwtQGY5vOCeDreOibRYJmj5na6k4QbURjGVB44WCIW04gWVlmBXM9SqLAmserUi3HP890Q==
@@ -5140,6 +5153,33 @@
     "@storybook/preview-api" "7.6.4"
     "@storybook/react-dom-shim" "7.6.4"
     "@storybook/types" "7.6.4"
+    "@types/escodegen" "^0.0.6"
+    "@types/estree" "^0.0.51"
+    "@types/node" "^18.0.0"
+    acorn "^7.4.1"
+    acorn-jsx "^5.3.1"
+    acorn-walk "^7.2.0"
+    escodegen "^2.1.0"
+    html-tags "^3.1.0"
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+    react-element-to-jsx-string "^15.0.0"
+    ts-dedent "^2.0.0"
+    type-fest "~2.19"
+    util-deprecate "^1.0.2"
+
+"@storybook/react@^7.6.6":
+  version "7.6.6"
+  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-7.6.6.tgz#6eaaebb788d8b8d7a38513c40b2ebd6452ed25cc"
+  integrity sha512-pE6GJ4hPGJIsX6AREjW6HibshwZE6rFhWRtjeX5MV0eKMmQgoRWRgiRfg9/YB6Z0tRtuptI83Uaszimmif1BKg==
+  dependencies:
+    "@storybook/client-logger" "7.6.6"
+    "@storybook/core-client" "7.6.6"
+    "@storybook/docs-tools" "7.6.6"
+    "@storybook/global" "^5.0.0"
+    "@storybook/preview-api" "7.6.6"
+    "@storybook/react-dom-shim" "7.6.6"
+    "@storybook/types" "7.6.6"
     "@types/escodegen" "^0.0.6"
     "@types/estree" "^0.0.51"
     "@types/node" "^18.0.0"
