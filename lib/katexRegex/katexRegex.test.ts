@@ -2,69 +2,72 @@
  * @jest-environment node
  */
 
-import { katexRegex } from "."
-
+import { katexRegex } from ".";
 
 describe("/lib/katexRegex", () => {
-    it("replaces a string correctly", () => {
-        expect(katexRegex(`
+  it("replaces a string correctly", () => {
+    expect(
+      katexRegex(`
         Good morning
         \`\`\`KaTeX
         f(x) = ax^2 + bx + c
         \`\`\`
         this is a great world to live in
-        `)).toBe(
-            `
+        `)
+    ).toBe(
+      `
         Good morning
         $$ 
         f(x) = ax^2 + bx + c
         $$
         this is a great world to live in
         `
-        )
-    })
-    it("returns a string with no math", () => {
-        expect(katexRegex(`
+    );
+  });
+  it("returns a string with no math", () => {
+    expect(
+      katexRegex(`
         la de da de day oh  
         when did all the good times go
         la de da de day oh
         where did all the bad times rolll
-        `)).toBe(`
+        `)
+    ).toBe(`
         la de da de day oh  
         when did all the good times go
         la de da de day oh
         where did all the bad times rolll
-        `
-        )
-    })
-    it("respects KaTeX math symbols", () => {
-        expect(katexRegex(`
+        `);
+  });
+  it("respects KaTeX math symbols", () => {
+    expect(
+      katexRegex(`
         la de da de day oh  
         when did all the good times go
         $$
         f(x) = ax^2 + bx + c 
         $$
-        la de da de day $\alpha$ oh
+        la de da de day $\\alpha$ oh
         where did all the bad times rolll
-        `)).toBe(`
+        `)
+    ).toBe(`
         la de da de day oh  
         when did all the good times go
         $$
         f(x) = ax^2 + bx + c 
         $$
-        la de da de day $\alpha$ oh
+        la de da de day $\\alpha$ oh
         where did all the bad times rolll
-        `
-        )
-    })
-    it("doesn't change the string", () => {
-        const str = `
+        `);
+  });
+  it("doesn't change the string", () => {
+    const str = `
         la de da de day oh  
         when did all the good times go
         la de da de day oh
         where did all the bad times rolll
         `;
 
-        expect(katexRegex(str)).toBe(str)
-    })
-})
+    expect(katexRegex(str)).toBe(str);
+  });
+});
