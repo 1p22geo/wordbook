@@ -3,8 +3,8 @@ import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { responseJSON } from "app/api/post/route.get";
 import { PostEditor } from "components/PostEditor";
-import { checkSession } from "util/checkSession";
-import { checkUser } from "util/checkUser";
+import { checkSession } from "lib/checkSession";
+import { checkUser } from "lib/checkUser";
 import { PostView } from "./PostView";
 
 const Page = async () => {

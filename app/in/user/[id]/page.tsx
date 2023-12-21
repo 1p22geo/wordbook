@@ -12,9 +12,9 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { responseJSON } from "app/api/post/route.get";
 import { PostView } from "app/in/PostView";
+import { checkSession } from "lib/checkSession";
+import { checkUser } from "lib/checkUser";
 import { katexRegex } from "lib/katexRegex";
-import { checkSession } from "util/checkSession";
-import { checkUser } from "util/checkUser";
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const tracer = opentelemetry.trace.getTracer("next-app");

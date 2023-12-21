@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { sha256 } from "js-sha256";
-import { isInViewport } from "util/inViewport";
+import { isInViewport } from "lib/inViewport";
 
 test("signs up", async ({ page, userAgent }) => {
   const id = sha256(userAgent as string);
