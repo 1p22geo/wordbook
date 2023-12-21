@@ -4,9 +4,9 @@ import { ObjectId } from "mongodb";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { responseJSON } from "app/api/post/route.get";
 import { Post } from "components/Post";
+import { isInViewport } from "lib/inViewport";
 import { createVotePost } from "lib/votePost";
 import { PostAuthorID } from "schemas/post";
-import { isInViewport } from "util/inViewport";
 
 export const PostView = ({
   initPosts,

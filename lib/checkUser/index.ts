@@ -1,9 +1,9 @@
-import { responseJSON } from "app/api/user/route";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { responseJSON } from "app/api/user/route";
 
 export async function checkUser(user: string, noredirect?: boolean): Promise<responseJSON> {
-  let res = await fetch(`http://${headers().get("host")}/api/user`, {
+  const res = await fetch(`http://${headers().get("host")}/api/user`, {
     method: "POST",
     body: JSON.stringify({
       id: user,
@@ -13,9 +13,9 @@ export async function checkUser(user: string, noredirect?: boolean): Promise<res
     redirect("/");
   }
   if (!res.ok) {
-    throw "no user";
+    throw new Error("no user");
   }
-  let json = (await res.json()) as responseJSON;
+  const json = (await res.json()) as responseJSON;
 
   return json;
 }

@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 import { Header } from "components/Header";
-import { checkSession } from "util/checkSession";
+import { checkSession } from "lib/checkSession";
 
 const Layout = async ({ children }: { children: ReactNode }) => {
   const tracer = opentelemetry.trace.getTracer("next-app");

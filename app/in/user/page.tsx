@@ -10,9 +10,9 @@ import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import FileUploader from "components/FileUpload";
+import { checkSession } from "lib/checkSession";
+import { checkUser } from "lib/checkUser";
 import { katexRegex } from "lib/katexRegex";
-import { checkSession } from "util/checkSession";
-import { checkUser } from "util/checkUser";
 import { submitAddImage, submitDescriptionChange } from "./action";
 import { DescriptionEditor } from "./DescEdit";
 

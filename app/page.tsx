@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Header } from "components/Header";
-import { checkSession } from "util/checkSession";
+import { checkSession } from "lib/checkSession";
 import { successJSON } from "./api/check/route";
 
 const Page = async () => {
