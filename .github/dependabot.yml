@@ -10,11 +10,11 @@ updates:
     schedule:
       interval: "daily"
       time: "00:01"
-    open-pull-requests-limit: 50
+    open-pull-requests-limit: 5
     rebase-strategy: "auto"
     versioning-strategy: increase
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 50
+    open-pull-requests-limit: 5
