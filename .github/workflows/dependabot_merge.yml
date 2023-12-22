@@ -1,5 +1,7 @@
 name: Auto Merge Dependabot
 on: [pull_request]
+permissions: 
+  pull-requests: write
 jobs:
   merge:
     runs-on: ubuntu-latest
