@@ -1,8 +1,8 @@
-import { test, type Page, expect } from '@playwright/test';
-import { sha256 } from 'js-sha256';
+import { test, type Page, expect } from "@playwright/test";
+import { sha256 } from "js-sha256";
 
 // Annotate entire file as serial.
-test.describe.configure({ mode: 'serial' });
+test.describe.configure({ mode: "serial" });
 
 let page: Page;
 
@@ -14,9 +14,9 @@ test.afterAll(async () => {
   await page.close();
 });
 
-test('register and login', async ({userAgent}) => {
-    await page.goto("./");
-    const id = sha256(userAgent as string);
+test("register and login", async ({ userAgent }) => {
+  await page.goto("./");
+  const id = sha256(userAgent as string);
 
   // create an account, ik this is a redundancy
   await page.goto("./");
@@ -56,20 +56,20 @@ test('register and login', async ({userAgent}) => {
   await expect(await page.locator("#menu svg.w-full")).toBeVisible();
 });
 
-test('submit a post', async ({userAgent}) => {
-    const id = sha256(userAgent as string);
-    await expect(await page.locator("#menu svg.w-full")).toBeVisible();
-    await page.locator('textarea').fill('First post by '+"test3@email_" + id + ".com");
-    await page.getByText(/submit/i).click()
-    await expect(await page.getByRole('alert', { name: 'alert' })).not.toBeVisible()
+test("submit a post", async ({ userAgent }) => {
+  const id = sha256(userAgent as string);
+  await expect(await page.locator("#menu svg.w-full")).toBeVisible();
+  await page.locator("textarea").fill("First post by " + "test3@email_" + id + ".com");
+  await page.getByText(/submit/i).click();
+  await expect(await page.getByRole("alert", { name: "alert" })).not.toBeVisible();
 
-    await expect(page.locator(".w-md-editor")).toBeVisible();
-    if (await page.locator("#switch").isVisible()) {
-        await page.locator("#switch")?.click();
-    }
-    await expect(await page.locator("a").filter({ hasText: "WordBook" })).toBeVisible();
-    await expect(await page.locator("#menu svg.w-full")).toBeVisible();
-    while (!(await page.getByText('First post by '+"test3@email_" + id + ".com").isVisible())) {
-        await page.mouse.wheel(0, 10);
-    }
+  await expect(page.locator(".w-md-editor")).toBeVisible();
+  if (await page.locator("#switch").isVisible()) {
+    await page.locator("#switch")?.click();
+  }
+  await expect(await page.locator("a").filter({ hasText: "WordBook" })).toBeVisible();
+  await expect(await page.locator("#menu svg.w-full")).toBeVisible();
+  while (!(await page.getByText("First post by " + "test3@email_" + id + ".com").isVisible())) {
+    await page.mouse.wheel(0, 10);
+  }
 });
