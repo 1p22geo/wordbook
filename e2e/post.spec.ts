@@ -60,7 +60,7 @@ test("submit a post", async ({ userAgent }) => {
   const id = sha256(userAgent as string);
   const date = Date.now();
   await expect(await page.locator("#menu svg.w-full")).toBeVisible();
-  await page.locator("textarea").fill("First post by " + "test3@email_" + id + ".com in "+ date);
+  await page.locator("textarea").fill("First post by " + "test3@email_" + id + ".com in " + date);
   await page.getByText(/submit/i).click();
   await expect(await page.getByRole("alert", { name: "alert" })).not.toBeVisible();
 
@@ -70,13 +70,12 @@ test("submit a post", async ({ userAgent }) => {
   }
   await expect(await page.locator("a").filter({ hasText: "WordBook" })).toBeVisible();
   await expect(await page.locator("#menu svg.w-full")).toBeVisible();
-  while (!(await page.getByText("First post by " + "test3@email_" + id + ".com in "+ date).isVisible())) {
+  while (!(await page.getByText("First post by " + "test3@email_" + id + ".com in " + date).isVisible())) {
     await page.mouse.wheel(0, 10);
 
-    if(await page.getByText(/this is the end/i).isVisible() ){
-      await expect(await page.getByText("First post by " + "test3@email_" + id + ".com in "+ date)).toBeVisible()
+    if (await page.getByText(/this is the end/i).isVisible()) {
+      await expect(await page.getByText("First post by " + "test3@email_" + id + ".com in " + date)).toBeVisible();
     }
-
   }
-  await expect(await page.getByText("First post by " + "test3@email_" + id + ".com in "+ date)).toBeVisible()
+  await expect(await page.getByText("First post by " + "test3@email_" + id + ".com in " + date)).toBeVisible();
 });

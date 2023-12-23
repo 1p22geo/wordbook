@@ -40,7 +40,7 @@ jobs:
           path: storybook-static/
           retention-days: 90
       - name: Run Playwright tests
-        run: yarn playwright test
+        run: yarn e2e:headless
         env:
           MONGO_URI: mongodb://127.0.0.1:27017
       - uses: actions/upload-artifact@v4
