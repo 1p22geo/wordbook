@@ -1,7 +1,6 @@
 name: End-to-end tests and smoke tests
 on:
   push:
-  pull_request:
   workflow_dispatch:
 jobs:
   playwright:
