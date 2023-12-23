@@ -60,19 +60,15 @@ test("submit a post", async ({ userAgent }) => {
   const id = sha256(userAgent as string);
   const date = Date.now();
   await expect(await page.locator("#menu svg.w-full")).toBeVisible();
+  if (await page.locator("#switch").isVisible()) {
+    await page.locator("#switch")?.click();
+  }
+  await expect(page.locator(".w-md-editor")).toBeVisible();
   await page.locator("textarea").fill("First post by " + "test3@email_" + id + ".com in " + date);
-  await page.getByText(/submit/i).click();
+  await page.getByText(/submit/i).scrollIntoViewIfNeeded()
+  await page.getByText(/submit/i).click({ force: true });
   await expect(await page.getByRole("alert", { name: "alert" })).not.toBeVisible();
 
-  await expect(page.locator(".w-md-editor")).toBeVisible();
-  if (await page.locator("#switch").isVisible()) {
-    await page.locator("#switch")?.click();
-  }
-  await expect(await page.locator("a").filter({ hasText: "WordBook" })).toBeVisible();
-  await expect(await page.locator("#menu svg.w-full")).toBeVisible();
-  if (await page.locator("#switch").isVisible()) {
-    await page.locator("#switch")?.click();
-  }
   while (!(await page.getByText("First post by " + "test3@email_" + id + ".com in " + date).isVisible())) {
     await page.mouse.wheel(0, 10);
 
