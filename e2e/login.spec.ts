@@ -1,6 +1,10 @@
 import { expect, test } from "@playwright/test";
 import { sha256 } from "js-sha256";
-import { isInViewport } from "lib/inViewport";
+
+test.beforeEach(async ({ page }, testInfo) => {
+  console.log(`Running ${testInfo.title}`);
+  await page.goto("./");
+});
 
 test("signs up", async ({ page, userAgent }) => {
   const id = sha256(userAgent as string);
@@ -42,9 +46,7 @@ test("logs in", async ({ page, userAgent }) => {
   await page.goto("./");
   await expect(page).toHaveTitle(/WordBook - Internet redefined/);
   await expect(await page.getByText(/WordBook - the Internet redefined/i)).toBeVisible();
-  if (await page.locator("#switch").isVisible()) {
-    await (await page.$("#switch"))?.click();
-  }
+  await (await page.$("#switch"))?.click();
   const loc = page.getByText(/Log in/i).filter({ hasNotText: /account/ });
   await expect(loc).toBeVisible();
   await loc.click();
@@ -53,9 +55,7 @@ test("logs in", async ({ page, userAgent }) => {
   await (await page.$("#password"))?.fill("123");
   await (await page.getByText(/submit/i)).click();
   await expect(page.locator(".w-md-editor")).toBeVisible();
-  if (await page.locator("#switch").isVisible()) {
-    await page.locator("#switch")?.click();
-  }
-  await expect(await page.locator("a").filter({ hasText: "WordBook" })).toBeVisible();
-  await expect(await page.locator("#menu svg.w-full")).toBeVisible();
+  await page.locator("#switch")?.click();
+  await expect(page.locator("a").filter({ hasText: "WordBook" })).toBeVisible();
+  await expect(page.locator("#menu svg.w-full")).toBeVisible();
 });
