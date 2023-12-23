@@ -70,6 +70,9 @@ test("submit a post", async ({ userAgent }) => {
   }
   await expect(await page.locator("a").filter({ hasText: "WordBook" })).toBeVisible();
   await expect(await page.locator("#menu svg.w-full")).toBeVisible();
+  if (await page.locator("#switch").isVisible()) {
+    await page.locator("#switch")?.click();
+  }
   while (!(await page.getByText("First post by " + "test3@email_" + id + ".com in " + date).isVisible())) {
     await page.mouse.wheel(0, 10);
 
