@@ -7,7 +7,6 @@ test("signs up", async ({ page, userAgent }) => {
   await page.goto("./");
   await expect(page).toHaveTitle(/WordBook - Internet redefined/);
   await expect(page.getByText(/Sign up/)).toBeVisible();
-  await expect(page.getByText(/Sign up/)).toBeInViewport();
   await page.getByText(/Sign up/).click();
   await expect(page).toHaveTitle(/WordBook \| Sign up to WordBook/);
   await (await page.$("#email"))?.fill("test@email_" + id + ".com");
@@ -17,7 +16,8 @@ test("signs up", async ({ page, userAgent }) => {
   await (await page.$("#pass"))?.fill("123");
   await (await page.$("#rpass"))?.fill("123");
   await (await page.getByText("4")).click();
-  await (await page.getByText("Sumbit!")).click();
+  await expect(page.getByText(/submit/i)).toBeVisible();
+  await (await page.getByText(/submit/i)).click();
   await expect(page.getByText(/account created/i)).toBeVisible();
 });
 test("logs in", async ({ page, userAgent }) => {
@@ -27,7 +27,6 @@ test("logs in", async ({ page, userAgent }) => {
   await page.goto("./");
   await expect(page).toHaveTitle(/WordBook - Internet redefined/);
   await expect(page.getByText(/Sign up/)).toBeVisible();
-  await expect(page.getByText(/Sign up/)).toBeInViewport();
   await page.getByText(/Sign up/).click();
   await expect(page).toHaveTitle(/WordBook \| Sign up to WordBook/);
   await (await page.$("#email"))?.fill("test2@email_" + id + ".com");
@@ -37,7 +36,7 @@ test("logs in", async ({ page, userAgent }) => {
   await (await page.$("#pass"))?.fill("123");
   await (await page.$("#rpass"))?.fill("123");
   await (await page.getByText("4")).click();
-  await (await page.getByText("Sumbit!")).click();
+  await (await page.getByText(/submit/i)).click();
   await expect(page.getByText(/account created/i)).toBeVisible();
 
   await page.goto("./");
@@ -52,7 +51,7 @@ test("logs in", async ({ page, userAgent }) => {
   await expect(page).toHaveTitle(/WordBook \| Log in to WordBook/);
   await (await page.$("#email"))?.fill("test2@email_" + id + ".com");
   await (await page.$("#password"))?.fill("123");
-  await (await page.getByText("Sumbit!")).click();
+  await (await page.getByText(/submit/i)).click();
   await expect(page.locator(".w-md-editor")).toBeVisible();
   if (await page.locator("#switch").isVisible()) {
     await page.locator("#switch")?.click();

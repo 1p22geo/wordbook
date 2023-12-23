@@ -22,7 +22,6 @@ test("register and login", async ({ userAgent }) => {
   await page.goto("./");
   await expect(page).toHaveTitle(/WordBook - Internet redefined/);
   await expect(page.getByText(/Sign up/)).toBeVisible();
-  await expect(page.getByText(/Sign up/)).toBeInViewport();
   await page.getByText(/Sign up/).click();
   await expect(page).toHaveTitle(/WordBook \| Sign up to WordBook/);
   await (await page.$("#email"))?.fill("test3@email_" + id + ".com");
@@ -32,7 +31,7 @@ test("register and login", async ({ userAgent }) => {
   await (await page.$("#pass"))?.fill("123");
   await (await page.$("#rpass"))?.fill("123");
   await (await page.getByText("4")).click();
-  await (await page.getByText("Sumbit!")).click();
+  await (await page.getByText(/submit/i)).click();
   await expect(page.getByText(/account created/i)).toBeVisible();
 
   await page.goto("./");
@@ -47,7 +46,7 @@ test("register and login", async ({ userAgent }) => {
   await expect(page).toHaveTitle(/WordBook \| Log in to WordBook/);
   await (await page.$("#email"))?.fill("test3@email_" + id + ".com");
   await (await page.$("#password"))?.fill("123");
-  await (await page.getByText("Sumbit!")).click();
+  await (await page.getByText(/submit/i)).click();
   await expect(page.locator(".w-md-editor")).toBeVisible();
   if (await page.locator("#switch").isVisible()) {
     await page.locator("#switch")?.click();

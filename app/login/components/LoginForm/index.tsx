@@ -67,7 +67,7 @@ const LoginForm = () => {
             );
           }}
         >
-          Sumbit!
+          Submit!
         </div>
       </div>
     </>
