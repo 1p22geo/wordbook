@@ -1,10 +1,13 @@
-name: Playwright Tests
+name: End-to-end tests and smoke tests
 on:
   push:
   pull_request:
   workflow_dispatch:
 jobs:
-  test:
+  playwright:
+    strategy:
+        matrix:
+          suite: ["desktop", "mobile", "webkit", "brand"]
     timeout-minutes: 120
     services:
       # Label used to access the service container
@@ -13,6 +16,32 @@ jobs:
         image: mongo
         ports:
           - 27017:27017
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "node_version=$(cat .github/nodejs.version)" >> $GITHUB_ENV
+      - name: "use node ${{ env.node_version }}"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "${{ env.node_version }}"
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build app
+        run: yarn build
+      - name: Install Playwright Browsers
+        run: yarn playwright install --with-deps
+      - name: Run Playwright tests
+        run: yarn e2e:${{ matrix.suite }}
+        env:
+          MONGO_URI: mongodb://127.0.0.1:27017
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report[${{ matrix.suite }}]
+          path: playwright-report/
+          retention-days: 90
+  storybook:
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,14 +68,3 @@ jobs:
           name: storybook-static
           path: storybook-static/
           retention-days: 90
-      - name: Run Playwright tests
-        run: yarn e2e:headless
-        env:
-          MONGO_URI: mongodb://127.0.0.1:27017
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 90
-      
