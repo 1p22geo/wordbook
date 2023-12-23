@@ -23,7 +23,7 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
     <>
       <div className="flex w-fit flex-col items-stretch bg-secondary-100 shadow-2xl">
         <div className="flex flex-row gap-4 p-2">
-          <Link href={`/in/user/${post.author._id}`} className="group">
+          <Link href={`/in/user/${post.author._id.toString()}`} className="group">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-12">
               <circle cx="12" cy="12" r="10" className="fill-primary-600" />
               <path
@@ -103,7 +103,7 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
                 {
                   <div className="bg-secondary-100 p-4 shadow-2xl">
                     <div className="flex flex-row gap-4 p-2">
-                      <Link href={`/in/user/${comment.author._id}`} className="group">
+                      <Link href={`/in/user/${comment.author._id.toString()}`} className="group">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-12">
                           <circle cx="12" cy="12" r="10" className="fill-primary-600" />
                           <path

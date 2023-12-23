@@ -42,7 +42,7 @@ export const PageSwitcher = ({
         {numbers.map((number, i) => {
           return [
             <div
-              key={"number-" + i}
+              key={"number-" + i.toString()}
               onClick={() => {
                 setPage(number);
               }}
@@ -53,7 +53,7 @@ export const PageSwitcher = ({
               {number + 1}
             </div>,
             number === maxPages - 1 ? null : (
-              <div className="" key={"chevron-" + i}>
+              <div className="" key={"chevron-" + i.toString()}>
                 &gt;
               </div>
             ),

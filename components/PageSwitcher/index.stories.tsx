@@ -8,7 +8,7 @@ const meta: Meta<typeof PageSwitcher> = {
     maxPages: 3,
     page: 0,
     setPage: (page) => {
-      console.log("Setting page " + page);
+      console.log("Setting page " + page.toString());
     },
   },
   argTypes: {

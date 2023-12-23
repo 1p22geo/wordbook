@@ -27,19 +27,27 @@ export const sumbit = (state: typeof init_state, seterror: seterr) => {
       name: state.name,
       pass: state.pass,
     }),
-  }).then((res) => {
-    if (res.ok) {
+  }).then(
+    (res) => {
+      if (res.ok) {
+        seterror({
+          type: "success",
+          message: (
+            <>
+              Account created. You can now log in{" "}
+              <Link href={"/login"} className="cursor-pointer text-primary-600 hover:underline">
+                here
+              </Link>
+            </>
+          ),
+        });
+      }
+    },
+    () => {
       seterror({
-        type: "success",
-        message: (
-          <>
-            Account created. You can now log in{" "}
-            <Link href={"/login"} className="cursor-pointer text-primary-600 hover:underline">
-              here
-            </Link>
-          </>
-        ),
+        type: "error",
+        message: <>Someting went wrong.</>,
       });
     }
-  });
+  );
 };

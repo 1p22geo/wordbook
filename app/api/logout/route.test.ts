@@ -15,15 +15,15 @@ beforeAll(() => {
 });
 
 describe("/api/login", () => {
-  it("logs in with correct credentials", async () => {
+  it("logs in with correct credentials", () => {
     const { req } = createMocks({
       method: "GET",
       body: {},
     });
     req.json = jest.fn().mockResolvedValue(req.body);
 
-    await GET();
-    expect(console.info).toBeCalledWith("/");
-    expect(console.warn).toBeCalledWith("session", "");
+    GET();
+    expect(console.info).toHaveBeenCalledWith("/");
+    expect(console.warn).toHaveBeenCalledWith("session", "");
   });
 });

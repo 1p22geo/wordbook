@@ -32,6 +32,7 @@ export default defineConfig({
 
     /* Always collect traces and videos */
     trace: "on",
+    headless: true,
     video: process.env.CI || process.env.VIDEO ? "on" : "off",
   },
 

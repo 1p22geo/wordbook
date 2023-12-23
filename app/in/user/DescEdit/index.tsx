@@ -48,11 +48,17 @@ export const DescriptionEditor = ({
               </button>
               <button
                 className="rounded-md bg-primary-500 p-2 text-white"
-                onClick={async () => {
+                onClick={() => {
                   if (!value) return;
                   setAlertMessage({ type: "loading", message: "Please wait..." });
-                  await submit(value, session);
-                  window.location.reload();
+                  submit(value, session).then(
+                    () => {
+                      window.location.reload();
+                    },
+                    () => {
+                      setAlertMessage({ type: "error", message: "Something went wrong" });
+                    }
+                  );
                 }}
               >
                 Submit

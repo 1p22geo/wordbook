@@ -53,13 +53,18 @@ const LoginForm = () => {
                 email: email,
                 pass: pass,
               }),
-            }).then((res) => {
-              if (!res.ok) {
-                seterror({ type: "error", message: "Wrong email or password" });
-                return;
+            }).then(
+              (res) => {
+                if (!res.ok) {
+                  seterror({ type: "error", message: "Wrong email or password" });
+                  return;
+                }
+                router.push("/in");
+              },
+              () => {
+                seterror({ type: "error", message: "Something went wrong" });
               }
-              router.push("/in");
-            });
+            );
           }}
         >
           Sumbit!

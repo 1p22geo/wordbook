@@ -19,9 +19,9 @@ export function createVotePost(
       }
     }
 
-    votePostAction(id, vote, session);
-    setvoted([...voted, id]);
-    setposts((posts) =>
+    void votePostAction(id, vote, session);
+    void setvoted([...voted, id]);
+    void setposts((posts) =>
       posts.map((post) => {
         if (post._id !== id) return post;
         else

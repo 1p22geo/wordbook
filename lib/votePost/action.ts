@@ -5,8 +5,6 @@ import { Session } from "schemas/session";
 import { UserID } from "schemas/user";
 
 export async function votePostAction(id: ObjectId, vote: boolean, session: ObjectId) {
-  console.log(`${vote ? "up" : "down"}voting post ${id}`);
-
   const client = new MongoClient(process.env.MONGO_URI ? process.env.MONGO_URI : "");
   try {
     const time = Date.now();
@@ -49,7 +47,6 @@ export async function votePostAction(id: ObjectId, vote: boolean, session: Objec
     );
 
     const coll_data = db.collection("userdata");
-    console.log(`user: ${user._id}`);
 
     console.log(
       await coll_data.updateOne(

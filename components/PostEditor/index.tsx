@@ -14,9 +14,12 @@ export const PostEditor = (props?: { submit?: typeof submit }) => {
       <div className="flex flex-col items-start gap-2 self-start">
         <span>Upload an image: </span>
         <FileUploader
-          uploadedCallback={async (filename: string) => {
-            setvalue((v) => v + `![${filename}](/api/image/${filename})`);
-          }}
+          uploadedCallback={(filename: string) =>
+            new Promise((resolve) => {
+              setvalue((v) => v + `![${filename}](/api/image/${filename})`);
+              resolve();
+            })
+          }
         />
       </div>
       <Editor value={value} setValue={setvalue} />
@@ -32,13 +35,13 @@ export const PostEditor = (props?: { submit?: typeof submit }) => {
         </button>
         <button
           className="rounded-md bg-primary-500 p-2 text-white"
-          onClick={async () => {
+          onClick={() => {
             if (!value) return;
             setalert({ type: "loading", message: "Please wait..." });
             if (props?.submit) {
-              await props.submit(value, setalert);
+              void props.submit(value, setalert);
             } else {
-              await submit(value, setalert);
+              void submit(value, setalert);
             }
           }}
         >

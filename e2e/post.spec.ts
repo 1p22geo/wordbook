@@ -59,7 +59,7 @@ test("register and login", async ({ userAgent }) => {
 test("submit a post", async ({ userAgent }) => {
   const id = sha256(userAgent as string);
   const date = Date.now();
-  await expect(await page.locator("#menu svg.w-full")).toBeVisible();
+  await expect(page.locator("#menu svg.w-full")).toBeVisible();
   if (await page.locator("#switch").isVisible()) {
     await page.locator("#switch")?.click();
   }
