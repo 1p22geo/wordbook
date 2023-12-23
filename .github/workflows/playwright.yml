@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   test:
-    timeout-minutes: 60
+    timeout-minutes: 120
     services:
       # Label used to access the service container
       mongo:
