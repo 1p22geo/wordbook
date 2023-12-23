@@ -8,7 +8,7 @@ import { env } from "./env.mjs";
 const config = withPlugins([[withBundleAnalyzer({ enabled: env.ANALYZE })]], {
   reactStrictMode: true,
   experimental: { instrumentationHook: true,serverActions:{
-    allowedOrigins:["legendary-space-guacamole-x7q6qr674463v66w-3000.app.github.dev"]
+    allowedOrigins:["automatic-space-funicular-v9747p4955v2ppw5-3000.app.github.dev", "localhost:3000"]
   } },
   rewrites() {
     return [
