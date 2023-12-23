@@ -6,7 +6,7 @@ jobs:
   playwright:
     strategy:
         matrix:
-          suite: ["desktop", "mobile", "webkit", "brand"]
+          suite: ["desktop", "mobile", "iphone", "webkit", "brand"]
     timeout-minutes: 120
     services:
       # Label used to access the service container
