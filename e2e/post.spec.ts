@@ -38,9 +38,9 @@ test("register and login", async ({ userAgent }) => {
 test("submit a post", async ({ userAgent }) => {
   const id = sha256(userAgent as string);
   const date = Date.now();
-  await expect(page.locator("#menu svg.w-full")).toBeVisible();
-  await switchBar(page);
   await expect(page.locator(".w-md-editor")).toBeVisible();
+  await switchBar(page);
+  await expect(page.locator("#menu svg.w-full")).toBeVisible();
   await page.locator("textarea").fill("First post by " + "test3@email_" + id + ".com in " + date);
   await page.getByText(/submit/i).scrollIntoViewIfNeeded();
   await page.getByText(/submit/i).click({ force: true });

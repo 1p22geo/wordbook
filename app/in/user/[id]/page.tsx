@@ -50,11 +50,11 @@ const Page = async ({ params }: { params: { id: string } }) => {
   span.end();
   return (
     <div className="flex w-screen max-w-[100vw] flex-col items-center gap-8 p-24">
-      <div className="  bg-secondary-100 shadow-2xl">
+      <div className=" bg-secondary-100 shadow-2xl">
         <div className="grid grid-cols-2 items-start self-stretch p-4">
           {user ? (
             <>
-              <div className=" col-span-full">
+              <div className="col-span-full">
                 <h1 className="text-xl font-bold">User profile</h1>
                 <div className="p-4">
                   <div className="flex flex-row gap-4 p-2">

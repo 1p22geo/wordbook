@@ -11,7 +11,7 @@ const LoginForm = () => {
   return (
     <>
       <div className="flex flex-col items-center gap-8">
-        <div key={1} className=" grid grid-cols-2 items-center gap-4">
+        <div key={1} className="grid grid-cols-2 items-center gap-4">
           <label htmlFor="email" className="text-lg font-bold">
             E-mail:{" "}
           </label>

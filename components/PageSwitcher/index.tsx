@@ -39,7 +39,7 @@ export const PageSwitcher = ({
         </div>
       )}
 
-      <span className=" flex flex-row  items-center justify-center justify-items-center gap-2">
+      <span className="flex flex-row  items-center justify-center justify-items-center gap-2">
         {numbers.map((number, i) => {
           return [
             <div

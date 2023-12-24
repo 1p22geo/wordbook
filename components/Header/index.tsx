@@ -66,7 +66,7 @@ export const Header = ({ user }: { user?: UserID }) => {
                 Account settings
               </Link>
 
-              <a href={"/api/logout"} className=" mt-4 self-end text-vividred-600 hover:underline">
+              <a href={"/api/logout"} className="mt-4 self-end text-vividred-600 hover:underline">
                 Log out
               </a>
             </div>

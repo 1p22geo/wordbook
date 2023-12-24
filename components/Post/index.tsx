@@ -52,7 +52,7 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
         </div>
         <div className="flex flex-row flex-nowrap items-center gap-4 p-4 font-mono tabular-nums">
           <div
-            className="pt-1/2 grid cursor-pointer place-content-center rounded-full bg-green-200 p-1 px-2 text-sm font-semibold text-green-900 outline outline-2 outline-green-900 hover:bg-green-400"
+            className="grid cursor-pointer place-content-center rounded-full bg-green-200 p-1 px-2 text-sm font-semibold text-green-900 outline outline-2 outline-green-900 hover:bg-green-400"
             onClick={() => {
               votePost(post._id, true);
             }}
@@ -60,7 +60,7 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
             <p>+ {post.up}</p>
           </div>
           <div
-            className="pt-1/2 grid cursor-pointer place-content-center rounded-full bg-red-200 p-1 px-2 text-sm font-semibold text-red-900 outline outline-2 outline-red-900 hover:bg-red-400"
+            className="grid cursor-pointer place-content-center rounded-full bg-red-200 p-1 px-2 text-sm font-semibold text-red-900 outline outline-2 outline-red-900 hover:bg-red-400"
             onClick={() => {
               votePost(post._id, false);
             }}
