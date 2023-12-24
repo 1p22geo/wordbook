@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e12)}`;
-    const filename = `${uniqueSuffix}.${mime.getExtension(file.type)}`;
+    const filename = `${uniqueSuffix}.${mime.getExtension(file.type) || ""}`;
     await writeFile(`${uploadDir}/${relativeUploadDir}-${filename}`, buffer);
     return NextResponse.json({ fileUrl: `${relativeUploadDir}-${filename}` });
   } catch (e) {

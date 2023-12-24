@@ -86,7 +86,7 @@ export async function POST(request: Request) {
       );
     } catch (e) {
       console.error(e);
-      client.close();
+      await client.close();
       span.addEvent("client closed - error");
       return Response.json({}, { status: 400 });
     } finally {

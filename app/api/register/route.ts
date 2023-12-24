@@ -42,12 +42,12 @@ export async function POST(request: Request) {
       span.setAttribute("id", res.insertedId.toHexString());
       span.setAttribute("data_id", res2.insertedId.toHexString());
 
-      client.close();
+      await client.close();
       span.addEvent("client closed");
       return Response.json({ id: res.insertedId }, { status: 201 });
     } catch (e) {
       console.error(e);
-      client.close();
+      await client.close();
       span.addEvent("client closed - error");
       return Response.json({}, { status: 400 });
     } finally {

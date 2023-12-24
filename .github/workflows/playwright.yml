@@ -1,11 +1,24 @@
-name: Playwright Tests
+name: End-to-end tests and smoke tests
 on:
   push:
-  pull_request:
   workflow_dispatch:
 jobs:
-  test:
-    timeout-minutes: 60
+  report-pending:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Report pending status
+      uses: Sibz/github-status-action@v1
+      with: 
+        authToken: ${{secrets.GITHUB_TOKEN}}
+        context: 'test'
+        description: 'Running'
+        state: 'pending'
+  playwright:
+    needs: report-pending
+    strategy:
+        matrix:
+          suite: ["desktop", "mobile", "iphone", "webkit", "brand"]
+    timeout-minutes: 120
     services:
       # Label used to access the service container
       mongo:
@@ -13,6 +26,33 @@ jobs:
         image: mongo
         ports:
           - 27017:27017
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "node_version=$(cat .github/nodejs.version)" >> $GITHUB_ENV
+      - name: "use node ${{ env.node_version }}"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "${{ env.node_version }}"
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build app
+        run: yarn build
+      - name: Install Playwright Browsers
+        run: yarn playwright install --with-deps
+      - name: Run Playwright tests
+        run: yarn e2e:${{ matrix.suite }}
+        env:
+          MONGO_URI: mongodb://127.0.0.1:27017
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report[${{ matrix.suite }}]
+          path: playwright-report/
+          retention-days: 90
+  storybook:
+    needs: report-pending
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,14 +79,27 @@ jobs:
           name: storybook-static
           path: storybook-static/
           retention-days: 90
-      - name: Run Playwright tests
-        run: yarn playwright test
-        env:
-          MONGO_URI: mongodb://127.0.0.1:27017
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 90
-      
+  report-fail:
+    needs: [playwright, storybook]
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Report failure status
+      uses: Sibz/github-status-action@v1
+      with: 
+        authToken: ${{secrets.GITHUB_TOKEN}}
+        context: 'test'
+        description: 'Failed'
+        state: 'failure'
+  report-success:
+    needs: [playwright, storybook]
+    if: ${{ success() }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Report success status # You would run your tests before this using the output to set state/desc
+      uses: Sibz/github-status-action@v1
+      with: 
+        authToken: ${{secrets.GITHUB_TOKEN}}
+        context: 'test'
+        description: 'Passed'
+        state: 'success'

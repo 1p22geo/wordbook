@@ -88,7 +88,7 @@ const LoginForm = () => {
               sumbit(state, seterror);
             }}
           >
-            Sumbit!
+            Submit!
           </div>
         </div>,
       ]}

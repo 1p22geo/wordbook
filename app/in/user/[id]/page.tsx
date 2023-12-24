@@ -38,8 +38,8 @@ const Page = async ({ params }: { params: { id: string } }) => {
   if (user) {
     try {
       posts = (await (
-        await fetch(`http://${headers().get("host")}/api/post?user=${user.user._id}`, {
-          headers: { Cookie: `session=${sessionID}` },
+        await fetch(`http://${headers().get("host") || ""}/api/post?user=${user.user._id.toString()}`, {
+          headers: { Cookie: `session=${sessionID.toString()}` },
         })
       ).json()) as responseJSON;
       span.setAttribute("posts found", true);
@@ -103,7 +103,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
                       voted={me.data.voted}
                       session={sessionID as unknown as ObjectId}
                       initPosts={posts.posts}
-                      url={`/api/post?user=${user.user._id}&`}
+                      url={`/api/post?user=${user.user._id.toString()}&`}
                     />
                   </div>
                 ) : (

@@ -77,7 +77,7 @@ const Page = async () => {
             uploadedCallback={async (img: string) => {
               "use server";
               console.log("uploading image - " + img);
-              return await submitAddImage(img, sessionID);
+              await submitAddImage(img, sessionID);
             }}
           />
           <div className="m-4 grid w-fit grid-cols-3 gap-4">

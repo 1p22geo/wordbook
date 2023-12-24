@@ -33,16 +33,30 @@ export const PostView = ({
         if (page === pages) {
           setpage(page + 1);
 
-          fetch(`${url}page=${page + 1}`).then((res) => {
-            res.json().then((temp) => {
-              const json = temp as responseJSON;
-              setposts([...posts, ...json.posts]);
-              setpages(pages + 1);
-              if (!json.posts.length) {
-                setend(true);
-              }
-            });
-          });
+          fetch(`${url}page=${page + 1}`).then(
+            (res) => {
+              res.json().then(
+                (temp) => {
+                  const json = temp as responseJSON;
+                  setposts([...posts, ...json.posts]);
+                  setpages(pages + 1);
+                  if (!json.posts.length) {
+                    setend(true);
+                  }
+                },
+                () => {
+                  setTimeout(() => {
+                    el();
+                  }, 1000);
+                }
+              );
+            },
+            () => {
+              setTimeout(() => {
+                el();
+              }, 1000);
+            }
+          );
         }
       }
     };

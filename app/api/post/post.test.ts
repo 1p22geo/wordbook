@@ -13,7 +13,7 @@ beforeAll(() => {
 });
 
 describe("/api/post", () => {
-  it("renders dynamically", async () => {
+  it("renders dynamically", () => {
     expect(dynamic).toBeTruthy();
   });
   it("reacts to no data submitted", async () => {

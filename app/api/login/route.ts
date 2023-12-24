@@ -48,14 +48,14 @@ export async function POST(request: Request) {
       const { insertedId } = await coll_sessions.insertOne(session);
       span.addEvent("session inserted");
       span.setAttribute("session", insertedId.toHexString());
-      client.close();
+      await client.close();
       span.addEvent("client closed");
       cookies().set("session", insertedId.toHexString(), { expires: Date.now() + 3600_000 });
 
       return Response.json({ session: insertedId } as responseJSON, { status: 200, statusText: "Logged in" });
     } catch (e) {
       console.error(e);
-      client.close();
+      await client.close();
       span.addEvent("client closed - error");
 
       return Response.json({}, { status: 400 });

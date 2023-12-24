@@ -14,7 +14,7 @@ beforeAll(() => {
 });
 
 describe("/api/image", () => {
-  it("returns image with all correct data", async () => {
+  it("returns image with all correct data", () => {
     const { req } = createMocks({
       method: "GET",
       url: "http://localhost:3000/api/image/image.jpg",
@@ -23,12 +23,12 @@ describe("/api/image", () => {
 
     Date.now = jest.fn(() => 1);
     req.json = jest.fn().mockResolvedValue(req.body);
-    const response = await GET(req as unknown as Request, { params: { img: "image.jpg" } });
+    const response = GET(req as unknown as Request, { params: { img: "image.jpg" } });
 
     expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toBe("image/jpeg");
   });
-  it("returns abstract bytestream with missing content-type", async () => {
+  it("returns abstract bytestream with missing content-type", () => {
     const { req } = createMocks({
       method: "GET",
       url: "http://localhost:3000/api/image/image.exe",
@@ -37,12 +37,12 @@ describe("/api/image", () => {
 
     Date.now = jest.fn(() => 1);
     req.json = jest.fn().mockResolvedValue(req.body);
-    const response = await GET(req as unknown as Request, { params: { img: "image.exe" } });
+    const response = GET(req as unknown as Request, { params: { img: "image.exe" } });
 
     expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toBe("application/octet-stream");
   });
-  it("returns 404 with missing file", async () => {
+  it("returns 404 with missing file", () => {
     //@ts-expect-error - we need to set the session cookie globally, it's used in a different file I don't even import, and there ARE no means of communication between them.
     global.session = "652eb26557e45bcc221d51d5";
     const { req } = createMocks({
@@ -53,7 +53,7 @@ describe("/api/image", () => {
 
     Date.now = jest.fn(() => 1);
     req.json = jest.fn().mockResolvedValue(req.body);
-    const response = await GET(req as unknown as Request, { params: { img: "" } });
+    const response = GET(req as unknown as Request, { params: { img: "" } });
 
     expect(response.status).toBe(404);
   });

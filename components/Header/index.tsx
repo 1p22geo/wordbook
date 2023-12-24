@@ -81,6 +81,7 @@ export const Header = ({ user }: { user?: UserID }) => {
       </div>
       <label
         id="switch"
+        role="button"
         htmlFor="hamburgir"
         className="grid w-full cursor-pointer place-content-center duration-200  peer-checked:scale-y-[-1] sm:hidden"
       >
