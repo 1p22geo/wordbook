@@ -3,16 +3,24 @@ import { UserID } from "schemas/user";
 
 export const Header = ({ user }: { user?: UserID }) => {
   return (
-    <div className="sticky top-0 z-30 flex w-full flex-col items-center">
-      <input id="hamburgir" type="checkbox" className="peer sr-only" defaultChecked={true}></input>
+    <nav role="navigation" className="sticky top-0 z-30 flex w-full flex-col items-center">
+      <input
+        id="hamburgir"
+        type="checkbox"
+        className="peer sr-only"
+        aria-label="top bar toggle"
+        defaultChecked={true}
+      ></input>
 
       <div
         id="menu"
         className="top-0 flex w-full scale-y-100 flex-col items-center gap-2 bg-white p-2 shadow-2xl  peer-checked:max-sm:hidden sm:flex-row sm:items-baseline"
       >
-        <Link href="/in" className="text-xl font-bold sm:pr-8">
-          WordBook
-        </Link>
+        <h1>
+          <Link href="/in" className="text-xl font-bold sm:pr-8">
+            WordBook
+          </Link>
+        </h1>
         <Link href={"#"} className="mx-4 text-primary-600 hover:underline">
           About
         </Link>
@@ -24,7 +32,7 @@ export const Header = ({ user }: { user?: UserID }) => {
         </Link>
         {user ? (
           <div className="flex flex-row flex-wrap items-center justify-center sm:ml-auto">
-            <h3 className="hidden text-sm font-bold sm:mr-4 sm:block">{user.name}</h3>
+            <h2 className="hidden text-sm font-bold sm:mr-4 sm:block">{user.name}</h2>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="mt-4 h-8 w-full sm:mt-0 sm:w-8">
               <circle cx="12" cy="12" r="10" className="fill-primary-600" />
               <path
@@ -32,7 +40,7 @@ export const Header = ({ user }: { user?: UserID }) => {
                 d="M3.66 17.52A5 5 0 0 1 8 15h8a5 5 0 0 1 4.34 2.52 10 10 0 0 1-16.68 0zM12 13a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"
               />
             </svg>
-            <input type="checkbox" id="cb" className="peer sr-only"></input>
+            <input type="checkbox" id="cb" aria-label="toggle user details" className="peer sr-only"></input>
             <label
               htmlFor="cb"
               className="hidden w-full cursor-pointer place-content-center duration-200 peer-checked:scale-y-[-1] sm:grid sm:w-fit"
@@ -58,8 +66,7 @@ export const Header = ({ user }: { user?: UserID }) => {
                 Account settings
               </Link>
 
-              <a href={"/api/logout"} className=" mt-4 self-end text-vividred-600 hover:underline">
-                {/* not Link, we don't want to prefetch logout */}
+              <a href={"/api/logout"} className="mt-4 self-end text-vividred-600 hover:underline">
                 Log out
               </a>
             </div>
@@ -81,8 +88,8 @@ export const Header = ({ user }: { user?: UserID }) => {
       </div>
       <label
         id="switch"
-        role="button"
         htmlFor="hamburgir"
+        aria-label="switch for the top bar"
         className="grid w-full cursor-pointer place-content-center duration-200  peer-checked:scale-y-[-1] sm:hidden"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8">
@@ -93,6 +100,6 @@ export const Header = ({ user }: { user?: UserID }) => {
           />
         </svg>
       </label>
-    </div>
+    </nav>
   );
 };

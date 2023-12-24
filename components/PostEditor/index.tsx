@@ -11,7 +11,8 @@ export const PostEditor = (props?: { submit?: typeof submit }) => {
   const [alert, setalert] = useState<alertMessage>({ type: null, message: "" });
   return (
     <div className="flex max-w-[1000px] flex-col items-end gap-4 px-4">
-      <div className="flex flex-col items-start gap-2 self-start">
+      <h1 className="w-full text-xl font-semibold">Write a post:</h1>
+      <div className="flex flex-col items-start self-start p-8 font-light">
         <span>Upload an image: </span>
         <FileUploader
           uploadedCallback={(filename: string) =>

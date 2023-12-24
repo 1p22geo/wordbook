@@ -18,20 +18,24 @@ const Page = async () => {
     <>
       <div className="flex flex-col items-center justify-start bg-secondary-200">
         <Header />
-        <div className="flex h-[40vh] w-screen flex-col items-center justify-center bg-primary-800 p-4 text-center text-secondary-200 lg:h-[60vh]">
+        <div
+          role="banner"
+          className="flex h-[40vh] w-screen flex-col items-center justify-center bg-primary-800 p-4 text-center text-secondary-200 lg:h-[60vh]"
+        >
           <h1 className="pb-8 text-3xl lg:text-6xl">WordBook - the Internet redefined</h1>
           <h2 className="text-lg lg:text-2xl">We merged Facebook and Wordpress and now we feel smug about it&trade;</h2>
         </div>
         <Link
+          role="button"
           href={"/signup"}
-          className="z-10 mt-[-1.5rem] rounded-full bg-primary-500 p-2 text-xl text-secondary-200 sm:mt-[-3.5rem] sm:p-8 sm:text-5xl"
+          className="z-10 mt-[-1.5rem] rounded-full bg-primary-500 p-2 text-xl text-secondary-100 sm:mt-[-3.5rem] sm:p-8 sm:text-5xl"
         >
           Sign up
         </Link>
-        <Link href={"/login"} className="z-20 font-bold text-primary-800 hover:underline">
+        <Link role="button" href={"/login"} className="z-20 font-bold text-primary-800 hover:underline">
           Or log in if you have an account
         </Link>
-        <div className="mt-[-3.5rem] grid w-screen grid-cols-1 pt-20 lg:grid-cols-2">
+        <main role="main" className="mt-[-3.5rem] grid w-screen grid-cols-1 pt-20 lg:grid-cols-2">
           <div className="grid place-content-center p-4 text-xl">
             <div>
               Usually, when a bakery or other shop wanted to be present on the Internet, they had to sign up on social
@@ -55,7 +59,7 @@ const Page = async () => {
               they can edit in thier browser - like in Wordpress, and an account which they can post something on, and
               have a photo galerry - just like on Facebook. It&apos;s{" "}
               <mark className="bg-primary-300 px-1 font-bold">simple</mark> - you can try yourself, if you sign up{" "}
-              <Link href={"/signup"} className="text-primary-500 hover:underline">
+              <Link href={"/signup"} className="font-bold text-primary-600 hover:underline">
                 here
               </Link>
             </div>
@@ -63,7 +67,7 @@ const Page = async () => {
           <div className="grid place-content-center p-4 lg:col-start-1 lg:row-start-2">
             <Image src="/static/computer.jpg" alt="Easy Wordbook usage" width={266} height={189} />
           </div>
-        </div>
+        </main>
       </div>
     </>
   );

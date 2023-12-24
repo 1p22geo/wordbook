@@ -19,10 +19,10 @@ const Page = async () => {
   const user = await checkUser(sess.user._id.toString());
   const { posts } = (await req.json()) as responseJSON;
   return (
-    <div className="flex max-w-[100vw] flex-col items-center gap-8 p-24">
+    <main className="flex max-w-[100vw] flex-col items-center gap-8 p-24">
       <PostEditor />
       <PostView voted={user.data.voted} initPosts={posts} session={session as unknown as ObjectId} />
-    </div>
+    </main>
   );
 };
 

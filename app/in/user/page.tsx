@@ -29,7 +29,7 @@ const Page = async () => {
 
   span.end();
   return (
-    <div className=" w-screen max-w-[100vw]  gap-8 p-24">
+    <div className="w-screen max-w-[100vw]  gap-8 p-24">
       <div className="grid grid-cols-2 bg-secondary-100 shadow-2xl">
         <div className="col-span-full p-8">
           <h1 className="col-span-full text-xl font-bold">Your profile</h1>
