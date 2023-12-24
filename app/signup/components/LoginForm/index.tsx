@@ -83,7 +83,7 @@ const LoginForm = () => {
             <h2 className="col-span-2 text-xl">All done!</h2>
           )}
           <div
-            className="cursor-pointer rounded-xl bg-primary-600 p-4 text-2xl text-secondary-200 hover:bg-primary-500"
+            className="cursor-pointer rounded-xl bg-primary-600 p-4 text-2xl text-secondary-100 hover:bg-primary-500"
             onClick={() => {
               sumbit(state, seterror);
             }}

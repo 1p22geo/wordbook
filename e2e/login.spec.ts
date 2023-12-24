@@ -3,7 +3,6 @@ import { sha256 } from "js-sha256";
 import { switchBar } from "lib/e2e/switchBar";
 
 test.beforeEach(async ({ page }, testInfo) => {
-  console.log(`Running ${testInfo.title}`);
   await page.goto("./");
 });
 

@@ -33,6 +33,7 @@ export const PageSwitcher = ({
                   setPage((p) => (p === maxPages - 1 ? p : p + 1));
                 }
           }
+          aria-disabled={nextDisabled}
         >
           next &gt;
         </div>

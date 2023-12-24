@@ -89,6 +89,7 @@ export const Header = ({ user }: { user?: UserID }) => {
         id="switch"
         role="button"
         htmlFor="hamburgir"
+        aria-label="switch for the top bar"
         className="grid w-full cursor-pointer place-content-center duration-200  peer-checked:scale-y-[-1] sm:hidden"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8">
