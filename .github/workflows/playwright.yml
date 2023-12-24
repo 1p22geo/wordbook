@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
 jobs:
   report-pending:
-    needs: [playwright, storybook]
     runs-on: ubuntu-latest
     steps:
     - name: Report pending status
