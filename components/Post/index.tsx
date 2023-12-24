@@ -24,7 +24,7 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
       <div className="flex w-fit flex-col items-stretch bg-secondary-100 shadow-2xl">
         <div className="flex flex-row gap-4 p-2">
           <Link href={`/in/user/${post.author._id.toString()}`} className="group">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-12">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-label="user icon" className="w-12">
               <circle cx="12" cy="12" r="10" className="fill-primary-600" />
               <path
                 className="fill-primary-100"
@@ -73,6 +73,7 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
                 setShowThread((q) => !q);
               }}
               height="800px"
+              aria-label="toggle comment thread"
               width="800px"
               version="1.1"
               className="h-8 w-8 cursor-pointer"
@@ -104,7 +105,12 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
                   <div className="bg-secondary-100 p-4 shadow-2xl">
                     <div className="flex flex-row gap-4 p-2">
                       <Link href={`/in/user/${comment.author._id.toString()}`} className="group">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-12">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          aria-label="user icon"
+                          className="w-12"
+                        >
                           <circle cx="12" cy="12" r="10" className="fill-primary-600" />
                           <path
                             className="fill-primary-100"
