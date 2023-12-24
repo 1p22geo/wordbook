@@ -28,7 +28,7 @@ const Page = async () => {
         <Link
           role="button"
           href={"/signup"}
-          className="z-10 mt-[-1.5rem] rounded-full bg-primary-500 p-2 text-xl text-secondary-200 sm:mt-[-3.5rem] sm:p-8 sm:text-5xl"
+          className="z-10 mt-[-1.5rem] rounded-full bg-primary-500 p-2 text-xl text-secondary-100 sm:mt-[-3.5rem] sm:p-8 sm:text-5xl"
         >
           Sign up
         </Link>

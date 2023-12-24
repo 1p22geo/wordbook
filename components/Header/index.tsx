@@ -65,7 +65,6 @@ export const Header = ({ user }: { user?: UserID }) => {
               </Link>
 
               <a href={"/api/logout"} className=" mt-4 self-end text-vividred-600 hover:underline">
-                {/* not Link, we don't want to prefetch logout */}
                 Log out
               </a>
             </div>
@@ -87,7 +86,6 @@ export const Header = ({ user }: { user?: UserID }) => {
       </div>
       <label
         id="switch"
-        role="button"
         htmlFor="hamburgir"
         aria-label="switch for the top bar"
         className="grid w-full cursor-pointer place-content-center duration-200  peer-checked:scale-y-[-1] sm:hidden"
