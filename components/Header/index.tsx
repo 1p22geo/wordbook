@@ -3,8 +3,14 @@ import { UserID } from "schemas/user";
 
 export const Header = ({ user }: { user?: UserID }) => {
   return (
-    <div className="sticky top-0 z-30 flex w-full flex-col items-center">
-      <input id="hamburgir" type="checkbox" className="peer sr-only" defaultChecked={true}></input>
+    <nav role="navigation" className="sticky top-0 z-30 flex w-full flex-col items-center">
+      <input
+        id="hamburgir"
+        type="checkbox"
+        className="peer sr-only"
+        aria-label="top bar toggle"
+        defaultChecked={true}
+      ></input>
 
       <div
         id="menu"
@@ -93,6 +99,6 @@ export const Header = ({ user }: { user?: UserID }) => {
           />
         </svg>
       </label>
-    </div>
+    </nav>
   );
 };
