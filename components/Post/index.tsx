@@ -24,7 +24,7 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
       <div className="flex w-fit flex-col items-stretch bg-secondary-100 shadow-2xl">
         <div className="flex flex-row gap-4 p-2">
           <Link href={`/in/user/${post.author._id.toString()}`} className="group">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-12">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-label="user icon" className="w-12">
               <circle cx="12" cy="12" r="10" className="fill-primary-600" />
               <path
                 className="fill-primary-100"
@@ -50,29 +50,30 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
             {post.content}
           </Markdown>
         </div>
-        <div className="flex flex-row flex-nowrap gap-4 p-4">
+        <div className="flex flex-row flex-nowrap items-center gap-4 p-4 font-mono tabular-nums">
           <div
-            className="cursor-pointer font-semibold text-green-300 hover:font-bold hover:text-green-500"
+            className="grid cursor-pointer place-content-center rounded-full bg-green-200 p-1 px-2 text-sm font-semibold text-green-900 outline outline-2 outline-green-900 hover:bg-green-400"
             onClick={() => {
               votePost(post._id, true);
             }}
           >
-            + {post.up}
+            <p>+ {post.up}</p>
           </div>
           <div
-            className="cursor-pointer font-semibold text-red-300 hover:font-bold hover:text-red-500"
+            className="grid cursor-pointer place-content-center rounded-full bg-red-200 p-1 px-2 text-sm font-semibold text-red-900 outline outline-2 outline-red-900 hover:bg-red-400"
             onClick={() => {
               votePost(post._id, false);
             }}
           >
-            - {post.down}
+            <p>- {post.down}</p>
           </div>
-          <div className="flex flex-row flex-nowrap gap-2 font-semibold text-primary-300 hover:font-bold hover:text-primary-600">
+          <div className="mt-1 flex flex-row flex-nowrap gap-2 font-semibold text-primary-300 hover:font-bold hover:text-primary-600">
             <svg
               onClick={() => {
                 setShowThread((q) => !q);
               }}
               height="800px"
+              aria-label="toggle comment thread"
               width="800px"
               version="1.1"
               className="h-8 w-8 cursor-pointer"
@@ -104,7 +105,12 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
                   <div className="bg-secondary-100 p-4 shadow-2xl">
                     <div className="flex flex-row gap-4 p-2">
                       <Link href={`/in/user/${comment.author._id.toString()}`} className="group">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-12">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          aria-label="user icon"
+                          className="w-12"
+                        >
                           <circle cx="12" cy="12" r="10" className="fill-primary-600" />
                           <path
                             className="fill-primary-100"

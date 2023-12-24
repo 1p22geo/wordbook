@@ -11,7 +11,7 @@ const LoginForm = () => {
   return (
     <>
       <div className="flex flex-col items-center gap-8">
-        <div key={1} className=" grid grid-cols-2 items-center gap-4">
+        <div key={1} className="grid grid-cols-2 items-center gap-4">
           <label htmlFor="email" className="text-lg font-bold">
             E-mail:{" "}
           </label>
@@ -39,7 +39,7 @@ const LoginForm = () => {
         </div>
         {error.type ? <Alert type={error.type}>{error.message}</Alert> : null}
         <div
-          className="mt-8 cursor-pointer rounded-xl bg-primary-600 p-2 text-secondary-200 hover:bg-primary-500"
+          className="mt-8 cursor-pointer rounded-xl bg-primary-600 p-2 text-secondary-100 hover:bg-primary-500"
           onClick={() => {
             if (!email || !pass) {
               seterror({ type: "warning", message: "Please type in your email and password" });

@@ -33,12 +33,13 @@ export const PageSwitcher = ({
                   setPage((p) => (p === maxPages - 1 ? p : p + 1));
                 }
           }
+          aria-disabled={nextDisabled}
         >
           next &gt;
         </div>
       )}
 
-      <span className=" flex flex-row  items-center justify-center justify-items-center gap-2">
+      <span className="flex flex-row  items-center justify-center justify-items-center gap-2">
         {numbers.map((number, i) => {
           return [
             <div

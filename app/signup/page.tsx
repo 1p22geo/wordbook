@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const Page = () => {
   return (
     <>
-      <div className="grid h-screen w-screen place-content-center bg-secondary-200">
+      <main className="grid h-screen w-screen place-content-center bg-secondary-200">
         <div className="m-4 flex flex-col items-center rounded-xl bg-primary-200  p-8 text-center">
           <div className="mb-8">
             <h1 className="text-4xl">Welcome to Wordbook</h1>
@@ -17,7 +17,7 @@ const Page = () => {
           </div>
           <LoginForm />
         </div>
-      </div>
+      </main>
     </>
   );
 };
