@@ -3,7 +3,19 @@ on:
   push:
   workflow_dispatch:
 jobs:
+  report-pending:
+    needs: [playwright, storybook]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Report pending status
+      uses: Sibz/github-status-action@v1
+      with: 
+        authToken: ${{secrets.GITHUB_TOKEN}}
+        context: 'test'
+        description: 'Running'
+        state: 'pending'
   playwright:
+    needs: report-pending
     strategy:
         matrix:
           suite: ["desktop", "mobile", "iphone", "webkit", "brand"]
@@ -40,6 +52,7 @@ jobs:
           path: playwright-report/
           retention-days: 90
   storybook:
+    needs: report-pending
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -67,3 +80,27 @@ jobs:
           name: storybook-static
           path: storybook-static/
           retention-days: 90
+  report-fail:
+    needs: [playwright, storybook]
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Report failure status
+      uses: Sibz/github-status-action@v1
+      with: 
+        authToken: ${{secrets.GITHUB_TOKEN}}
+        context: 'test'
+        description: 'Failed'
+        state: 'failure'
+  report-success:
+    needs: [playwright, storybook]
+    if: ${{ success() }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Report success status # You would run your tests before this using the output to set state/desc
+      uses: Sibz/github-status-action@v1
+      with: 
+        authToken: ${{secrets.GITHUB_TOKEN}}
+        context: 'test'
+        description: 'Passed'
+        state: 'success'
