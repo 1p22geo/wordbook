@@ -43,8 +43,9 @@ test("submit a post", async ({ userAgent }) => {
   await expect(page.locator("#menu svg.w-full")).toBeVisible();
   await page.locator("textarea").fill("First post by " + "test3@email_" + id + ".com in " + date);
   await page.getByText(/submit/i).scrollIntoViewIfNeeded();
-  await page.getByText(/submit/i).click({ force: true });
-  await expect(await page.getByRole("alert", { name: "alert" })).not.toBeVisible();
+  await page.getByText(/submit/i).click();
+  await expect(page.locator("textarea")).toHaveText("");
+  // await expect(await page.getByRole("alert", { name: "alert" })).not.toBeVisible();
 
   while (!(await page.getByText("First post by " + "test3@email_" + id + ".com in " + date).isVisible())) {
     await page.mouse.wheel(0, 10);
