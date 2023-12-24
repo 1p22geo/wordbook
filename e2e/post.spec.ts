@@ -1,5 +1,6 @@
 import { test, type Page, expect } from "@playwright/test";
 import { sha256 } from "js-sha256";
+import { switchBar } from "lib/e2e/switchBar";
 
 // Annotate entire file as serial.
 test.describe.configure({ mode: "serial" });
@@ -37,7 +38,7 @@ test("register and login", async ({ userAgent }) => {
   await page.goto("./");
   await expect(page).toHaveTitle(/WordBook - Internet redefined/);
   await expect(await page.getByText(/WordBook - the Internet redefined/i)).toBeVisible();
-  await (await page.$("#switch"))?.click();
+  await switchBar(page)
   const loc = page.getByText(/Log in/i).filter({ hasNotText: /account/ });
   await expect(loc).toBeVisible();
   await loc.click();
@@ -46,7 +47,7 @@ test("register and login", async ({ userAgent }) => {
   await (await page.$("#password"))?.fill("123");
   await (await page.getByText(/submit/i)).click();
   await expect(page.locator(".w-md-editor")).toBeVisible();
-  await page.locator("#switch")?.click();
+  await switchBar(page)
   await expect(await page.locator("a").filter({ hasText: "WordBook" })).toBeVisible();
   await expect(await page.locator("#menu svg.w-full")).toBeVisible();
 });
@@ -55,7 +56,7 @@ test("submit a post", async ({ userAgent }) => {
   const id = sha256(userAgent as string);
   const date = Date.now();
   await expect(page.locator("#menu svg.w-full")).toBeVisible();
-  await page.locator("#switch")?.click();
+  await switchBar(page)
   await expect(page.locator(".w-md-editor")).toBeVisible();
   await page.locator("textarea").fill("First post by " + "test3@email_" + id + ".com in " + date);
   await page.getByText(/submit/i).scrollIntoViewIfNeeded();

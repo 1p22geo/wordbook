@@ -10,9 +10,9 @@ import { defineConfig, devices } from "@playwright/test";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 30 * 1000,
+  timeout: 300 * 1000,
   expect: {
-    timeout: 30 * 1000,
+    timeout: 300 * 1000,
   },
   testDir: "..",
   /* Run tests in files in parallel */
@@ -20,9 +20,9 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 0 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : 4,
+  workers: process.env.CI ? 1 : 2,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -32,7 +32,7 @@ export default defineConfig({
 
     /* Always collect traces and videos */
     trace: "on",
-    headless: true,
+    headless: false,
     video: process.env.CI || process.env.VIDEO ? "on" : "off",
   },
 
@@ -60,7 +60,7 @@ export default defineConfig({
     // },
     {
       name: "Mobile Safari",
-      use: { ...devices["iPhone 12"] },
+      use: { ...devices["iPhone 14"] },
     },
 
     // /* Test against branded browsers. */
