@@ -55,7 +55,7 @@ const Page = async () => {
               they can edit in thier browser - like in Wordpress, and an account which they can post something on, and
               have a photo galerry - just like on Facebook. It&apos;s{" "}
               <mark className="bg-primary-300 px-1 font-bold">simple</mark> - you can try yourself, if you sign up{" "}
-              <Link href={"/signup"} className="text-primary-500 hover:underline">
+              <Link href={"/signup"} className="text-primary-600 font-bold hover:underline">
                 here
               </Link>
             </div>

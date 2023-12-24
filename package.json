@@ -88,6 +88,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.8.2",
     "@babel/core": "^7.0.0",
     "@jest/globals": "^29.5.0",
     "@playwright/test": "^1.40.0",
