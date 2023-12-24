@@ -50,24 +50,30 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
             {post.content}
           </Markdown>
         </div>
-        <div className="flex flex-row flex-nowrap gap-4 p-4">
+        <div className="flex tabular-nums font-mono flex-row flex-nowrap items-center gap-4 p-4">
           <div
-            className="cursor-pointer font-semibold text-green-300 hover:font-bold hover:text-green-500"
+            className="grid place-content-center p-1 pt-1/2 px-2 text-sm rounded-full cursor-pointer font-semibold text-green-900 bg-green-200 outline outline-2 outline-green-900 hover:bg-green-400"
             onClick={() => {
               votePost(post._id, true);
             }}
           >
+            <p>
+
             + {post.up}
+            </p>
           </div>
           <div
-            className="cursor-pointer font-semibold text-red-300 hover:font-bold hover:text-red-500"
+            className="grid place-content-center p-1 pt-1/2 px-2 text-sm rounded-full cursor-pointer font-semibold text-red-900 bg-red-200 outline outline-2 outline-red-900 hover:bg-red-400"
             onClick={() => {
               votePost(post._id, false);
             }}
           >
+            <p>
+
             - {post.down}
+            </p>
           </div>
-          <div className="flex flex-row flex-nowrap gap-2 font-semibold text-primary-300 hover:font-bold hover:text-primary-600">
+          <div className="mt-1 flex flex-row flex-nowrap gap-2 font-semibold text-primary-300 hover:font-bold hover:text-primary-600">
             <svg
               onClick={() => {
                 setShowThread((q) => !q);

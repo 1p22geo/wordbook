@@ -77,8 +77,8 @@ export const PostView = ({
           This is the end.
         </div>
       ) : (
-        <div className="flex w-fit flex-col items-stretch bg-secondary-100 p-4 shadow-2xl" ref={spinnerRef}>
-          <div className=" h-24 w-24 animate-spin rounded-full bg-secondary-600">
+        <div className="flex w-fit flex-col items-stretch bg-secondary-100 text-black p-4 shadow-2xl" aria-label="Loading more posts..." role="alert" ref={spinnerRef}>
+          <div className=" h-24 w-24 animate-spin rounded-full bg-secondary-600 text-white">
             <div className=" mx-4 mt-4 h-16 w-16 rounded-full bg-secondary-100"></div>
             <div className="ml-12 h-4 w-2 bg-secondary-100"></div>
           </div>
