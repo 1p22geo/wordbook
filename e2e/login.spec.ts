@@ -47,7 +47,7 @@ test("logs in", async ({ page, userAgent }) => {
   await page.goto("./");
   await expect(page).toHaveTitle(/WordBook - Internet redefined/);
   await expect(await page.getByText(/WordBook - the Internet redefined/i)).toBeVisible();
-  await switchBar(page)
+  await switchBar(page);
   const loc = page.getByText(/Log in/i).filter({ hasNotText: /account/ });
   await expect(loc).toBeVisible();
   await loc.click();
@@ -56,7 +56,7 @@ test("logs in", async ({ page, userAgent }) => {
   await (await page.$("#password"))?.fill("123");
   await (await page.getByText(/submit/i)).click();
   await expect(page.locator(".w-md-editor")).toBeVisible();
-  await switchBar(page)
+  await switchBar(page);
   await expect(page.locator("a").filter({ hasText: "WordBook" })).toBeVisible();
   await expect(page.locator("#menu svg.w-full")).toBeVisible();
 });
