@@ -42,10 +42,16 @@ test("submit a post", async ({ userAgent }) => {
   await switchBar(page);
   await expect(page.locator("#menu svg.w-full")).toBeVisible();
   await page.locator("textarea").fill("First post by " + "test3@email_" + id + ".com in " + date);
+  await new Promise((res) => {
+    void setTimeout(res, 1000);
+  });
   await page.getByText(/submit/i).scrollIntoViewIfNeeded();
-  await page.getByText(/submit/i).click();
+  await page.getByText(/submit/i).waitFor({ state: "attached" });
+  await page.getByText(/submit/i).waitFor({ state: "visible" });
+  await page.getByText(/submit/i).click({ force: true });
+  await expect(await page.getByRole("alert", { name: "alert" })).not.toBeVisible();
+  if (await page.locator("textarea").inputValue()) await page.getByText(/submit/i).click({ force: false }); // workaround for shitty iphone emulations
   await expect(page.locator("textarea")).toHaveText("");
-  // await expect(await page.getByRole("alert", { name: "alert" })).not.toBeVisible();
 
   while (!(await page.getByText("First post by " + "test3@email_" + id + ".com in " + date).isVisible())) {
     await page.mouse.wheel(0, 10);

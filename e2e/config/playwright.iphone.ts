@@ -1,14 +1,20 @@
 import { defineConfig, devices } from "@playwright/test";
+/*
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
+  IMPORTANT!
+  The e2e:iphone script is different because we run iphone tests in headed mode using xvfb-run.
+  This is why iphone tests work only on Ubuntu (unless you get a kind of alternative somewhere else)
 
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
+  When running e2e tests in a graphical environment (such as Microsoft Windows or any other system with a desktop environment),
+    it is completely possible to run the tests without xvbf-run. (just remove xvbf-run from the npm script, not changing it.)
+
+  -     "e2e:iphone": "xvfb-run playwright test --config e2e/config/playwright.iphone.ts",
+  +     "e2e:iphone": "playwright test --config e2e/config/playwright.iphone.ts",
+
+  This is only a workaround for CI systems and Github Workspaces.
+
+*/
+
 export default defineConfig({
   timeout: (process.env.CI ? 300 : 30) * 1000,
   expect: {
