@@ -33,25 +33,27 @@ pipeline {
       }
     }
     stage('End-to-end tests') {
-      parallel desktop: {
-        sh 'yarn e2e:desktop'
-        archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
-      },
-      brand: {
-        sh 'yarn e2e:brand'
-        archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
-      },
-      webkit: {
-        sh 'yarn e2e:webkit'
-        archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
-      },
-      iphone: {
-        sh 'yarn e2e:iphone'
-        archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
-      },
-      mobile: {
-        sh 'yarn e2e:mobile'
-        archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
+      parallel {
+        stage('desktop') {
+          sh 'yarn e2e:desktop'
+          archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
+        }
+        stage('brand') {
+          sh 'yarn e2e:brand'
+          archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
+        },
+        stage('webkit') {
+          sh 'yarn e2e:webkit'
+          archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
+        },
+        stage('iphone') {
+          sh 'yarn e2e:iphone'
+          archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
+        },
+        stage('mobile') {
+          sh 'yarn e2e:mobile'
+          archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
+        }
       }
     }
   }
