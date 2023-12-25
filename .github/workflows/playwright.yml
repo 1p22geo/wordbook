@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
 jobs:
   playwright:
-    needs: report-pending
     strategy:
         matrix:
           suite: ["desktop", "mobile", "iphone", "webkit", "brand"]
@@ -41,7 +40,6 @@ jobs:
           path: playwright-report/
           retention-days: 90
   storybook:
-    needs: report-pending
     timeout-minutes: 60
     runs-on: alpine
     steps:
