@@ -13,14 +13,9 @@ jobs:
   analyze:
     env:
       SKIP_ENV_VALIDATION: true
-    runs-on: linux
+    runs-on: alpine
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up node
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile

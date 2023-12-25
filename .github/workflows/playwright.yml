@@ -16,7 +16,7 @@ jobs:
         image: mongo
         ports:
           - 27017:27017
-    runs-on: linux
+    runs-on: alpine
     steps:
       - uses: actions/checkout@v4
       - run: echo "node_version=$(cat .github/nodejs.version)" >> $GITHUB_ENV
@@ -43,7 +43,7 @@ jobs:
   storybook:
     needs: report-pending
     timeout-minutes: 60
-    runs-on: linux
+    runs-on: alpine
     steps:
       - uses: actions/checkout@v4
       - run: echo "node_version=$(cat .github/nodejs.version)" >> $GITHUB_ENV
