@@ -6186,10 +6186,10 @@
   resolved "https://registry.yarnpkg.com/@uiw/copy-to-clipboard/-/copy-to-clipboard-1.0.16.tgz#38f7689be319b1f35dbf24254ec8eaec7158dcff"
   integrity sha512-IXR+N363nLTR3ilklmM+B0nk774jVE/muOrBYt4Rdww/Pf3uP9XHyv2x6YZrbDh29F7w9BkzQyB8QF6WDShmJA==
 
-"@uiw/react-markdown-preview@^5.0.2":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@uiw/react-markdown-preview/-/react-markdown-preview-5.0.4.tgz#b81f783e006ddec8f6ad18025cf04c6811fce8e7"
-  integrity sha512-iADUBojo6fXWjF3uBPR6/EhecnSvpmjCOmVP97Bfw7A4yIlPhvIQ0BE87ABSjKpKvZpjG0EOYncECD51IE8bpA==
+"@uiw/react-markdown-preview@^5.0.6":
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/@uiw/react-markdown-preview/-/react-markdown-preview-5.0.6.tgz#c39e0f456125554b054e254fb063759f7ecff305"
+  integrity sha512-zd+T02xFhy6K75XPdkF3RRAWKzVzJctZ6CCpFDcn/CgdQlEj8Z+Z9k11nkPspzbznB43UYdoe4qQvnjgG6TfZw==
   dependencies:
     "@babel/runtime" "^7.17.2"
     "@uiw/copy-to-clipboard" "~1.0.12"
@@ -6204,13 +6204,13 @@
     remark-gfm "~4.0.0"
     unist-util-visit "^5.0.0"
 
-"@uiw/react-md-editor@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@uiw/react-md-editor/-/react-md-editor-4.0.1.tgz#30c9f8389b230eb3fa295a73c1a9be1892d5adba"
-  integrity sha512-+UTBQAfawQNU3JwOB0VMAYS+O9Po5xJTQCYoMVcn+O5BdbFW8mYBFjxvHwOF7unWCAOM6GwpTBpIOWypg+sD6w==
+"@uiw/react-md-editor@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@uiw/react-md-editor/-/react-md-editor-4.0.2.tgz#b12ebbe6df9d7d6ab836cb9f8d3026664d095405"
+  integrity sha512-T1dnxOqm/+ncriHUfVsGaDTiB1d91zKqz1WmtMl50tJUjR3uW4e2mjv+ynKS6S9wt+t9wdAj9oU8iI8wHwWwHw==
   dependencies:
     "@babel/runtime" "^7.14.6"
-    "@uiw/react-markdown-preview" "^5.0.2"
+    "@uiw/react-markdown-preview" "^5.0.6"
     rehype "~13.0.0"
     rehype-prism-plus "~1.6.1"
 
