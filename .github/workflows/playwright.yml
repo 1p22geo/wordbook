@@ -1,4 +1,6 @@
 name: End-to-end tests and smoke tests
+permissions:
+  statuses: write
 on:
   push:
   workflow_dispatch:
