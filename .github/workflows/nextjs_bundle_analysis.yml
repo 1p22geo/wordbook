@@ -13,7 +13,7 @@ jobs:
   analyze:
     env:
       SKIP_ENV_VALIDATION: true
-    runs-on: ubuntu-latest
+    runs-on: linux
     steps:
       - uses: actions/checkout@v4
 
