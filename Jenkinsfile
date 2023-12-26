@@ -14,6 +14,8 @@ pipeline {
             ]) {
               sh 'yarn playwright install'
         }
+        sh 'apk update'
+        sh 'apk add xvbf-run'
       }
     }
     stage('Build') {

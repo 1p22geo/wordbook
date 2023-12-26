@@ -28,11 +28,12 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: "http://127.0.0.1:3000",
+    baseURL: "http://127.0.0.1:19999",
 
+    headless: false,
     /* Always collect traces and videos */
     trace: "on",
-    video: process.env.CI || process.env.VIDEO ? "on" : "off",
+    video: process.env.VIDEO ? "on" : "off",
   },
 
   /* Configure projects for major browsers */
@@ -75,8 +76,8 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "yarn start",
-    url: "http://127.0.0.1:3000",
+    command: "yarn start --port 19999",
+    url: "http://127.0.0.1:19999",
     reuseExistingServer: !process.env.CI,
   },
 });
