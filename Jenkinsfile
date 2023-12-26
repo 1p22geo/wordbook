@@ -8,6 +8,7 @@ pipeline {
           arbitraryFileCache(path: 'node_modules', cacheValidityDecidingFile: 'yarn.lock')
             ]) {
               sh 'yarn install --frozen-lockfile'
+              sh 'PLAYWRIGHT_BROWSERS_PATH=0 npx playwright install'
         }
       }
     }
@@ -34,7 +35,7 @@ pipeline {
     }
     stage('End-to-end tests') {
       parallel {
-        stage('desktop') {
+        stage('End-to-end: desktop') {
           steps {
             sh 'yarn e2e:desktop'
             archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
@@ -42,25 +43,25 @@ pipeline {
         }
         stage('brand') {
           steps {
-            sh 'yarn e2e:brand'
+            sh 'End-to-end: dyarn e2e:brand'
             archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
           }
         }
         stage('webkit') {
           steps {
-            sh 'yarn e2e:webkit'
+            sh 'End-to-end: dyarn e2e:webkit'
             archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
           }
         }
         stage('iphone') {
           steps {
-            sh 'yarn e2e:iphone'
+            sh 'End-to-end: dyarn e2e:iphone'
             archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
           }
         }
         stage('mobile') {
           steps {
-            sh 'yarn e2e:mobile'
+            sh 'End-to-end: dyarn e2e:mobile'
             archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
           }
         }
