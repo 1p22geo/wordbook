@@ -8,7 +8,11 @@ pipeline {
           arbitraryFileCache(path: 'node_modules', cacheValidityDecidingFile: 'yarn.lock')
             ]) {
               sh 'yarn install --frozen-lockfile'
-              sh 'PLAYWRIGHT_BROWSERS_PATH=0 npx playwright install'
+        }
+        cache(maxCacheSize: 250, defaultBranch: 'main', caches: [
+          arbitraryFileCache(path: '~/.cache/ms-playwright', cacheValidityDecidingFile: 'playwright.config.ts')
+            ]) {
+              sh 'yarn playwright install'
         }
       }
     }
@@ -30,7 +34,8 @@ pipeline {
     stage('Unit tests') {
       steps {
         sh 'yarn coverage'
-        archiveArtifacts artifacts: 'coverage/', fingerprint: true
+        sh 'tar -czvf coverage.tar.gz coverage'
+        archiveArtifacts artifacts: 'coverage.tar.gz', fingerprint: true
       }
     }
     stage('End-to-end tests') {
@@ -38,31 +43,36 @@ pipeline {
         stage('End-to-end: desktop') {
           steps {
             sh 'yarn e2e:desktop'
-            archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
+            sh 'tar -czvf report-desktop.tar.gz playwright-report'
+            archiveArtifacts artifacts: 'report-desktop.tar.gz', fingerprint: true
           }
         }
         stage('brand') {
           steps {
             sh 'End-to-end: dyarn e2e:brand'
-            archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
+            sh 'tar -czvf report-brand.tar.gz playwright-report'
+            archiveArtifacts artifacts: 'report-brand.tar.gz', fingerprint: true
           }
         }
         stage('webkit') {
           steps {
             sh 'End-to-end: dyarn e2e:webkit'
-            archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
+            sh 'tar -czvf report-webkit.tar.gz playwright-report'
+            archiveArtifacts artifacts: 'report-webkit.tar.gz', fingerprint: true
           }
         }
         stage('iphone') {
           steps {
             sh 'End-to-end: dyarn e2e:iphone'
-            archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
+            sh 'tar -czvf report-iphone.tar.gz playwright-report'
+            archiveArtifacts artifacts: 'report-iphone.tar.gz', fingerprint: true
           }
         }
         stage('mobile') {
           steps {
             sh 'End-to-end: dyarn e2e:mobile'
-            archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
+            sh 'tar -czvf report-mobile.tar.gz playwright-report'
+            archiveArtifacts artifacts: 'report-mobile.tar.gz', fingerprint: true
           }
         }
       }
