@@ -5,12 +5,12 @@ pipeline {
     stage('Install dependencies') {
       steps {
         cache(maxCacheSize: 250, defaultBranch: 'main', caches: [
-          arbitraryFileCache(path: 'node_modules', cacheValidityDecidingFile: 'yarn.lock')
+          arbitraryFileCache(path: 'node_modules')
             ]) {
               sh 'yarn install --frozen-lockfile'
         }
         cache(maxCacheSize: 250, defaultBranch: 'main', caches: [
-          arbitraryFileCache(path: '~/.cache/ms-playwright', cacheValidityDecidingFile: 'playwright.config.ts')
+          arbitraryFileCache(path: '~/.cache/ms-playwright')
             ]) {
               sh 'yarn playwright install'
         }
