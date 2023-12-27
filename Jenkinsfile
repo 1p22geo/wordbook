@@ -33,25 +33,24 @@ pipeline {
     }
     stage('Unit tests') {
       steps {
-        try {
-          sh 'yarn coverage'
-        }
-        finally {
-          sh 'tar -czvf coverage.tar.gz coverage'
-          archiveArtifacts artifacts: 'coverage.tar.gz', fingerprint: true
-        }
+        sh 'yarn coverage'
       }
     }
     stage('End-to-end tests') {
-      steps {
-        try {
-          sh 'yarn e2e:all'
-        }
-        finally {
-          sh 'tar -czvf report.tar.gz playwright-report'
-          archiveArtifacts artifacts: 'report.tar.gz', fingerprint: true
-        }
+      environment {
+        MONGO_URI = 'mongodb://192.168.50.193:27017'
       }
+      steps {
+        sh 'yarn e2e:all'
+      }
+    }
+  }
+  post {
+    always {
+      sh 'tar -czvf coverage.tar.gz coverage'
+      archiveArtifacts artifacts: 'coverage.tar.gz'
+      sh 'tar -czvf report.tar.gz playwright-report'
+      archiveArtifacts artifacts: 'report.tar.gz'
     }
   }
 }
