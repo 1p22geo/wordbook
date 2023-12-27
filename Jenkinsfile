@@ -45,7 +45,7 @@ pipeline {
       }
     }
     stage('Build and push Docker image'){
-      node{
+      steps{
         def app = docker.build "1p22geo/wordbook:${env.BUILD_TAG}"
         app.push 'latest'
       }
