@@ -33,17 +33,24 @@ pipeline {
     }
     stage('Unit tests') {
       steps {
-        sh 'yarn coverage'
-        sh 'tar -czvf coverage.tar.gz coverage'
-        archiveArtifacts artifacts: 'coverage.tar.gz', fingerprint: true
+        try {
+          sh 'yarn coverage'
+        }
+        finally {
+          sh 'tar -czvf coverage.tar.gz coverage'
+          archiveArtifacts artifacts: 'coverage.tar.gz', fingerprint: true
+        }
       }
     }
     stage('End-to-end tests') {
       steps {
-        sh 'yarn e2e:all'
-        sh 'tar -czvf report.tar.gz playwright-report'
-        archiveArtifacts artifacts: 'report.tar.gz', fingerprint: true
-
+        try {
+          sh 'yarn e2e:all'
+        }
+        finally {
+          sh 'tar -czvf report.tar.gz playwright-report'
+          archiveArtifacts artifacts: 'report.tar.gz', fingerprint: true
+        }
       }
     }
   }
