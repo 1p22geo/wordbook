@@ -44,6 +44,12 @@ pipeline {
         sh 'yarn e2e:all'
       }
     }
+    stage('Build and push Docker image'){
+      node{
+        def app = docker.build "1p22geo/wordbook:${env.BUILD_TAG}"
+        app.push 'latest'
+      }
+    }
   }
   post {
     always {
