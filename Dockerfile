@@ -11,6 +11,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY . .
+COPY --from=prod_deps /app/node_modules /app/node_modules
 RUN  yarn
 
 # --------------------
