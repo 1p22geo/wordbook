@@ -10,7 +10,7 @@ FROM node:18-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY . .
+COPY package.json yarn.lock ./
 COPY --from=prod_deps /app/node_modules /app/node_modules
 RUN  yarn
 
