@@ -1,4 +1,6 @@
-node_modules
 .env.local
 uploads/
+.next
+coverage
+test-results
 
