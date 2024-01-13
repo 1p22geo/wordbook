@@ -51,7 +51,7 @@ export default function FileUploader(props: {
     <input
       type="file"
       aria-label="add a file"
-      onChange={(e)=>void onImageFileChange(e)}
+      onChange={(e) => void onImageFileChange(e)}
       className="rounded-md bg-secondary-800 p-8 text-xl text-white shadow-inner shadow-secondary-500"
     />
   );

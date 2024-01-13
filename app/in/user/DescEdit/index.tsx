@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Alert, alertMessage } from "components/Alert";
@@ -35,18 +35,18 @@ export const DescriptionEditor = ({
       </button>
       {visible && (
         <>
-          <div className="w-full shrink-0 flex flex-col px-4 gap-4 items-end">
+          <div className="flex w-full shrink-0 flex-col items-end gap-4 px-4">
             <div className="flex flex-col items-start self-start p-8 font-light">
-        <span>Upload an image: </span>
-        <FileUploader
-          uploadedCallback={(filename: string) =>
-            new Promise((resolve) => {
-              setvalue((v) => v + `![${filename}](/api/image/${filename})`);
-              resolve();
-            })
-          }
-        />
-      </div>
+              <span>Upload an image: </span>
+              <FileUploader
+                uploadedCallback={(filename: string) =>
+                  new Promise((resolve) => {
+                    setvalue((v) => v + `![${filename}](/api/image/${filename})`);
+                    resolve();
+                  })
+                }
+              />
+            </div>
             <Editor value={value} setValue={setvalue} />
             {alertMessage.type ? <Alert type={alertMessage.type}>{alertMessage.message}</Alert> : null}
             <div className="m-8 flex gap-4 self-end">
