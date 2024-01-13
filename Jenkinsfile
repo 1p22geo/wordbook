@@ -1,15 +1,20 @@
 pipeline {
+  environment {
+    registry = "1p22geo/wordbook"
+    registryCredential = 'dockerhub_id'
+    dockerImage = ''
+}
   agent any
 
   stages {
     stage('Install dependencies') {
       steps {
-        cache(maxCacheSize: 1024, defaultBranch: 'main', caches: [
+        cache(maxCacheSize: 10024, defaultBranch: 'main', caches: [
           arbitraryFileCache(path: 'node_modules', cacheValidityDecidingFile: 'LICENSE')
             ]) {
               sh 'yarn install --frozen-lockfile'
         }
-        cache(maxCacheSize: 1024, defaultBranch: 'main', caches: [
+        cache(maxCacheSize: 10024, defaultBranch: 'main', caches: [
           arbitraryFileCache(path: '~/.cache/ms-playwright', cacheValidityDecidingFile: 'LICENSE')
             ]) {
               sh 'yarn playwright install'
@@ -44,12 +49,22 @@ pipeline {
         sh 'yarn e2e:all'
       }
     }
-    stage('Build and push Docker image'){
+    stage('Build Docker image'){
       steps {
         script {
           if (env.BRANCH_NAME == 'main'){
-            def app = docker.build "1p22geo/wordbook:${env.BUILD_TAG}"
-            app.push 'latest'
+            dockerImage = docker.build "1p22geo/wordbook:${env.BUILD_TAG}"
+          }
+        }
+      }
+    }
+    stage('Push image'){
+      steps {
+        script {
+          if (env.BRANCH_NAME == 'main'){
+            docker.withRegistry( '', registryCredential ) {
+              dockerImage.push()
+            }
           }
         }
       }
