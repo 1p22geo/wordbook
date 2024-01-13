@@ -80,7 +80,7 @@ const Page = async () => {
               await submitAddImage(img, sessionID);
             }}
           />
-          <div className="m-4 grid w-fit grid-cols-3 gap-4">
+          <div className="m-4 grid w-fit items-center align-center grid-cols-3 gap-4">
             {user.data.gallery.map((item) => (
               <div key={`wrapper for /api/image/${item.url}`}>
                 <Link href={`/api/image/${item.url}`} key={`link for /api/image/${item.url}`}>
