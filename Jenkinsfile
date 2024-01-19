@@ -46,7 +46,14 @@ pipeline {
         MONGO_URI = 'mongodb://192.168.50.193:27017'
       }
       steps {
-        sh 'yarn e2e:all'
+        node {
+          checkout scm
+
+          docker.image('mongo').withRun('-p 27017:27017') { c ->
+            sh 'while ! [ "$(curl http://minisforum:27017 2>/dev/null | sha256sum)" == "ab6fc4ecfa3ab9090a7f9e32a767788adb5cea7719b04a269ab28886950f0d23  -" ]; do sleep 1; done'
+            sh 'yarn e2e:all'
+          }
+        }
       }
     }
     stage('Build Docker image'){
