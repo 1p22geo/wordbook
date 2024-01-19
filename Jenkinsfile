@@ -43,7 +43,7 @@ pipeline {
     }
     stage('End-to-end tests') {
       environment {
-        MONGO_URI = 'mongodb://192.168.50.193:27017'
+        MONGO_URI = 'mongodb://minisforum:27017'
       }
       steps {
         script {
