@@ -36,7 +36,7 @@ export async function POST(request: Request) {
 
         return Response.json({ error: "No such user" }, { status: 404 });
       }
-      res.hash = "x"
+      res.hash = "x";
       span.addEvent("user found");
       const coll_data = db.collection("userdata");
 
