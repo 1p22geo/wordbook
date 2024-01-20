@@ -10,10 +10,8 @@ FROM node:18-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY package.json yarn.lock node_modules* ./
-RUN /bin/sh -c "ls node_modules || mkdir node_modules"
-COPY --from=prod_deps /app/node_modules/* /app/node_modules/
-COPY --from=prod_deps /app/node_modules/.* /app/node_modules/
+COPY package.json yarn.lock ./
+COPY --from=prod_deps /app/node_modules ./
 RUN  yarn
 
 # --------------------
