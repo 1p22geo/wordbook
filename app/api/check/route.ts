@@ -53,6 +53,7 @@ export async function POST(request: Request) {
           { status: 501 }
         );
       }
+      res2.hash = "x" // that was a big one.
       span.addEvent("user found");
       span.setAttribute("user", JSON.stringify(res2));
 
