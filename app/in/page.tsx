@@ -20,6 +20,7 @@ const Page = async () => {
   const { posts } = (await req.json()) as responseJSON;
   return (
     <main className="flex max-w-[100vw] flex-col items-center gap-8 p-24">
+      <h1 className="w-full text-xl font-semibold">Write a post:</h1>
       <PostEditor />
       <PostView voted={user.data.voted} initPosts={posts} session={session as unknown as ObjectId} />
     </main>
