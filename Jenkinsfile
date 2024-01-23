@@ -86,6 +86,9 @@ pipeline {
       archiveArtifacts artifacts: 'coverage.tar.gz'
       sh 'tar -czvf report.tar.gz playwright-report'
       archiveArtifacts artifacts: 'report.tar.gz'
+      sh 'tar -czvf results.tar.gz test-results'
+      archiveArtifacts artifacts: 'results.tar.gz'
+
     }
   }
 }

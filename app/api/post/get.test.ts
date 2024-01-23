@@ -108,6 +108,6 @@ describe("/api/post", () => {
     const response = await GET(req as unknown as Request);
 
     expect(response.status).toBe(400);
-    expect(console.info).toBeCalledWith("yes.");
+    expect(console.info).toHaveBeenCalledWith("yes.");
   });
 });

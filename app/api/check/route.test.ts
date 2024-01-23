@@ -67,7 +67,7 @@ describe("/api/check", () => {
     const response = await POST(req as unknown as Request);
 
     expect(response.status).toBe(400);
-    expect(console.error).toBeCalledWith(Error("test error please ignore"));
+    expect(console.error).toHaveBeenCalledWith(Error("test error please ignore"));
   });
   it("reacts to lack of environment variables", async () => {
     const { req } = createMocks({
@@ -80,7 +80,7 @@ describe("/api/check", () => {
     const response = await POST(req as unknown as Request);
 
     expect(response.status).toBe(400);
-    expect(console.error).toBeCalledWith(Error("test error please ignore"));
-    expect(console.info).toBeCalledWith("yes.");
+    expect(console.error).toHaveBeenCalledWith(Error("test error please ignore"));
+    expect(console.info).toHaveBeenCalledWith("yes.");
   });
 });

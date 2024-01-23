@@ -40,8 +40,8 @@ describe("submit", () => {
     });
     sumbit({ email: "email@email.com", name: "user", pass: "qwe", rpass: "qwe" }, seterror);
     expect(er).toStrictEqual({ type: "loading", message: "Please wait..." });
-    expect(fetch).toBeCalledTimes(1);
-    expect(fetch).toBeCalledWith("http://localhost/api/register", {
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith("http://localhost/api/register", {
       body: JSON.stringify({ email: "email@email.com", name: "user", pass: "qwe" }),
       method: "POST",
     });
@@ -60,6 +60,56 @@ describe("submit", () => {
           </Link>
         </>
       ),
+    });
+  });
+  it("should show a warning on already existent user", async () => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        ok: false,
+        status: 409,
+        json: () => Promise.resolve({ error: "[test] User already exists" }),
+      })
+    ) as jest.Mock;
+    seterror = jest.fn((newErr: alertMessage) => {
+      er = newErr;
+    });
+    sumbit({ email: "email@email.com", name: "user", pass: "qwe", rpass: "qwe" }, seterror);
+    expect(er).toStrictEqual({ type: "loading", message: "Please wait..." });
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith("http://localhost/api/register", {
+      body: JSON.stringify({ email: "email@email.com", name: "user", pass: "qwe" }),
+      method: "POST",
+    });
+    await new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    });
+    expect(er).toStrictEqual({
+      type: "warning",
+      message: <>There already exists a user with this username. How about adding some digits to the end?</>,
+    });
+  });
+  it("should show an error on unexpected error", async () => {
+    global.fetch = jest.fn(() => Promise.reject()) as jest.Mock;
+    seterror = jest.fn((newErr: alertMessage) => {
+      er = newErr;
+    });
+    sumbit({ email: "email@email.com", name: "user", pass: "qwe", rpass: "qwe" }, seterror);
+    expect(er).toStrictEqual({ type: "loading", message: "Please wait..." });
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith("http://localhost/api/register", {
+      body: JSON.stringify({ email: "email@email.com", name: "user", pass: "qwe" }),
+      method: "POST",
+    });
+    await new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    });
+    expect(er).toStrictEqual({
+      type: "error",
+      message: <>Someting went wrong.</>,
     });
   });
 });
