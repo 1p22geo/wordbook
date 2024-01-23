@@ -31,6 +31,20 @@ describe("/api/register", () => {
     const response = await POST(req as unknown as Request);
     expect(response.status).toBe(201);
   });
+  it("should reject an existing user", async () => {
+    const { req } = createMocks({
+      method: "POST",
+      body: {
+        email: "exists@gmail.com",
+        pass: "qwe",
+        name: "Bartosz G",
+      },
+    });
+    req.json = jest.fn().mockResolvedValue(req.body);
+
+    const response = await POST(req as unknown as Request);
+    expect(response.status).toBe(409);
+  });
   it("should handle unexpected exceptions", async () => {
     const { req } = createMocks({
       method: "POST",
@@ -44,7 +58,7 @@ describe("/api/register", () => {
 
     const response = await POST(req as unknown as Request);
     expect(response.status).toBe(400);
-    expect(console.error).toBeCalledWith(Error("test error please ignore"));
+    expect(console.error).toHaveBeenCalledWith(Error("test error please ignore"));
   });
   it("should handle environment variables", async () => {
     const { req } = createMocks({

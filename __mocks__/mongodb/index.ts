@@ -61,6 +61,16 @@ class MongoClient {
                 return { insertedId: new RealObjectId("652eb25c57e45bcc221d5234") };
               }),
               findOne: jest.fn((q) => {
+                if ( q.email == "exists@gmail.com") {
+                  return {
+                    _id: new RealObjectId("652eb25c57e45bcc221d51d4"),
+                    email: "exists@gmail.com",
+                    name: "Bartosz Geodecki",
+                    hash: "489cd5dbc708c7e541de4d7cd91ce6d0f1613573b7fc5b40d3942ccb9555cf35",
+                    added: 1697559132609,
+                    type: "user",
+                  };
+                }
                 if (
                   q.email === "1p22geo@gmail.com" &&
                   q.hash === "489cd5dbc708c7e541de4d7cd91ce6d0f1613573b7fc5b40d3942ccb9555cf35"

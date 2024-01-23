@@ -28,6 +28,28 @@ test("signs up", async ({ userAgent }) => {
     pass,
   });
 });
+test("fails to sign up duplicate user", async ({ userAgent }) => {
+  const id = sha256(userAgent as string);
+  const email = "test1@email_" + id + ".com";
+  const name = "Test user 1 of " + id;
+  const pass = "123";
+  await page.goto("./");
+  await page.goto("./");
+  await expect(page).toHaveTitle(/WordBook - Internet redefined/);
+  await expect(page.getByText(/Sign up/)).toBeVisible();
+  await page.getByText(/Sign up/).click();
+  await expect(page).toHaveTitle(/WordBook \| Sign up to WordBook/);
+  await (await page.$("#email"))?.fill(email);
+  await page.getByText("2").click();
+  await (await page.$("#name"))?.fill(name);
+  await page.getByText("3").click();
+  await (await page.$("#pass"))?.fill(pass);
+  await (await page.$("#rpass"))?.fill(pass);
+  await page.getByText("4").click();
+  await page.getByText(/submit/i).click();
+  await expect(page.getByText(/already exists/i)).toBeVisible();
+
+});
 test("logs in", async ({ userAgent }) => {
   const id = sha256(userAgent as string);
   const email = "test1@email_" + id + ".com";
