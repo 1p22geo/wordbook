@@ -28,7 +28,7 @@ describe("/api/user", () => {
     req.json = jest.fn().mockResolvedValue(req.body);
 
     const response = await POST(req as unknown as Request);
-    expect(console.info).toBeCalledWith("yes.");
+    expect(console.info).toHaveBeenCalledWith("yes.");
     expect(response.status).toBe(200);
   });
   it("should react to wrong user id", async () => {
@@ -81,7 +81,7 @@ describe("/api/user", () => {
 
     const response = await POST(req as unknown as Request);
     expect(response.status).toBe(400);
-    expect(console.error).toBeCalledWith(Error("test error please ignore"));
+    expect(console.error).toHaveBeenCalledWith(Error("test error please ignore"));
   });
   it("should handle environment variables", async () => {
     const { req } = createMocks({
@@ -96,8 +96,8 @@ describe("/api/user", () => {
 
     const response = await POST(req as unknown as Request);
     expect(response.status).toBe(400);
-    expect(console.error).toBeCalledWith(Error("test error please ignore"));
-    expect(console.info).toBeCalledWith("yes.");
+    expect(console.error).toHaveBeenCalledWith(Error("test error please ignore"));
+    expect(console.info).toHaveBeenCalledWith("yes.");
   });
   it("should handle lack of environment variables", async () => {
     const { req } = createMocks({
@@ -112,7 +112,7 @@ describe("/api/user", () => {
 
     const response = await POST(req as unknown as Request);
     expect(response.status).toBe(400);
-    expect(console.error).toBeCalledWith(Error("test error please ignore"));
-    expect(console.info).toBeCalledWith("");
+    expect(console.error).toHaveBeenCalledWith(Error("test error please ignore"));
+    expect(console.info).toHaveBeenCalledWith("");
   });
 });

@@ -41,7 +41,7 @@ describe("submit", () => {
     sumbit({ email: "email@email.com", name: "user", pass: "qwe", rpass: "qwe" }, seterror);
     expect(er).toStrictEqual({ type: "loading", message: "Please wait..." });
     expect(fetch).toBeCalledTimes(1);
-    expect(fetch).toBeCalledWith("http://localhost/api/register", {
+    expect(fetch).toHaveBeenCalledWith("http://localhost/api/register", {
       body: JSON.stringify({ email: "email@email.com", name: "user", pass: "qwe" }),
       method: "POST",
     });
