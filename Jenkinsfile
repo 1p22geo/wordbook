@@ -23,7 +23,11 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'yarn build'
+        cache(maxCacheSize: 10024, defaultBranch: 'main', caches: [
+          arbitraryFileCache(path: '.next/cache', cacheValidityDecidingFile: 'LICENSE')
+            ]) {
+              sh 'yarn build'
+        }
       }
     }
     stage('Prettier checks') {
