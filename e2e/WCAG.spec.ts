@@ -1,10 +1,14 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { sha256 } from "js-sha256";
 import { signup } from "lib/e2e/signup";
 import { login } from "lib/e2e/login";
+import { uuidv4 } from "lib/uuid";
+let id:string;
 
 test.describe("accessibility", () => {
+  test.beforeAll(()=>{
+    id = uuidv4()
+  })
   test.beforeEach(async ({ page }) => {
     await page.goto("./");
   });
@@ -26,8 +30,7 @@ test.describe("accessibility", () => {
   test("signup page", async ({ page }) => {
     await page.goto("./signup");
   });
-  test("logged in", async ({ page, userAgent }) => {
-    const id = sha256(userAgent as string);
+  test("logged in", async ({ page,  }) => {
     const email = "test2@email_" + id + ".com";
     const name = "Test user 2 of " + id;
     const pass = "123";

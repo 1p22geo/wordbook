@@ -1,16 +1,18 @@
 import { test, type Page, expect } from "@playwright/test";
-import { sha256 } from "js-sha256";
 import { login } from "lib/e2e/login";
 import { signup } from "lib/e2e/signup";
 import { switchBar } from "lib/e2e/switchBar";
+import { uuidv4 } from "lib/uuid";
 
 // Annotate entire file as serial.
 test.describe.configure({ mode: "serial" });
 
 let page: Page;
+let id:string;
 
 test.beforeAll(async ({ browser }) => {
   page = await browser.newPage();
+  id = uuidv4()
 });
 
 test.afterAll(async () => {
@@ -19,7 +21,6 @@ test.afterAll(async () => {
 
 test("register and login", async ({ userAgent }) => {
   await page.goto("./");
-  const id = sha256(userAgent as string);
   const email = "test3@email_" + id + ".com";
   const name = "Test user 3 of " + id;
   const pass = "123";
@@ -36,7 +37,6 @@ test("register and login", async ({ userAgent }) => {
 });
 
 test("submit a post", async ({ userAgent }) => {
-  const id = sha256(userAgent as string);
   const date = Date.now();
   await expect(page.locator(".w-md-editor")).toBeVisible();
   await switchBar(page);
