@@ -7,7 +7,7 @@ import { uuidv4 } from "lib/uuid";
 test.describe.configure({ mode: "serial" });
 
 let page: Page;
-let id: string
+let id: string;
 
 test.beforeAll(async ({ browser }) => {
   page = await browser.newPage();
@@ -18,7 +18,7 @@ test.afterAll(async () => {
   await page.close();
 });
 
-test("signs up", async ({ }) => {
+test("signs up", async ({}) => {
   const email = "test1@email_" + id + ".com";
   const name = "Test user 1 of " + id;
   const pass = "123";
@@ -29,7 +29,7 @@ test("signs up", async ({ }) => {
     pass,
   });
 });
-test("fails to sign up duplicate user", async ({  }) => {
+test("fails to sign up duplicate user", async ({}) => {
   const email = "test1@email_" + id + ".com";
   const name = "Test user 1 of " + id;
   const pass = "123";
@@ -49,7 +49,7 @@ test("fails to sign up duplicate user", async ({  }) => {
   await page.getByText(/submit/i).click();
   await expect(page.getByText(/already exists/i)).toBeVisible();
 });
-test("logs in", async ({  }) => {
+test("logs in", async ({}) => {
   const email = "test1@email_" + id + ".com";
   const pass = "123";
 

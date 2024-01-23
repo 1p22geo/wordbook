@@ -8,11 +8,11 @@ import { uuidv4 } from "lib/uuid";
 test.describe.configure({ mode: "serial" });
 
 let page: Page;
-let id:string;
+let id: string;
 
 test.beforeAll(async ({ browser }) => {
   page = await browser.newPage();
-  id = uuidv4()
+  id = uuidv4();
 });
 
 test.afterAll(async () => {
