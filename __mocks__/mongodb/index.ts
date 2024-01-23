@@ -61,7 +61,7 @@ class MongoClient {
                 return { insertedId: new RealObjectId("652eb25c57e45bcc221d5234") };
               }),
               findOne: jest.fn((q) => {
-                if ( q.email == "exists@gmail.com") {
+                if (q.email == "exists@gmail.com") {
                   return {
                     _id: new RealObjectId("652eb25c57e45bcc221d51d4"),
                     email: "exists@gmail.com",

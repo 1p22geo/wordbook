@@ -41,16 +41,11 @@ export const sumbit = (state: typeof init_state, seterror: seterr) => {
             </>
           ),
         });
-      }
-      else{
-        if(res.status === 409){
+      } else {
+        if (res.status === 409) {
           seterror({
-            type:  "warning",
-            message: (
-              <>
-                There already exists a user with this username. How about adding some digits to the end?
-              </>
-            ),
+            type: "warning",
+            message: <>There already exists a user with this username. How about adding some digits to the end?</>,
           });
         }
       }

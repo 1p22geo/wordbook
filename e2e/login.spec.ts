@@ -48,7 +48,6 @@ test("fails to sign up duplicate user", async ({ userAgent }) => {
   await page.getByText("4").click();
   await page.getByText(/submit/i).click();
   await expect(page.getByText(/already exists/i)).toBeVisible();
-
 });
 test("logs in", async ({ userAgent }) => {
   const id = sha256(userAgent as string);
