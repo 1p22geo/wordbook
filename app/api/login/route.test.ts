@@ -27,7 +27,7 @@ describe("/api/login", () => {
     Date.now = jest.fn(() => 1);
     req.json = jest.fn().mockResolvedValue(req.body);
     const response = await POST(req as unknown as Request);
-    expect(console.warn).toHaveBeenCalledWith("session", "652eb26557e45bcc221d51d5", { expires: 3600_001 });
+    expect(console.warn).toHaveBeenCalledWith("session", "652eb26557e45bcc221d51d5", { expires: 864_000_001 });
     expect(response.status).toBe(200);
   });
   it("fails to log in with wrong credentials", async () => {
