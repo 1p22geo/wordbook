@@ -50,7 +50,7 @@ export async function POST(request: Request) {
       span.setAttribute("session", insertedId.toHexString());
       await client.close();
       span.addEvent("client closed");
-      cookies().set("session", insertedId.toHexString(), { expires: Date.now() + 3600_000 });
+      cookies().set("session", insertedId.toHexString(), { expires: Date.now() + 864_000_000 });
 
       return Response.json({ session: insertedId } as responseJSON, { status: 200, statusText: "Logged in" });
     } catch (e) {
