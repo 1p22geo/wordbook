@@ -27,6 +27,18 @@ export const UserPostsAggregation = (user: ObjectId) => [
     },
   },
   {
+    $project: {
+      author: {
+        hash: 0,
+      },
+      comments: {
+        author: {
+          hash: 0,
+        },
+      },
+    },
+  },
+  {
     $sort: {
       posted: -1,
     },

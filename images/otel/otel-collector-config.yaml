@@ -13,11 +13,11 @@ exporters:
   logging:
 
   zipkin:
-    endpoint: "http://10.5.0.12:9411/api/v2/spans"
+    endpoint: "http://zipkin-all-in-one:9411/api/v2/spans"
     format: proto
 
   jaeger:
-    endpoint: 10.5.0.11:14250
+    endpoint: jaeger-all-in-one:14250
     tls:
       insecure: true
 

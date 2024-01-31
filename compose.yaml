@@ -1,3 +1,9 @@
+# compose.yaml (aka docker-compose.yml) for docker compose and simpler deployments
+#
+#    docker compose up -d
+#
+
+
 services:
   app:
     image: 1p22geo/wordbook
@@ -7,8 +13,8 @@ services:
       main:
         ipv4_address: 10.5.0.2
     environment:
-      - MONGO_URI=mongodb://10.5.0.3:27017/?directConnection=true
-      - OTEL_URI=http://10.5.0.5:4317
+      - MONGO_URI=mongodb://mongodb:27017/?directConnection=true
+      - OTEL_URI=http://otel-collector:4317
   mongodb:
     image: mongo
     networks:

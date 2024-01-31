@@ -1,0 +1,108 @@
+version: '3.7'
+# docker-stack file for docker swarm and clustered deployments
+#
+#    docker stack up -c docker-stack.yml wordbook
+#
+
+services:
+  app:
+    image: 1p22geo/wordbook
+    deploy:
+      replicas: 3 # Change the number based on your requirements
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo1:27017,mongo2:27018,mongo3:27019/?replicaSet=rs0
+      - OTEL_URI=http://otel-collector:4317
+    depends_on:
+      - mongodb
+      - otel-collector
+    volumes:
+      - uploads:/app/uploads
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  mongo1:
+    image: mongo:7.0
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+    ports:
+      - 27017:27017
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'host.docker.internal:27017',priority:1},{_id:1,host:'host.docker.internal:27018',priority:0.5},{_id:2,host:'host.docker.internal:27019',priority:0.5}]}) }" | mongosh --port 27017 --quiet
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      retries: 30
+    volumes:
+      - "mongo1_data:/data/db"
+      - "mongo1_config:/data/configdb"
+
+  mongo2:
+    image: mongo:7.0
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27018"]
+    ports:
+      - 27018:27018
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - "mongo2_data:/data/db"
+      - "mongo2_config:/data/configdb"
+
+  mongo3:
+    image: mongo:7.0
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27019"]
+    ports:
+      - 27019:27019
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - "mongo3_data:/data/db"
+      - "mongo3_config:/data/configdb"
+
+  jaeger-all-in-one:
+    image: jaegertracing/all-in-one:latest
+    deploy:
+      replicas: 1
+    ports:
+      - "16686:16686"
+      - "14268"
+      - "14250"
+
+  zipkin-all-in-one:
+    image: openzipkin/zipkin:latest
+    deploy:
+      replicas: 1
+    ports:
+      - "9411:9411"
+
+  otel-collector:
+    image: 1p22geo/wordbook-otel
+    deploy:
+      replicas: 3
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    ports:
+      - "1888"   # pprof extension
+      - "8888"   # Prometheus metrics exposed by the collector
+      - "8889"   # Prometheus exporter metrics
+      - "13133"  # health_check extension
+      - "4317"   # OTLP gRPC receiver
+      - "4318"   # OTLP HTTP receiver
+      - "55679"  # zpages extension
+    depends_on:
+      - jaeger-all-in-one
+      - zipkin-all-in-one
+
+networks:
+  main:
+    driver: overlay
+
+volumes:
+  uploads:
+  mongo1_data:
+  mongo2_data:
+  mongo3_data:
+  mongo1_config:
+  mongo2_config:
+  mongo3_config:
