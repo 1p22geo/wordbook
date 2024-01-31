@@ -1,3 +1,9 @@
+# compose.yaml (aka docker-compose.yml) for docker compose and simpler deployments
+#
+#    docker compose up -d
+#
+
+
 services:
   app:
     image: 1p22geo/wordbook
