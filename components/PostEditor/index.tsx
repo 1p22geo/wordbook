@@ -51,3 +51,5 @@ export const PostEditor = (props?: { submit?: typeof submit }) => {
     </div>
   );
 };
+
+export default PostEditor;

@@ -1,12 +1,10 @@
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { responseJSON } from "app/api/post/route.get";
 import { Alert } from "components/Alert";
-import { PostEditor } from "components/PostEditor";
 import { checkSession } from "lib/checkSession";
 import { checkUser } from "lib/checkUser";
-import { PostView } from "./PostView";
 
 const Page = async () => {
   const host = headers().get("host") || "localhost";
@@ -23,13 +21,17 @@ const Page = async () => {
     <main className="flex max-w-[100vw] flex-col items-center gap-8 p-24">
       <h1 className="w-full text-xl font-semibold">Write a post:</h1>
       <Suspense fallback={<Alert type="loading">Loading editor...</Alert>}>
-        <PostEditor />
+        <LazyLoadedEditor />
       </Suspense>
       <Suspense fallback={<Alert type="loading">Loading posts...</Alert>}>
-        <PostView voted={user.data.voted} initPosts={posts} session={session} />
+        <LazyLoadedPostView voted={user.data.voted} initPosts={posts} session={session} />
       </Suspense>
     </main>
   );
 };
+
+const LazyLoadedEditor = lazy(() => import(/* webpackChunkName: "editor" */ "components/PostEditor"));
+const LazyLoadedPostView = lazy(() => import(/* webpackChunkName: "postview" */ "./PostView"));
+
 
 export default Page;
