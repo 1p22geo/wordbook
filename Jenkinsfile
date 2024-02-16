@@ -61,6 +61,11 @@ pipeline {
         }
       }
     }
+    stage('Build storybook') {
+      steps {
+        sh 'yarn build-storybook'
+      }
+    }
     stage('Build Docker image'){
       steps {
         script {
@@ -90,6 +95,8 @@ pipeline {
       archiveArtifacts artifacts: 'report.tar.gz'
       sh 'tar -czvf results.tar.gz test-results'
       archiveArtifacts artifacts: 'results.tar.gz'
+      sh 'tar -czvf storybook-static.tar.gz storybook-static'
+      archiveArtifacts artifacts: 'storybook-static.tar.gz'
 
     }
   }
