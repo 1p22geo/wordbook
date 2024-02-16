@@ -4,7 +4,9 @@ pipeline {
     registryCredential = 'dockerhub_id'
     dockerImage = ''
 }
-  agent any
+  agent {
+    label 'node && playwright && docker'
+  }
 
   stages {
     stage('Install dependencies') {
