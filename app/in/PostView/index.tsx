@@ -97,5 +97,4 @@ export const PostView = ({
   );
 };
 
-
 export default PostView;

@@ -33,5 +33,4 @@ const Page = async () => {
 const LazyLoadedEditor = lazy(() => import(/* webpackChunkName: "editor" */ "components/PostEditor"));
 const LazyLoadedPostView = lazy(() => import(/* webpackChunkName: "postview" */ "./PostView"));
 
-
 export default Page;
