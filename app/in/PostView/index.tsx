@@ -17,7 +17,7 @@ export const PostView = ({
   initPosts: PostAuthorID[];
   url?: string;
   voted?: ObjectId[];
-  session: ObjectId;
+  session: string;
 }) => {
   const [posts, setposts] = useState(initPosts);
   const [page, setpage] = useState(0);
@@ -70,7 +70,11 @@ export const PostView = ({
   return (
     <>
       {posts.map((post) => (
-        <Post key={post._id.toString()} post={post} votePost={createVotePost(setposts, voted, setvoted, session)} />
+        <Post
+          key={post._id.toString()}
+          post={post}
+          votePost={createVotePost(setposts, voted, setvoted, session as unknown as ObjectId)}
+        />
       ))}
       {end ? (
         <div className="flex w-fit flex-col items-stretch bg-secondary-100 p-4 text-secondary-400 shadow-2xl">
