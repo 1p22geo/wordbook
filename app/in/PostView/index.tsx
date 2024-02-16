@@ -87,8 +87,8 @@ export const PostView = ({
           role="alert"
           ref={spinnerRef}
         >
-          <div className="h-24 w-24 animate-spin rounded-full bg-secondary-600 text-white">
-            <div className="mx-4 mt-4 h-16 w-16 rounded-full bg-secondary-100"></div>
+          <div className="size-24 animate-spin rounded-full bg-secondary-600 text-white">
+            <div className="mx-4 mt-4 size-16 rounded-full bg-secondary-100"></div>
             <div className="ml-12 h-4 w-2 bg-secondary-100"></div>
           </div>
         </div>

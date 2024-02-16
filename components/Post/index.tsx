@@ -76,7 +76,7 @@ export const Post = ({ post, votePost: _votePost }: { post: PostAuthorID; votePo
               aria-label="toggle comment thread"
               width="800px"
               version="1.1"
-              className="h-8 w-8 cursor-pointer"
+              className="size-8 cursor-pointer"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 29.338 29.338"
             >
