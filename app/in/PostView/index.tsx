@@ -17,7 +17,7 @@ export const PostView = ({
   initPosts: PostAuthorID[];
   url?: string;
   voted?: ObjectId[];
-  session: ObjectId;
+  session: string;
 }) => {
   const [posts, setposts] = useState(initPosts);
   const [page, setpage] = useState(0);
@@ -70,7 +70,11 @@ export const PostView = ({
   return (
     <>
       {posts.map((post) => (
-        <Post key={post._id.toString()} post={post} votePost={createVotePost(setposts, voted, setvoted, session)} />
+        <Post
+          key={post._id.toString()}
+          post={post}
+          votePost={createVotePost(setposts, voted, setvoted, session as unknown as ObjectId)}
+        />
       ))}
       {end ? (
         <div className="flex w-fit flex-col items-stretch bg-secondary-100 p-4 text-secondary-400 shadow-2xl">
@@ -83,8 +87,8 @@ export const PostView = ({
           role="alert"
           ref={spinnerRef}
         >
-          <div className="h-24 w-24 animate-spin rounded-full bg-secondary-600 text-white">
-            <div className="mx-4 mt-4 h-16 w-16 rounded-full bg-secondary-100"></div>
+          <div className="size-24 animate-spin rounded-full bg-secondary-600 text-white">
+            <div className="mx-4 mt-4 size-16 rounded-full bg-secondary-100"></div>
             <div className="ml-12 h-4 w-2 bg-secondary-100"></div>
           </div>
         </div>
@@ -92,3 +96,5 @@ export const PostView = ({
     </>
   );
 };
+
+export default PostView;

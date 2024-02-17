@@ -4,7 +4,9 @@ pipeline {
     registryCredential = 'dockerhub_id'
     dockerImage = ''
 }
-  agent any
+  agent {
+    label 'node && playwright && docker'
+  }
 
   stages {
     stage('Install dependencies') {
@@ -59,10 +61,18 @@ pipeline {
         }
       }
     }
+    stage('Build storybook') {
+      steps {
+        sh 'yarn build-storybook'
+      }
+    }
     stage('Build Docker image'){
       steps {
         script {
           if (env.BRANCH_NAME == 'main'){
+            dockerImage = docker.build "1p22geo/wordbook:latest"
+          }
+          if (env.BRANCH_NAME == 'staging'){
             dockerImage = docker.build "1p22geo/wordbook:${env.BUILD_TAG}"
           }
         }
@@ -71,7 +81,7 @@ pipeline {
     stage('Push image'){
       steps {
         script {
-          if (env.BRANCH_NAME == 'main'){
+          if (env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'staging'){
             docker.withRegistry( '', registryCredential ) {
               dockerImage.push()
             }
@@ -88,6 +98,8 @@ pipeline {
       archiveArtifacts artifacts: 'report.tar.gz'
       sh 'tar -czvf results.tar.gz test-results'
       archiveArtifacts artifacts: 'results.tar.gz'
+      sh 'tar -czvf storybook-static.tar.gz storybook-static'
+      archiveArtifacts artifacts: 'storybook-static.tar.gz'
 
     }
   }

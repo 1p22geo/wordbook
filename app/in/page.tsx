@@ -1,11 +1,10 @@
-import { ObjectId } from "mongodb";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { lazy, Suspense } from "react";
 import { responseJSON } from "app/api/post/route.get";
-import { PostEditor } from "components/PostEditor";
+import { Alert } from "components/Alert";
 import { checkSession } from "lib/checkSession";
 import { checkUser } from "lib/checkUser";
-import { PostView } from "./PostView";
 
 const Page = async () => {
   const host = headers().get("host") || "localhost";
@@ -21,10 +20,17 @@ const Page = async () => {
   return (
     <main className="flex max-w-[100vw] flex-col items-center gap-8 p-24">
       <h1 className="w-full text-xl font-semibold">Write a post:</h1>
-      <PostEditor />
-      <PostView voted={user.data.voted} initPosts={posts} session={session as unknown as ObjectId} />
+      <Suspense fallback={<Alert type="loading">Loading editor...</Alert>}>
+        <LazyLoadedEditor />
+      </Suspense>
+      <Suspense fallback={<Alert type="loading">Loading posts...</Alert>}>
+        <LazyLoadedPostView voted={user.data.voted} initPosts={posts} session={session} />
+      </Suspense>
     </main>
   );
 };
+
+const LazyLoadedEditor = lazy(() => import(/* webpackChunkName: "editor" */ "components/PostEditor"));
+const LazyLoadedPostView = lazy(() => import(/* webpackChunkName: "postview" */ "./PostView"));
 
 export default Page;

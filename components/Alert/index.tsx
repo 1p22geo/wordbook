@@ -67,8 +67,8 @@ export const Alert = ({ children, type }: { children: ReactNode; type: alertType
           title="alert"
           className="flex flex-row flex-nowrap items-center border-l-8 border-teal-600 bg-teal-300 p-4 text-teal-800"
         >
-          <div className="mr-4 h-8 w-8 animate-spin rounded-full bg-teal-600">
-            <div className="ml-2 mr-4 mt-2 h-4 w-4 rounded-full bg-teal-300"></div>
+          <div className="mr-4 size-8 animate-spin rounded-full bg-teal-600">
+            <div className="ml-2 mr-4 mt-2 size-4 rounded-full bg-teal-300"></div>
             <div className="ml-3.5 h-2 w-1 bg-teal-300"></div>
           </div>
           <div className="text-xl font-bold">{children}</div>
