@@ -70,6 +70,9 @@ pipeline {
       steps {
         script {
           if (env.BRANCH_NAME == 'main'){
+            dockerImage = docker.build "1p22geo/wordbook:latest"
+          }
+          if (env.BRANCH_NAME == 'staging'){
             dockerImage = docker.build "1p22geo/wordbook:${env.BUILD_TAG}"
           }
         }
@@ -78,7 +81,7 @@ pipeline {
     stage('Push image'){
       steps {
         script {
-          if (env.BRANCH_NAME == 'main'){
+          if (env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'staging'){
             docker.withRegistry( '', registryCredential ) {
               dockerImage.push()
             }
