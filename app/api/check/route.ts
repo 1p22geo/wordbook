@@ -1,7 +1,7 @@
 import opentelemetry from "@opentelemetry/api";
-import { MongoClient, ObjectId } from "mongodb";
+import { Collection, MongoClient, ObjectId } from "mongodb";
 import { Session, SessionID } from "schemas/session";
-import { UserID } from "schemas/user";
+import { User, UserID } from "schemas/user";
 export const dynamic = "force-dynamic";
 export interface requestJSON {
   session: ObjectId;
@@ -29,9 +29,9 @@ export async function POST(request: Request) {
       const json = (await request.json()) as requestJSON;
 
       const db = client.db("wordbook");
-      const coll = db.collection("sessions");
+      const coll: Collection<Session> = db.collection("sessions");
 
-      const res = (await coll.findOne({ _id: new ObjectId(json.session) })) as Session | null;
+      const res = await coll.findOne({ _id: new ObjectId(json.session) });
       if (!res) {
         // no user with such login and password
         await client.close();
@@ -39,8 +39,8 @@ export async function POST(request: Request) {
       }
       span.addEvent("session found");
       span.setAttribute("session", JSON.stringify(res));
-      const coll_users = db.collection("users");
-      const res2 = (await coll_users.findOne({ _id: new ObjectId(res.user) })) as UserID | null;
+      const coll_users: Collection<User> = db.collection("users");
+      const res2 = await coll_users.findOne({ _id: new ObjectId(res.user) });
 
       if (!res2) {
         await client.close();

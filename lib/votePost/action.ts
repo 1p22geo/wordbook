@@ -1,8 +1,10 @@
 "use server";
 
-import { MongoClient, ObjectId } from "mongodb";
+import { Collection, MongoClient, ObjectId } from "mongodb";
+import { Post } from "schemas/post";
 import { Session } from "schemas/session";
-import { UserID } from "schemas/user";
+import { User, UserID } from "schemas/user";
+import { UserData } from "schemas/userdata";
 
 export async function votePostAction(id: ObjectId, vote: boolean, session: ObjectId) {
   const client = new MongoClient(process.env.MONGO_URI ? process.env.MONGO_URI : "");
@@ -14,9 +16,9 @@ export async function votePostAction(id: ObjectId, vote: boolean, session: Objec
     }
 
     const db = client.db("wordbook");
-    const coll = db.collection("sessions");
+    const coll: Collection<Session> = db.collection("sessions");
 
-    const sess = (await coll.findOne({ _id: new ObjectId(session) })) as Session | null;
+    const sess = (await coll.findOne({ _id: new ObjectId(session) }));
 
     if (!sess) {
       // no user with such login and password
@@ -29,15 +31,15 @@ export async function votePostAction(id: ObjectId, vote: boolean, session: Objec
       await client.close();
       return false;
     }
-    const coll_users = db.collection("users");
-    const user = (await coll_users.findOne({ _id: new ObjectId(sess.user) })) as UserID | null;
+    const coll_users: Collection<User> = db.collection("users");
+    const user = (await coll_users.findOne({ _id: new ObjectId(sess.user) }));
 
     if (!user) {
       await client.close();
       return false;
     }
 
-    const coll_posts = db.collection("posts");
+    const coll_posts: Collection<Post> = db.collection("posts");
 
     await coll_posts.updateOne(
       { _id: new ObjectId(id) },
@@ -46,7 +48,7 @@ export async function votePostAction(id: ObjectId, vote: boolean, session: Objec
       }
     );
 
-    const coll_data = db.collection("userdata");
+    const coll_data: Collection<UserData> = db.collection("userdata");
 
     console.log(
       await coll_data.updateOne(
