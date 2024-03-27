@@ -3,7 +3,7 @@ import { Collection, MongoClient, ObjectId } from "mongodb";
 import { cookies } from "next/headers";
 import { Post } from "schemas/post";
 import { Session } from "schemas/session";
-import { User, UserID } from "schemas/user";
+import { User } from "schemas/user";
 export const dynamic = "force-dynamic";
 export interface requestJSON {
   content: string;

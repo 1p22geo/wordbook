@@ -3,7 +3,7 @@
 import opentelemetry from "@opentelemetry/api";
 import { Collection, MongoClient, ObjectId } from "mongodb";
 import { Session } from "schemas/session";
-import { User, UserID } from "schemas/user";
+import { User } from "schemas/user";
 import { UserData, UserDataID } from "schemas/userdata";
 
 export const submitDescriptionChange = async (msg: string, session: string) => {

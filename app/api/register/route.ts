@@ -1,7 +1,7 @@
 import opentelemetry from "@opentelemetry/api";
 import { sha256 } from "js-sha256";
 import { Collection, MongoClient } from "mongodb";
-import { User, UserID } from "schemas/user";
+import { User } from "schemas/user";
 export const dynamic = "force-dynamic";
 interface requestJSON {
   email: string;

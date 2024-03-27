@@ -1,9 +1,9 @@
 import opentelemetry from "@opentelemetry/api";
-import { MongoClient, ObjectId, Collection } from "mongodb";
+import { Collection, MongoClient, ObjectId } from "mongodb";
 import { cookies } from "next/headers";
 import { Comment, Post } from "schemas/post";
 import { Session } from "schemas/session";
-import { User, UserID } from "schemas/user";
+import { User } from "schemas/user";
 export const dynamic = "force-dynamic";
 export interface requestJSON {
   post: ObjectId;

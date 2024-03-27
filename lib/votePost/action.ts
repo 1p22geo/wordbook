@@ -3,7 +3,7 @@
 import { Collection, MongoClient, ObjectId } from "mongodb";
 import { Post } from "schemas/post";
 import { Session } from "schemas/session";
-import { User, UserID } from "schemas/user";
+import { User } from "schemas/user";
 import { UserData } from "schemas/userdata";
 
 export async function votePostAction(id: ObjectId, vote: boolean, session: ObjectId) {
@@ -18,7 +18,7 @@ export async function votePostAction(id: ObjectId, vote: boolean, session: Objec
     const db = client.db("wordbook");
     const coll: Collection<Session> = db.collection("sessions");
 
-    const sess = (await coll.findOne({ _id: new ObjectId(session) }));
+    const sess = await coll.findOne({ _id: new ObjectId(session) });
 
     if (!sess) {
       // no user with such login and password
@@ -32,7 +32,7 @@ export async function votePostAction(id: ObjectId, vote: boolean, session: Objec
       return false;
     }
     const coll_users: Collection<User> = db.collection("users");
-    const user = (await coll_users.findOne({ _id: new ObjectId(sess.user) }));
+    const user = await coll_users.findOne({ _id: new ObjectId(sess.user) });
 
     if (!user) {
       await client.close();

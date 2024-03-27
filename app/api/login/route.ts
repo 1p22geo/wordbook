@@ -3,7 +3,7 @@ import { sha256 } from "js-sha256";
 import { Collection, MongoClient, ObjectId } from "mongodb";
 import { cookies } from "next/headers";
 import { Session } from "schemas/session";
-import { User, UserID } from "schemas/user";
+import { User } from "schemas/user";
 export const dynamic = "force-dynamic";
 export interface requestJSON {
   email: string;
