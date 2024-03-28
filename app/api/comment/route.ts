@@ -1,9 +1,9 @@
 import opentelemetry from "@opentelemetry/api";
-import { MongoClient, ObjectId } from "mongodb";
+import { Collection, MongoClient, ObjectId } from "mongodb";
 import { cookies } from "next/headers";
-import { Comment } from "schemas/post";
+import { Comment, Post } from "schemas/post";
 import { Session } from "schemas/session";
-import { UserID } from "schemas/user";
+import { User } from "schemas/user";
 export const dynamic = "force-dynamic";
 export interface requestJSON {
   post: ObjectId;
@@ -27,9 +27,9 @@ export async function POST(request: Request) {
       }
 
       const db = client.db("wordbook");
-      const coll = db.collection("sessions");
+      const coll: Collection<Session> = db.collection("sessions");
 
-      const sess = (await coll.findOne({ _id: new ObjectId(sessionID) })) as Session | null;
+      const sess = await coll.findOne({ _id: new ObjectId(sessionID) });
 
       if (!sess) {
         // no user with such login and password
@@ -44,8 +44,8 @@ export async function POST(request: Request) {
         await client.close();
         return Response.json({ error: "Session expired" }, { status: 403 });
       }
-      const coll_users = db.collection("users");
-      const user = (await coll_users.findOne({ _id: new ObjectId(sess.user) })) as UserID | null;
+      const coll_users: Collection<User> = db.collection("users");
+      const user = await coll_users.findOne({ _id: new ObjectId(sess.user) });
 
       if (!user) {
         await client.close();
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
 
       span.addEvent("user found");
       span.setAttribute("user", JSON.stringify(user));
-      const coll_posts = db.collection("posts");
+      const coll_posts: Collection<Post> = db.collection("posts");
       const comment: Comment = {
         author: user,
         content: json.content,
@@ -76,15 +76,6 @@ export async function POST(request: Request) {
           },
         }
       );
-
-      /*
-      const res = await coll_posts.insertOne({
-        content: json.content,
-        posted: time,
-        author: user._id,
-        comments: []
-      });
-      */
 
       span.addEvent("comment inserted");
       await client.close();
