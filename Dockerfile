@@ -1,5 +1,6 @@
 FROM node:18-alpine AS prod_deps
 RUN apk add --no-cache libc6-compat
+RUN yarn set version stable
 WORKDIR /app
 
 COPY package.json yarn.lock ./
@@ -8,6 +9,7 @@ RUN  yarn install --production --frozen-lockfile
 # --------------------
 FROM node:18-alpine AS deps
 RUN apk add --no-cache libc6-compat
+RUN yarn set version stable
 WORKDIR /app
 
 COPY package.json yarn.lock ./
@@ -17,6 +19,7 @@ RUN  yarn
 # --------------------
 
 FROM node:18-alpine AS builder
+RUN yarn set version stable
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -30,6 +33,7 @@ RUN yarn build
 
 
 FROM node:18-alpine AS runner
+RUN yarn set version stable
 WORKDIR /app
 
 ENV NODE_ENV production
