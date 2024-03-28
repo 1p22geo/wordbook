@@ -4,7 +4,7 @@ RUN yarn set version stable
 WORKDIR /app
 
 COPY package.json yarn.lock .yarn ./
-RUN  yarn install --production --immutable
+RUN  yarn workspaces focus --production --all
 
 # --------------------
 FROM node:18-alpine AS deps
