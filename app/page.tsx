@@ -28,14 +28,14 @@ const Page = async () => {
         <Link
           role="button"
           href={"/signup"}
-          className="z-10 mt-[-1.5rem] rounded-full bg-primary-500 p-2 text-xl text-secondary-100 sm:mt-[-3.5rem] sm:p-8 sm:text-5xl"
+          className="z-10 -mt-6 rounded-full bg-primary-500 p-2 text-xl text-secondary-100 sm:-mt-14 sm:p-8 sm:text-5xl"
         >
           Sign up
         </Link>
         <Link role="button" href={"/login"} className="z-20 font-bold text-primary-800 hover:underline">
           Or log in if you have an account
         </Link>
-        <main role="main" className="mt-[-3.5rem] grid w-screen grid-cols-1 pt-20 lg:grid-cols-2">
+        <main role="main" className="-mt-14 grid w-screen grid-cols-1 pt-20 lg:grid-cols-2">
           <div className="grid place-content-center p-4 text-xl">
             <div>
               Usually, when a bakery or other shop wanted to be present on the Internet, they had to sign up on social

@@ -14,11 +14,7 @@ pipeline {
         cache(maxCacheSize: 10024, defaultBranch: 'main', caches: [
           arbitraryFileCache(path: 'node_modules', cacheValidityDecidingFile: 'LICENSE')
             ]) {
-              sh 'yarn install --frozen-lockfile'
-        }
-        cache(maxCacheSize: 10024, defaultBranch: 'main', caches: [
-          arbitraryFileCache(path: '~/.cache/ms-playwright', cacheValidityDecidingFile: 'LICENSE')
-            ]) {
+              sh 'yarn install --immutable'
               sh 'yarn playwright install'
         }
       }

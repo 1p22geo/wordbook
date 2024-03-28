@@ -1,9 +1,9 @@
 import { trace } from "@opentelemetry/api";
-import { MongoClient, ObjectId } from "mongodb";
+import { Collection, MongoClient, ObjectId } from "mongodb";
 import { cookies } from "next/headers";
 import { PostsAggregation } from "schemas/aggregations/posts";
 import { UserPostsAggregation } from "schemas/aggregations/userPosts";
-import { PostAuthorID } from "schemas/post";
+import { Post, PostAuthorID } from "schemas/post";
 import { Session } from "schemas/session";
 
 export interface responseJSON {
@@ -27,9 +27,9 @@ export async function GET(request: Request) {
       }
 
       const db = client.db("wordbook");
-      const coll = db.collection("sessions");
+      const coll: Collection<Session> = db.collection("sessions");
 
-      const sess = (await coll.findOne({ _id: new ObjectId(sessionID) })) as Session | null;
+      const sess = await coll.findOne({ _id: new ObjectId(sessionID) });
 
       if (!sess) {
         // no user with such login and password
@@ -44,7 +44,7 @@ export async function GET(request: Request) {
         await client.close();
         return Response.json({ error: "Session expired" }, { status: 403 });
       }
-      const coll_posts = db.collection("posts");
+      const coll_posts: Collection<Post> = db.collection("posts");
 
       let cursor;
 
