@@ -3,8 +3,8 @@ RUN apk add --no-cache libc6-compat
 RUN yarn set version stable
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-RUN  yarn install --production --frozen-lockfile
+COPY package.json yarn.lock .yarn ./
+RUN  yarn install --production --immutable
 
 # --------------------
 FROM node:18-alpine AS deps
@@ -12,7 +12,7 @@ RUN apk add --no-cache libc6-compat
 RUN yarn set version stable
 WORKDIR /app
 
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .yarn ./
 COPY --from=prod_deps /app/node_modules ./
 RUN  yarn
 
@@ -43,6 +43,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 COPY . .
+RUN rm -rf node_modules
 COPY --from=builder /app/.next ./.next
 COPY --from=prod_deps /app/node_modules ./node_modules
 COPY --from=prod_deps /app/package.json ./package.json
