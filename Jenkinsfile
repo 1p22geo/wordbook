@@ -15,6 +15,10 @@ pipeline {
           arbitraryFileCache(path: 'node_modules', cacheValidityDecidingFile: 'LICENSE')
             ]) {
               sh 'yarn install --immutable'
+        }
+        cache(maxCacheSize: 10024, defaultBranch: 'main', caches: [
+          arbitraryFileCache(path: 'node_modules', cacheValidityDecidingFile: 'LICENSE')
+            ]) {
               sh 'yarn playwright install'
         }
       }
