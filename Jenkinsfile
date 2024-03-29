@@ -11,21 +11,14 @@ pipeline {
   stages {
     stage('Install dependencies') {
       steps {
-        cache(maxCacheSize: 10024, defaultBranch: 'main', caches: [
-          arbitraryFileCache(path: 'node_modules', cacheValidityDecidingFile: 'LICENSE')
-            ]) {
-              sh 'yarn install --immutable'
-              sh 'yarn playwright install'
-        }
+        sh 'yarn set version stable'
+        sh 'yarn install --immutable'
+        sh 'yarn playwright install'
       }
     }
     stage('Build') {
       steps {
-        cache(maxCacheSize: 10024, defaultBranch: 'main', caches: [
-          arbitraryFileCache(path: '.next/cache', cacheValidityDecidingFile: 'LICENSE')
-            ]) {
-              sh 'yarn build'
-        }
+        sh 'yarn build'
       }
     }
     stage('Prettier checks') {
