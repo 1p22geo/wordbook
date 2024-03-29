@@ -1,25 +1,8 @@
-FROM node:18-alpine AS prod_deps
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-COPY package.json yarn.lock ./
-RUN  yarn install --production --frozen-lockfile
-
-# --------------------
-FROM node:18-alpine AS deps
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-COPY package.json yarn.lock ./
-COPY --from=prod_deps /app/node_modules ./
-RUN  yarn
-
-# --------------------
-
 FROM node:18-alpine AS builder
+RUN yarn set version stable
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN  yarn install --immutable
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
@@ -30,6 +13,7 @@ RUN yarn build
 
 
 FROM node:18-alpine AS runner
+RUN yarn set version stable
 WORKDIR /app
 
 ENV NODE_ENV production
@@ -40,8 +24,7 @@ RUN adduser --system --uid 1001 nextjs
 
 COPY . .
 COPY --from=builder /app/.next ./.next
-COPY --from=prod_deps /app/node_modules ./node_modules
-COPY --from=prod_deps /app/package.json ./package.json
+RUN  yarn workspaces focus --production --all
 RUN mkdir /app/uploads
 RUN chown -R nextjs:nodejs /app
 

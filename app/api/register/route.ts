@@ -1,7 +1,7 @@
 import opentelemetry from "@opentelemetry/api";
 import { sha256 } from "js-sha256";
-import { MongoClient } from "mongodb";
-import { User, UserID } from "schemas/user";
+import { Collection, MongoClient } from "mongodb";
+import { User } from "schemas/user";
 export const dynamic = "force-dynamic";
 interface requestJSON {
   email: string;
@@ -19,11 +19,11 @@ export async function POST(request: Request) {
       const json = (await request.json()) as requestJSON;
 
       const db = client.db("wordbook");
-      const coll = db.collection("users");
+      const coll: Collection<User> = db.collection("users");
 
       const hash = sha256(json.pass);
 
-      const exists = (await coll.findOne({ email: json.email })) as UserID | null;
+      const exists = await coll.findOne({ email: json.email });
 
       if (exists) {
         return Response.json({ error: "User already exists" }, { status: 409 });

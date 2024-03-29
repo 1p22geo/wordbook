@@ -43,7 +43,7 @@ export const Header = ({ user }: { user?: UserID }) => {
             <input type="checkbox" id="cb" aria-label="toggle user details" className="peer sr-only"></input>
             <label
               htmlFor="cb"
-              className="hidden w-full cursor-pointer place-content-center duration-200 peer-checked:scale-y-[-1] sm:grid sm:w-fit"
+              className="hidden w-full cursor-pointer place-content-center duration-200 peer-checked:-scale-y-100 sm:grid sm:w-fit"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8">
                 <path
@@ -53,7 +53,7 @@ export const Header = ({ user }: { user?: UserID }) => {
                 />
               </svg>
             </label>
-            <div className="flex w-48 origin-top flex-col items-center p-2 duration-200 sm:absolute sm:-translate-x-8 sm:translate-y-32 sm:scale-y-[0] sm:bg-secondary-200 sm:shadow-2xl sm:peer-checked:scale-y-100">
+            <div className="flex w-48 origin-top flex-col items-center p-2 duration-200 sm:absolute sm:-translate-x-8 sm:translate-y-32 sm:scale-y-0 sm:bg-secondary-200 sm:shadow-2xl sm:peer-checked:scale-y-100">
               <h2>{user.name}</h2>
               <h3 className="mb-4 text-sm">&lt;{user.email}&gt;</h3>
               <Link href={"/in/user"} className="text-primary-600 hover:underline">
@@ -90,7 +90,7 @@ export const Header = ({ user }: { user?: UserID }) => {
         id="switch"
         htmlFor="hamburgir"
         aria-label="switch for the top bar"
-        className="grid w-full cursor-pointer place-content-center duration-200  peer-checked:scale-y-[-1] sm:hidden"
+        className="grid w-full cursor-pointer place-content-center duration-200  peer-checked:-scale-y-100 sm:hidden"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8">
           <path
