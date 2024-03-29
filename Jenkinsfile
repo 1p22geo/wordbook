@@ -11,7 +11,8 @@ pipeline {
   stages {
     stage('Install dependencies') {
       steps {
-        sh 'yarn install --immutable'
+        sh 'yarn set version stable'
+        sh 'yarn install'
         sh 'yarn playwright install'
       }
     }
